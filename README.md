@@ -1,2 +1,0 @@
-# gofret
- Student Friendly Store
