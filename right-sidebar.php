@@ -24,7 +24,7 @@
         <h6 class="text-gofret">Güncel Takaslar</h6>
         <div class="card-back rounded-4 bg-white p-3">
             <div class="card2">
-                <img src="img/pp1.jpg" alt="burak">
+                <img src="img/pp1.jpg" alt="burak" class="profile-photo">
                 <div class="handle ms-2 w-100">
                     <div class="handle2">
                         <p>Burak Gümrah</p>
@@ -34,10 +34,10 @@
                 </div>
             </div>
             <div class="card2">
-                <img src="img/pp2.jpg" alt="burak">
+                <img src="img/pp2.jpg" alt="burak" class="profile-photo">
                 <div class="handle ms-2 w-100 text-left">
                     <div class="handle2 align">
-                        <p>Zeynep Erşan :3</p>
+                        <p>Zeynep Erşan</p>
                         <p class="m-0">lvl.28</p>
                     </div>
                     <h6 style="text-align: left;">Müzik - Gitar</h6>

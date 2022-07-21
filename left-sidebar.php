@@ -36,10 +36,10 @@
                             </div>
                         </div>
                         <div class="profile-card d-flex justify-content-between align-items-center my-3">
-                            <img class="border-0" src="img/pp2.jpg" alt="burak">
+                            <img class="border-0 profile-photo" src="img/pp2.jpg" alt="burak">
                             <div class="handle ms-2 w-100 text-left">
                                 <div class="handle2 align">
-                                    <p class="text-name fw-bold">Zeynep Erşan :3</p>
+                                    <p class="text-name fw-bold">Zeynep Erşan</p>
                                 </div>
                                 <h6 class="fw-light text-name">9 ortak Arkadaş</h6>
                             </div>
@@ -49,10 +49,10 @@
                             </div>
                         </div>
                         <div class="profile-card d-flex justify-content-between align-items-center my-3">
-                            <img class="border-0" src="img/pp2.jpg" alt="burak">
+                            <img class="border-0 profile-photo" src="img/pp2.jpg" alt="burak">
                             <div class="handle ms-2 w-100 text-left">
                                 <div class="handle2 align">
-                                    <p class="text-name fw-bold">Zeynep Erşan :3</p>
+                                    <p class="text-name fw-bold">Zeynep Erşan</p>
                                 </div>
                                 <h6 class="fw-light text-name">9 ortak Arkadaş</h6>
                             </div>
