@@ -2,12 +2,13 @@
 include_once "header.php";
 $path = __FILE__;
 $file = basename($path, ".php");
+session_start();
 ?>
 
 <main>
     <div class="container">
         <div class="row my-5">
-            <?php include_once "left-sidebar.php"; ?>
+            <?php include_once "left-sidebar.php" ?>
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-5 col-md-8">
                 <div class="badge-handle">
                     <div class="side-card rounded-4 bg-white">
@@ -86,10 +87,10 @@ $file = basename($path, ".php");
                     </div>
                 </div>
             </div>
-            <?php include_once "right-sidebar.php"; ?>
+            <?php include_once "right-sidebar.php" ?>
         </div>
     </div>
 
 </main>
 
-<?php include_once "footer.php"; ?>
+<?php include_once "footer.php" ?>

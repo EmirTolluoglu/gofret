@@ -22,14 +22,14 @@ $stmt->bindParam(':password', $hashed_password);
 // insert a row
 $name = $_POST['name'];
 $email = $_POST['email'];
-$password = $_POST['password'];
+$password = $_POST['pass'];
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 $stmt->execute();
 
 if ($stmt) {
-  Header("Location:../login.php");
-  exit;
-}
+
+    Header("Location:../index.php");
+    exit;
 
 } else {
 
@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
     $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $password = $_POST['pass'];
     $stmt->execute();
 
   // set the resulting array to associative

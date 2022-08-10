@@ -3,24 +3,6 @@ include_once "header.php";
 $path = __FILE__;
 $file = basename($path, ".php");
 session_start();
-if(isset($_SESSION['user'])){
-    $user = $_SESSION['user'];
-    $user_id = $user['id'];
-    $user_name = $user['name'];
-    $user_surname = $user['surname'];
-    $user_email = $user['email'];
-    $user_password = $user['password'];
-    $user_photo = $user['photo'];
-    $user_cover = $user['cover'];
-    $user_about = $user['about'];
-    $user_birthday = $user['birth'];
-}
-$kullanicisor=$db->prepare("SELECT * FROM user where email=:email");
-$kullanicisor->execute(array(
-  'email' => $_SESSION['email']
-  ));
-$say=$kullanicisor->rowCount();
-$kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <main>

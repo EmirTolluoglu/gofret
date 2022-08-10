@@ -403,11 +403,11 @@
                     <input type="email" name="email" id="email" placeholder="Your Email"  />
                 </div>
                 <div class="form-group">
-                    <label for="password"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
-                    <input type="password" name="password" id="password" placeholder="Password" onChange="onChange()" />
+                    <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
+                    <input type="password" name="pass" id="pass" placeholder="Password" onChange="onChange()" />
                 </div>
                 <div class="form-group mb-1">
-                    <label for="password"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
+                    <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
                     <input type="password" name="confirm" id="confirm_password" placeholder="Confirm Password" onChange="onChange()" />
                 </div>
                 <div class="form-group form-button">
