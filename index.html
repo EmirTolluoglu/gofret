@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="img/ico.png" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <title>Gofret | Öğrenci</title>
+  </head>
+  <body>
+    <style>
+      @font-face {
+        font-family: elyazi;
+        src: url("fonts/elyazi.ttf");
+      }
+      @font-face {
+        font-family: akagi;
+        src: url("fonts/AkagiProW00Black.ttf");
+      }
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+      }
+      main {
+        /* The image used */
+        background-image: url("img/coming.jpg");
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        position: relative;
+      }
+      main img {
+        position: absolute;
+        top: 2%;
+        left: 2%;
+      }
+      main .flex {
+        position: absolute;
+        bottom: 2%;
+        left: 2%;
+        color: white;
+      }
+      main .social {
+        position: absolute;
+        bottom: 7%;
+        right: 12%;
+        color: white;
+      }
+      main .center {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        color: rgb(255, 255, 255);
+        text-align: center;
+      }
+      .fs-1 {
+        font-size: 7rem;
+      }
+      .fs-4 {
+        font-size: 4rem;
+      }
+      .m-0 {
+        margin: 0;
+      }
+      .m-auto {
+        margin-left: autos;
+      }
+      .text-black {
+        color: rgb(44, 41, 108);
+        text-shadow: 0px 0px 15px rgba(44, 41, 108, 1);
+      }
+      .fw-bolder {
+        font-weight: bolder;
+      }
+      .fw-light {
+        font-weight: lighter;
+      }
+      .ff-e {
+        font-family: elyazi;
+      }
+      .ff-a {
+        font-family: akagi;
+      }
+      .hey {
+        width: 192px;
+        height: 72px;
+      }
+      @media (max-width: 575.98px) {
+        .social {
+          transform: rotate(-90deg);
+          right: 10%;
+          bottom: 2%;
+        }
+        .hey {
+          width: 96px;
+          height: 36px;
+        }
+
+        .flex p {
+          font-size: 0.8rem;
+          margin-bottom: 3rem;
+        }
+      }
+      @media (max-width: 767.98px) {
+        .fs-1 {
+          font-size: 14vw;
+        }
+        .fs-4 {
+          font-size: 10vw;
+        }
+        .social {
+          transform: rotate(-90deg);
+          right: 10%;
+          bottom: 2%;
+        }
+      }
+    </style>
+
+    <main>
+      <img class="hey" src="img/gofret.png" alt="logo" />
+      <div class="center">
+        <h1 class="fs-1 m-0 ff-e fw-light">Fabrikaday&#x131;z!</h1>
+        <p class="fs-1 text-black fw-bolder ff-a" style="margin: 1rem 0 0 0"c id="timer">
+          29 Gün 15 Saat
+        </p>
+      </div>
+      <div class="flex ff-a">
+        <p>Hadi betamızdan haberdar olmak için <br />hesaplarımızı takip et!</p>
+      </div>
+      <div class="social">
+        <a href="https://www.linkedin.com/company/gofretapp/"
+          ><img
+            style="margin-left: 3rem; filter: invert(100%)"
+            src="img/linkedin.png"
+            alt="logo"
+            width="32"
+            height="32"
+        /></a>
+        <a href="https://www.instagram.com/gofret.online/"
+          ><img
+            style="filter: invert(100%)"
+            src="img/instagram.png"
+            alt="logo"
+            width="32"
+            height="32"
+        /></a>
+      </div>
+    </main>
+    <script>
+      // Set the date we're counting down to
+      var countDownDate = new Date("Sep 2, 2022 02:02:02").getTime();
+
+      // Update the count down every 1 second
+      var x = setInterval(function () {
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+
+        // Display the result in the element with id="demo"
+        document.getElementById("timer").innerHTML =
+          days + " Gün " + hours + " Saat ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+      }, 1000);
+    </script>
+    <script src="js/plugins.js"></script>
+    <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  </body>
+</html>

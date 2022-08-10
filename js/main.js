@@ -5,6 +5,7 @@ const primary = document.getElementById("primary-icons");
 const search_bar = document.getElementById("search-bar");
 const search_focus = document.getElementById("search_input");
 const logo = document.getElementById("head-logo");
+const banner = document.getElementById("banner");
 
 function large(respond) {
     if (respond.matches) { // If media query matches
@@ -37,6 +38,13 @@ function helllo() {
 function focusgg() {
     primary.style.display = "";
     search_bar.style.display = "";
+}
+
+function ogren() {
+    banner.src = "img/ogren.png";
+}
+function ogret() {
+    banner.src = "img/ogret.svg";
 }
 
 

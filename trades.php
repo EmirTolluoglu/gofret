@@ -73,7 +73,7 @@
                             <div class="col">
                                 <div class="mx-auto text-center">
                                     <img src="img/pp2.jpg" alt="burak" class="border-1 profile-photo s3 mb-3">
-                                    <h6>Zeynep Erşan</h6>
+                                    <h6>Zeynep Erşen</h6>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -115,7 +115,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                         <img src="img/pp2.jpg" alt="burak" class="border-1 profile-photo s5">
                             <div class="d-flex flex-column ms-2 me-auto">
-                                <h6 class="mb-0 text-name">Zeynep Erşan</h6>
+                                <h6 class="mb-0 text-name">Zeynep Erşen</h6>
                                 <div>
                                     <p class="d-inline text-light rounded-4 px-2" style="background-color: green;">lvl.12</p>
                                 </div>

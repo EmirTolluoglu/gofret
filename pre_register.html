@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      .gradiant {
+        position: relative;
+        height: 100%;
+        background: rgb(18, 45, 173);
+        background: linear-gradient(
+          315deg,
+          rgba(18, 45, 173, 1) 0%,
+          rgba(28, 2, 86, 1) 37%,
+          rgba(141, 11, 152, 1) 66%,
+          rgba(96, 14, 93, 1) 100%
+        );
+      }
+      .gradiant .handle {
+        position: absolute;
+        top: 40%;
+        width: 100%;
+      }
+      .gradiant .handle .btn {
+        width: 60%;
+        padding: 0;
+        border: 2px solid white;
+        border-radius: 1rem;
+      }
+      .gradiant .handle .register{
+        color: rgb(153, 35, 131);
+        border: 0.15rem solid rgb(153, 35, 131);
+      }
+      .gradiant .handle .login{
+        color: rgb(62, 186, 162);
+        border: 0.15rem solid rgb(62, 186, 162);
+      }
+      .gradiant .handle img {
+        width: 144px;
+        height: 54px;
+        position: fixed;
+        left: 30%;
+        bottom: 3rem;
+      }
+      .fs-5-5 {
+        font-size: 1.15rem;
+      }
+    </style>
+    <div class="gradiant">
+      <div class="handle text-center text-white">
+        <h3>
+          Sonunda<br />
+          Aramıza Katıldın!
+        </h4>
+        <button class="btn register mt-5 fs-5-5 fw-bold">Kayıt Ol</button>
+        <button class="btn login mt-3 fs-5-5 fw-bold">Giriş Yap</button>
+        <img src="img/gofret.png" alt="logo" />
+      </div>
+    </div>
+    <script src="lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

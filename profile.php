@@ -14,7 +14,7 @@ include_once "header.php"
                                 <img src="img/profile.jpg" class="" alt="Profile Photo">
                                 <div class="card-section">
                                     <h4 class="text-name font-monospace">İrem Türk</h5>
-                                        <p class="school gtext-secondary fs-8">Haydarpaşa Lisesi<br>İstanbul,Türkiye</p>
+                                        <p class="school gtext-secondary fs-7">Haydarpaşa Lisesi<br>İstanbul,Türkiye</p>
                                         <p class="degree text-name">10.Sınıf</p>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@ include_once "header.php"
                         </div>
                         <div class="d-flex flex-row justify-content-around mt-4">
                             <div class="p-2 text-name">127 arkadaş
-                                <p class="fs-8 text-name-muted">20 ortak arkadaş</p>
+                                <p class="fs-7 text-name-muted">20 ortak arkadaş</p>
                             </div>
                             <div class="p-2 gtext-secondary">57 tamamlanmış takas</div>
                             <div class="p-2 gtext-secondary">18 Başarım</div>

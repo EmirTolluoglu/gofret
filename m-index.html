@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="img/ico.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Gofret | Keşfet</title>
+</head>
+
+<body>
+  <!-- <nav>
+   <div class="container">
+        <a href=""
+          ><img
+            id="head-logo"
+            src="img/gofret.png"
+            alt="Gofret"
+            width="96"
+            height="36"
+        /></a>
+        <div id="search-bar" class="search-bar">
+          <input
+            onfocusout="focusgg()"
+            id="search_input"
+            type="search"
+            placeholder="Search for creators, inspirations, and projects"
+          />
+          <i class="fa fa-magnifying-glass"></i>
+        </div>
+        <div
+          id="primary-icons"
+          class="primary justify-content-center align-items-center"
+        >
+          <a href=""><i class="fa fa-home"></i></a>
+          <a href=""><i class="fa fa-heart"></i></a>
+          <a href=""><i class="fa fa-user"></i></a>
+          <a href=""><i class="fa fa-bell"></i></a>
+          <a href=""><i class="fa fa-comment-dots"></i></a>
+          <button onclick="helllo()" class="search" href="">
+            <i class="fa fa-magnifying-glass"></i>
+          </button>
+        </div>
+        <div class="btn btn-gofret">Takas Oluştur</div>
+        <div class="action">
+          <div class="profile" onclick="menuToggle();">
+            <img src="img/profile.jpg" alt="fef" />
+          </div>
+          <div class="menu">
+            <h3>İrem Türk<br /><span>İl Muhtarı</span></h3>
+            <ul>
+              <li><i class="fa fa-user"></i><a href="#">Proflim</a></li>
+              <li><i class="fa fa-suitcase"></i><a href="#">Takaslar</a></li>
+              <li><i class="fa fa-users"></i><a href="#">Arkadaşlar</a></li>
+              <li><i class="fa fa-cogs"></i><a href="#">Ayarlar</a></li>
+              <li><i class="fa fa-info-circle"></i><a href="#">Yardım</a></li>
+              <li><i class="fa fa-sign-out"></i><a href="#">Çıkış</a></li>
+            </ul>
+          </div>
+        </div>
+        <script>
+          function menuToggle() {
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active");
+          }
+        </script>
+      </div>
+  </nav> -->
+    <header id="mobile-header">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a href=""><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36" class="" /></a>
+        <div id="search-bar" class="search-bar ms-auto me-2">
+          <i class="fa fa-magnifying-glass"></i>
+          <input onfocusout="focusgg()" id="search_input" type="search"
+            placeholder="Search for creators, inspirations, and projects" />
+          
+        </div>
+        <i class="fa-solid fa-comment-dots text-muted"></i>
+      </div>
+    </header>
+
+    <nav id="mobile-nav">
+      <div class="container">
+        <div class="d-flex justify-content-around py-3 w-100">
+            <a href=""><i class="fa fa-home text-secondary fa-lg"></i></a>
+            <a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a>
+            <a href=""><img src="img/trade.png" alt=""></a>
+            <a href=""><i class="fa fa-user text-secondary fa-lg"></i></a>
+            <a href=""><i class="fa fa-bell text-secondary fa-lg"></i></a>
+        </div>
+      </div>
+    </nav>
+
+  <main>
+    <img id="banner" style="width: 100%;" class="img-fluid banner" src="img/ogren.png" alt="hey">
+    <div style="background-color: #04cf98; width: 100%; height: 0.4rem;"></div>
+    <div class="container">
+      <div class="d-flex my-3 justify-content-between align-items-center">
+        <button onclick="ogren()" class="btn-gofret me-2 ms-auto">Öğren</button>
+        <button onclick="ogret()" class="btn-gofret3">Öğret</button>
+        <a href="" class="me-auto ms-2"><i class="fa fa-arrows-up-down fa-lg "></i></a>
+      </div>
+    </div>
+
+    <div class="card mx-4 w-auto">
+      <div class="d-flex justify-content-between align-items-center">
+        <img class="profile-photo" src="img/pp1.jpg" alt="pp">
+        <div class="handle me-auto ms-2">
+          <h4 class="m-0">Yemek</h6>
+            <p class="m-0">Pilav</p>
+        </div>
+        <div class="rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;">lvl.12
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1">
+        <h5 class="m-0">Talha Yusuf Şenel</h5>
+        <p class="align-self-baseline">11.sınıf</p>
+      </div>
+        <div class="d-flex justify-content-between">
+          <p class="m-0">Spor yapıyorum oilav yapmayı öğretebilirim</p>
+          <a href="" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
+        </div>
+    </div>
+    <div class="card mx-4 w-auto">
+      <div class="d-flex justify-content-between align-items-center">
+        <img class="profile-photo" src="img/pp1.jpg" alt="pp">
+        <div class="handle me-auto ms-2">
+          <h4 class="m-0">Yemek</h6>
+            <p class="m-0">Pilav</p>
+        </div>
+        <div class="rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;">lvl.12
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1">
+        <h5 class="m-0">Talha Yusuf Şenel</h5>
+        <p class="align-self-baseline">11.sınıf</p>
+      </div>
+        <div class="d-flex justify-content-between">
+          <p class="m-0">Spor yapıyorum oilav yapmayı öğretebilirim</p>
+          <a href="" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
+        </div>
+    </div>
+
+    <div class="card mx-4 w-auto">
+      <div class="d-flex justify-content-between align-items-center">
+        <img class="profile-photo" src="img/pp1.jpg" alt="pp">
+        <div class="handle me-auto ms-2">
+          <h4 class="m-0">Yemek</h6>
+            <p class="m-0">Pilav</p>
+        </div>
+        <div class="rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;">lvl.12
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1">
+        <h5 class="m-0">Talha Yusuf Şenel</h5>
+        <p class="align-self-baseline">11.sınıf</p>
+      </div>
+        <div class="d-flex justify-content-between">
+          <p class="m-0">Spor yapıyorum oilav yapmayı öğretebilirim</p>
+          <a href="" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
+        </div>
+    </div>
+    <div class="card mx-4 w-auto">
+      <div class="d-flex justify-content-between align-items-center">
+        <img class="profile-photo" src="img/pp1.jpg" alt="pp">
+        <div class="handle me-auto ms-2">
+          <h4 class="m-0">Yemek</h6>
+            <p class="m-0">Pilav</p>
+        </div>
+        <div class="rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;">lvl.12
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1">
+        <h5 class="m-0">Talha Yusuf Şenel</h5>
+        <p class="align-self-baseline">11.sınıf</p>
+      </div>
+        <div class="d-flex justify-content-between">
+          <p class="m-0">Spor yapıyorum oilav yapmayı öğretebilirim</p>
+          <a href="" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
+        </div>
+    </div>
+
+    <div class="card mx-4 w-auto">
+      <div class="d-flex justify-content-between align-items-center">
+        <img class="profile-photo" src="img/pp1.jpg" alt="pp">
+        <div class="handle me-auto ms-2">
+          <h4 class="m-0">Yemek</h6>
+            <p class="m-0">Pilav</p>
+        </div>
+        <div class="rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;">lvl.12
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1">
+        <h5 class="m-0">Talha Yusuf Şenel</h5>
+        <p class="align-self-baseline">11.sınıf</p>
+      </div>
+        <div class="d-flex justify-content-between">
+          <p class="m-0">Spor yapıyorum oilav yapmayı öğretebilirim</p>
+          <a href="" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
+        </div>
+    </div>
+    <div class="card mx-4 w-auto">
+      <div class="d-flex justify-content-between align-items-center">
+        <img class="profile-photo" src="img/pp1.jpg" alt="pp">
+        <div class="handle me-auto ms-2">
+          <h4 class="m-0">Yemek</h6>
+            <p class="m-0">Pilav</p>
+        </div>
+        <div class="rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;">lvl.12
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1">
+        <h5 class="m-0">Talha Yusuf Şenel</h5>
+        <p class="align-self-ba
+        seline">11.sınıf</p>
+      </div>
+        <div class="d-flex justify-content-between">
+          <p class="m-0">Spor yapıyorum oilav yapmayı öğretebilirim</p>
+          <a href="" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
+        </div>
+    </div>
+
+  </main>
+<script src="js/all.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>

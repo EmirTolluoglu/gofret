@@ -13,10 +13,10 @@
 
                 <aside class="bg-white mt-4 rounded-4">
                     <ul>
-                        <li><a href=""><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
+                    <li><a href="index.php"><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
                         <li><a href=""><i class="fa fa-heart"></i><span>Keşfet</span></a></li>
-                        <li class="active"><a href=""><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
-                        <li><a href=""><i class="fa fa-bell"></i><span>Bildirimler</span></a></li>
+                        <li class="active"><a href="trades.php"><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
+                        <li><a href="notifications.php"><i class="fa fa-bell"></i><span>Bildirimler</span></a></li>
                         <li><a href=""><i class="fa fa-comment-dots"></i><span>Mesajlar</span></a></li>
                     </ul>
                 </aside>
@@ -36,10 +36,10 @@
                             </div>
                         </div>
                         <div class="profile-card d-flex justify-content-between align-items-center my-3">
-                            <img class="border-0 profile-photo" src="img/pp2.jpg" alt="burak">
+                            <img class="border-0" src="img/pp2.jpg" alt="burak">
                             <div class="handle ms-2 w-100 text-left">
                                 <div class="handle2 align">
-                                    <p class="text-name fw-bold">Zeynep Erşan</p>
+                                    <p class="text-name fw-bold">Zeynep Erşan :3</p>
                                 </div>
                                 <h6 class="fw-light text-name">9 ortak Arkadaş</h6>
                             </div>
@@ -49,10 +49,10 @@
                             </div>
                         </div>
                         <div class="profile-card d-flex justify-content-between align-items-center my-3">
-                            <img class="border-0 profile-photo" src="img/pp2.jpg" alt="burak">
+                            <img class="border-0" src="img/pp2.jpg" alt="burak">
                             <div class="handle ms-2 w-100 text-left">
                                 <div class="handle2 align">
-                                    <p class="text-name fw-bold">Zeynep Erşan</p>
+                                    <p class="text-name fw-bold">Zeynep Erşan :3</p>
                                 </div>
                                 <h6 class="fw-light text-name">9 ortak Arkadaş</h6>
                             </div>
