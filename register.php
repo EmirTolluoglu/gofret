@@ -1,4 +1,4 @@
-<?php require_once "src/connect.php" ?>
+<?php require_once "src/connect.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 

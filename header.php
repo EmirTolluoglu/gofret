@@ -1,3 +1,8 @@
+<?php 
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +57,7 @@
                         </li>
                         <li><i class="fa fa-info-circle"></i><a href="#">Yardım</a></li>
                         <li>
-                            <i class="fa fa-sign-out"></i><a href="#">Çıkış</a>
+                            <i class="fa fa-sign-out"></i><a href="src/logout.php">Çıkış</a>
                         </li>
                     </ul>
                 </div>

@@ -1,8 +1,17 @@
 <?php
 include_once "header.php";
+require_once "src/connect.php";
 $path = __FILE__;
 $file = basename($path, ".php");
-session_start();
+
+if(isset($_SESSION['user'])) {
+    $kullanicisor=$conn->prepare("SELECT * FROM user where id=:id");
+    $kullanicisor->execute(array(
+      'id' => $_SESSION['user']
+      ));
+    $user=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+}
+
 ?>
 
 <main>
@@ -14,11 +23,11 @@ session_start();
                     <div class="side-card rounded-4 bg-white">
                         <div class="banner">
                             <div class="profile-card">
-                                <img src="img/profile.jpg" class="" alt="Profile Photo">
+                                <img src="<?php if(isset($_SESSION['user'])) {echo $user['profile_photo'];} ?>" class="" alt="Profile Photo">
                                 <div class="card-section">
-                                    <h4 class="text-name font-monospace">İrem Türk</h5>
-                                        <p class="school gtext-secondary fs-7">Haydarpaşa Lisesi<br>İstanbul,Türkiye</p>
-                                        <p class="degree text-name">10.Sınıf</p>
+                                    <h4 class="text-name font-monospace"><?php if(isset($_SESSION['user'])) {echo $user['name'];} ?></h5>
+                                        <p class="school gtext-secondary fs-7"><?php if(isset($_SESSION['user'])) {echo $user['school'];} ?><br><?php if(isset($_SESSION['user'])) {echo $user['city'];} ?></p>
+                                        <p class="degree text-name"><?php if(isset($_SESSION['user'])) {echo $user['class'];} ?>.sınıf</p>
                                 </div>
                             </div>
                         </div>
