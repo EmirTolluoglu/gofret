@@ -66,6 +66,6 @@ if (isset($_POST['login'])) {
     exit;
   }
 }
-	
+
 $conn = null;
 ?>

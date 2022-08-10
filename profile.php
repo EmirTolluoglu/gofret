@@ -51,10 +51,27 @@ if(isset($_SESSION['user'])) {
                         <div class="badge mx-1"><i class="fa fa-bookmark fa-3x"></i></div>
                     </div>
                 </div>
+
+
+
                 <div id="about" class="card mt-0">
                     <h6 class="text-name ms-2">Hakkında</h6>
-                    <p><br><br><br><br><br><br></p>
+
+                    <form action="src/edit_bio.php" method="POST">
+                    <textarea id="bio" name="bio" rows="7" cols="65" onchange="benimfonksiyon()"><?php echo $user['bio'];?></textarea>
+                    <br>
+                    <input id="biobtn" disabled type="submit" value="Kaydet">
+                    <script>
+                    function benimfonksiyon() {
+                    document.getElementById("biobtn").disabled=false;
+                    }
+
+                    </script>
+                    </form>      
                 </div>
+
+
+
                 <div id="interests" class="card">
                     <h6 class="text-name ms-2">İlgi Alanları</h6>
                     <div class="handle d-flex flex-wrap justify-content-start text-white">
