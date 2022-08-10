@@ -1,4 +1,8 @@
-<?php include_once "header.php" ?>
+<?php include_once "header.php"; 
+$path = __FILE__;
+$file = basename($path, ".php");
+
+?>
 
 <main>
     <div class="container">

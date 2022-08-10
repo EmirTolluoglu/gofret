@@ -1,11 +1,15 @@
 <?php
-include_once "header.php"
+include_once "header.php";
+
+$path = __FILE__;
+$file = basename($path, ".php");
+
 ?>
 
 <main>
     <div class="container">
         <div class="row my-5">
-            <?php include_once "left-sidebar.php" ?>
+            <?php include_once "left-sidebar.php"; ?>
             <div id="middle" class="col-xxl-6 col-xl-7 col-lg-6 col-md-8">
                 <div class="card flex-column" id="notifications">
                     <h6>Yakın Zaman</h6>
@@ -96,10 +100,10 @@ include_once "header.php"
                     </a>
                 </div>
             </div>
-            <?php include_once "right-sidebar.php" ?>
+            <?php include_once "right-sidebar.php"; ?>
         </div>
     </div>
 
 </main>
 
-<?php include_once "footer.php" ?>
+<?php include_once "footer.php"; ?>
