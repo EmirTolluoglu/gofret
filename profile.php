@@ -4,15 +4,12 @@ require_once "src/connect.php";
 $path = __FILE__;
 $file = basename($path, ".php");
 session_start();
-$stmt = $conn->prepare("SELECT * FROM user WHERE id = 1");
-// $stmt->bindParam(':id', $id);
-$id = 1;
-$stmt->execute();
+$kullanicisor=$conn->prepare("SELECT * FROM user where id=:id");
+$kullanicisor->execute(array(
+  'id' => 1
+  ));
+$user=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 
-
-// set the resulting array to associative
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-echo $result;
 ?>
 
 <main>
@@ -57,7 +54,7 @@ echo $result;
 
                     <form action="src/edit_bio.php" method="POST">
                     <textarea id="bio" name="bio" rows="7" cols="65"><?php 
-                    $result['bio'];
+                 echo $user['bio'];
                     ?></textarea>
                     <br>
                     <input type="submit" value="Kaydet">
