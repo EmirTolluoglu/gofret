@@ -58,7 +58,7 @@ if(isset($_SESSION['user'])) {
                     <h6 class="text-name ms-2">Hakkında</h6>
 
                     <form action="src/edit_bio.php" method="POST">
-                    <textarea id="bio" name="bio" rows="7" cols="65" onchange="benimfonksiyon()"><?php echo $user['bio'];?></textarea>
+                    <textarea id="bio" class="w-100" name="bio" rows="7" cols="65" onchange="benimfonksiyon()"><?php echo $user['bio'];?></textarea>
                     <br>
                     <input id="biobtn" disabled type="submit" value="Kaydet">
                     <script>
