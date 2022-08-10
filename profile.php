@@ -43,7 +43,12 @@ $file = basename($path, ".php");
                 </div>
                 <div id="about" class="card mt-0">
                     <h6 class="text-name ms-2">Hakkında</h6>
-                    <p><br><br><br><br><br><br></p>
+
+                    <form action="src/edit_bio.php" method="POST">
+                    <textarea id="bio" name="bio" rows="7" cols="65"></textarea>
+                    <br>
+                    <input type="submit" value="Kaydet">
+                    </form>
                 </div>
                 <div id="interests" class="card">
                     <h6 class="text-name ms-2">İlgi Alanları</h6>

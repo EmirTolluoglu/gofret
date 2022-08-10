@@ -689,7 +689,10 @@ nav .btn {
   }
 }/*# sourceMappingURL=style.css.map */
 
-
+#bio{
+  border: 0px;
+  resize: none;
+}
 
 
 #m-product {
