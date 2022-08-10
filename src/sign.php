@@ -37,7 +37,7 @@ if ($stmt) {
     Header("Location:../register.php");
     exit;
 }
-
+}
 
 if (isset($_POST['login'])) {
 
@@ -66,6 +66,6 @@ if (isset($_POST['login'])) {
     exit;
   }
 }
-	
+
 $conn = null;
 ?>

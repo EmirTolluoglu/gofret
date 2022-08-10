@@ -1,8 +1,18 @@
 <?php
 include_once "header.php";
+require_once "src/connect.php";
 $path = __FILE__;
 $file = basename($path, ".php");
 session_start();
+$stmt = $conn->prepare("SELECT * FROM user WHERE id = 1");
+// $stmt->bindParam(':id', $id);
+$id = 1;
+$stmt->execute();
+
+
+// set the resulting array to associative
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+echo $result;
 ?>
 
 <main>
@@ -46,7 +56,9 @@ session_start();
                     <h6 class="text-name ms-2">Hakkında</h6>
 
                     <form action="src/edit_bio.php" method="POST">
-                    <textarea id="bio" name="bio" rows="7" cols="65"></textarea>
+                    <textarea id="bio" name="bio" rows="7" cols="65"><?php 
+                    $result['bio'];
+                    ?></textarea>
                     <br>
                     <input type="submit" value="Kaydet">
                     </form>
