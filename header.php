@@ -1,5 +1,16 @@
 <?php 
+ob_start();
 session_start();
+include 'src/connect.php';
+
+if(isset($_SESSION['user_id'])) {
+    $kullanicisor=$conn->prepare("SELECT * FROM user where id=:id");
+    $kullanicisor->execute(array(
+      'id' => $_SESSION['user_id']
+      ));
+    $user=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+}
+
 ?>
 
 
@@ -38,10 +49,10 @@ session_start();
             <div class="btn btn-gofret">Takas Oluştur</div>
             <div class="action">
                 <div class="profile" onclick="menuToggle();">
-                    <img src="img/profile.jpg" alt="fef" />
+                    <img src="<?php if(isset($_SESSION['user_id'])) {echo $user['profile_photo'];} ?>" alt="fef" />
                 </div>
                 <div class="menu">
-                    <h3>İrem Türk<br /><span>İl Muhtarı</span></h3>
+                    <h3><?php if(isset($_SESSION['user_id'])) {echo $user['name'];} ?><br /><span>İl Muhtarı</span></h3>
                     <ul>
                         <li>
                             <i class="fa fa-user"></i><a href="#">Proflim</a>

@@ -54,7 +54,7 @@ if (isset($_POST['login'])) {
   if($stmt->rowCount() > 0) {
     $row = $stmt->fetch();
     if (password_verify($password, $row['password'])) {
-        $_SESSION['user'] = $row['id'];
+        $_SESSION['user_id'] = $row['id'];
         Header("Location:../index.php");
         exit;
     } else {

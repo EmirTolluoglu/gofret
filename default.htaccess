@@ -1227,7 +1227,7 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
-
+<!-- 
 <Files "footer.php">
     Deny from all
 </Files>
@@ -1267,4 +1267,4 @@ RedirectMatch 403 ^/js/?$
 RedirectMatch 403 ^/webfonts/?$
 RedirectMatch 403 ^/font/?$
 RedirectMatch 403 ^/lib/?$
-
+ -->

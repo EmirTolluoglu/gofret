@@ -1,3 +1,4 @@
+
 <div id="left" class="col">
     <div class="mission text-center align-items-center g-3 w-100 container">
         <h5 class="text-gofret">Görevler</h5>
@@ -14,11 +15,11 @@
 
     <aside class="bg-white mt-4 rounded-4">
         <ul>
-            <li class="<?php if ($file == "index"){echo "active";}?>"><a href="index.php"><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
-            <li class="<?php if ($file == "discover"){echo "active";}?>"><a href="discover.php"><i class="fa fa-heart"></i><span>Keşfet</span></a></li>
-            <li class="<?php if ($file == "trades"){echo "active";}?>"><a href="trades.php"><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
-            <li class="<?php if ($file == "notifications"){echo "active";}?>"><a href="notifications.php"><i class="fa fa-bell"></i><span>Bildirimler</span></a></li>
-            <li class="<?php if ($file == "message"){echo "active";}?>"><a href="message.php"><i class="fa fa-comment-dots"></i><span>Mesajlar</span></a></li>
+            <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "index" or basename($_SERVER['REQUEST_URI'], ".php") == "profile"){echo "active";}?>"><a href="index.php"><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
+            <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "discover"){echo "active";}?>"><a href="discover.php"><i class="fa fa-heart"></i><span>Keşfet</span></a></li>
+            <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "trades"){echo "active";}?>"><a href="trades.php"><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
+            <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "notifications"){echo "active";}?>"><a href="notifications.php"><i class="fa fa-bell"></i><span>Bildirimler</span></a></li>
+            <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "message"){echo "active";}?>"><a href="message.php"><i class="fa fa-comment-dots"></i><span>Mesajlar</span></a></li>
         </ul>
     </aside>
 

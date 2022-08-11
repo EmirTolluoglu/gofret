@@ -2,9 +2,9 @@
     <div id="profile-card" class="badge-handle">
         <div class="side-card rounded-4">
             <div class="banner">
-                <img src="img/profile.jpg" class="mx-auto img2" alt="Profile Photo">
+                <img src="<?php if(isset($_SESSION['user_id'])) {echo $user['profile_photo'];} ?>" class="mx-auto img2" alt="Profile Photo">
             </div>
-            <h5 class="mt-5 name"></h5>
+            <h5 class="mt-5 name"><?php if(isset($_SESSION['user_id'])) {echo $user['name'];} ?></h5>
             <div class="level">
                 <p class="mb-0">lvl.12</p>
                 <div class="progress rounded-5" style="height: 1.2rem;">

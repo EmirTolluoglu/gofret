@@ -1,8 +1,5 @@
 <?php
 include_once "header.php";
-$path = __FILE__;
-$file = basename($path, ".php");
-session_start();
 
 ?>
 
