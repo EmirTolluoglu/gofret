@@ -2,29 +2,17 @@
     <section class="top d-flex justify-content-center justify-content-lg-between p-3">
         <!-- Left -->
         <div class="me-5 d-none d-lg-block">
-            <span>Bizi sosyal medyadan takip edebilirsinm :D :</span>
+            <span>Bizi sosyal medyadan takip edebilirsin! :</span>
         </div>
         <!-- Left -->
 
         <!-- Right -->
         <div class="myclass">
-            <a href="" class="me-4 text-reset">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="" class="me-4 text-reset">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="" class="me-4 text-reset">
-                <i class="fab fa-google"></i>
-            </a>
-            <a href="" class="me-4 text-reset">
+            <a href="https://www.instagram.com/gofret.online/" target="_blank" class="me-4 text-reset">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="" class="me-4 text-reset">
+            <a href="https://www.linkedin.com/company/gofretapp/" target="_blank" class="me-4 text-reset">
                 <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="" class="me-4 text-reset">
-                <i class="fab fa-github"></i>
             </a>
         </div>
 
