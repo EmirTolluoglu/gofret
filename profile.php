@@ -6,6 +6,19 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
     exit;
 }
 
+
+$user_interests_valuesor = $conn->prepare("SELECT user_interests_value FROM user_interests WHERE user_id = :user_id");
+$user_interests_valuesor->bindParam(':user_id', $user_id);
+$user_id = $_SESSION['user_id'];
+$user_interests_valuesor->execute();
+
+
+// set the resulting array to associative
+$user_interests_values = $user_interests_valuesor->setFetchMode(PDO::FETCH_ASSOC);
+$user_interests_values = $user_interests_valuesor->fetchAll();
+$user_interests_count = count($user_interests_values);
+echo $user_interests_values[0];
+
 ?>
 
 <main>
@@ -71,21 +84,39 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
                 <div id="interests" class="card">
                     <h6 class="text-name ms-2">İlgi Alanları</h6>
                     <div class="handle d-flex flex-wrap justify-content-start text-white">
-                        <div>
-                            <p>Müzik - Gitar</p>
+                       
+                        <?php for ($i=0; $i <$user_interests_count ; $i++) { 
+                            
+                         ?>
+                            <div>
+                            <p><?php echo $user_interests_values[$i]['user_interests_value'];?></p>
+                            </div>          
+                        <?php
+                        }
+                        ?>
+
+                        <div >
+
+
+                        <form id="interests_Form" action="src/interests.php" method="POST">
+
+                        <input name="user_interests_value" id="interest_button" class="card" type="text" style="width: 100px; height:auto;">
+                            
+                        <input onclick="add_new_interests()" type="submit" value="ekle">
+
                         </div>
-                        <div>
-                            <p>Matematik</p>
-                        </div>
-                        <div>
-                            <p>Yemek Yapmak</p>
-                        </div>
-                        <div>
-                            <p>Fotoğraf Çekmek</p>
-                        </div>
-                        <a href="">
-                            <div><i class="fa fa-plus text-black"> </i></div>
-                        </a>
+                    </form> 
+                    <script>
+                    var interest = document.getElementById("interests_Form");
+                        function add_new_interests(){
+                        interest.classList.add("d-none")        
+                            
+
+                        }
+
+
+                    </script>
+
                     </div>
                     <p><br><br><br><br><br></p>
                 </div>
