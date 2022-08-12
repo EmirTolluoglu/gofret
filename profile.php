@@ -54,7 +54,7 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
                     <h6 class="text-name ms-2">Hakkında</h6>
 
                     <form action="src/edit_bio.php" method="POST">
-                    <textarea id="biography" class="input w-100" name="biography" onchange="benimfonksiyon()"><?php echo $user['biography'];?></textarea>
+                    <textarea id="biography" class="input w-100" rows="7" maxlength="420" name="biography" oninput="benimfonksiyon()"><?php echo $user['biography'];?></textarea>
                     <br>
                     <input id="biobtn" disabled type="submit" value="Kaydet">
                     <script>
