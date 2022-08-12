@@ -1,25 +1,34 @@
 <div id="right" class="col">
     <div id="profile-card" class="badge-handle">
         <div class="side-card rounded-4">
-            <div class="banner">
+            <div class="banner" style="background-image: url(<?php if(isset($_SESSION['user_id'])) {echo $user['profile_banner'];} ?>)">
                 <img src="<?php if(isset($_SESSION['user_id'])) {echo $user['profile_photo'];} ?>" class="mx-auto img2" alt="Profile Photo">
             </div>
             <h5 class="mt-5 name"><?php if(isset($_SESSION['user_id'])) {echo $user['name'];} ?></h5>
             <div class="level">
-                <p class="mb-0">lvl.12</p>
+                <p class="mb-0">lvl.<?php if(isset($_SESSION['user_id'])) {echo $user['level'];} ?></p>
                 <div class="progress rounded-5" style="height: 1.2rem;">
                     <div class="progress-bar" role="progressbar"
-                        style="width: 75%; background-color: rgb(233, 205, 84);" aria-valuenow="75" aria-valuemin="0"
+                        style="width: <?php if(isset($_SESSION['user_id'])) {echo $user['level_xp'];} ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php if(isset($_SESSION['user_id'])) {echo $user['level_xp'];} ?>" aria-valuemin="0"
                         aria-valuemax="100"></div>
                 </div>
+                <form action="src/level.php" method="POST">
+                            <input type="submit" name="levelU" value="U" class="btn btn-primary btn-sm">
+                            <input type="submit" name="levelD" value="D" class="btn btn-primary btn-sm">
+                            <input type="number" name="quantity" min="0" max="100" class="btn btn-primary btn-sm">
+
+                        </form>
             </div>
             <p class="desc">il muhtarı<br>****<br></p>
             <hr class="mx-auto mb-1">
             <p class="text-center my-0">başarımlar</p>
         </div>
-        <div class="badge-container">
-            <div class="badge"><i class="fa-solid fa-atom fa-2x"></i></div>
-            <div class="badge"><i class="fa fa-bookmark fa-2x"></i></div>
+        <div class="badge-container p-2">
+            <?php for ($i=0; $i < $userbadgecount; $i++) { 
+                
+            ?>
+            <div class="badge"><i class="fa-regular fa-<?php echo $badges[$i]['badge_pic']; ?> fa-2x"></i></div>
+            <?php } ?>
         </div>
     </div>
     <div class="current-trades text-center align-items-center g-3 w-100 container">

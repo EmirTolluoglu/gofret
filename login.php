@@ -386,10 +386,9 @@
           <input type="submit" name="login" id="login" class="form-submit" value="Giriş Yap"/>
       </div>
         <div class="btn-hr"></div>
-        <div class="btn-reg py-2 mt-3 rounded-4 border-white bg-transparent w-100 text-center text-white">Kayıt Olmalıyım</div>
+        <a class="text-decoration-none" href="register.php"><div class="btn-reg py-2 mt-3 rounded-4 border-white bg-transparent w-100 text-center text-white">Kayıt Olmalıyım</div></a>
     </div>
     </form>
-    <div></div>
     
     <img class="logo" src="img/gofret.png" alt="logo" />
     </div>

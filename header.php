@@ -4,11 +4,34 @@ session_start();
 include 'src/connect.php';
 
 if(isset($_SESSION['user_id'])) {
-    $kullanicisor=$conn->prepare("SELECT * FROM user where id=:id");
-    $kullanicisor->execute(array(
-      'id' => $_SESSION['user_id']
-      ));
+    $userid = $_SESSION['user_id'];
+    $kullanicisor=$conn->prepare("SELECT * FROM user where id=$userid");
+    $kullanicisor->execute();
     $user=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+
+    $userbadgesor = $conn->prepare("SELECT * FROM user_badge WHERE user_id = $userid");
+    $userbadgesor->execute();
+
+    // set the resulting array to associative
+    $userbadges = $userbadgesor->setFetchMode(PDO::FETCH_ASSOC);
+    $userbadges = $userbadgesor->fetchAll();
+    $userbadgecount = count($userbadges);
+
+    $badge_id = array();
+    if($userbadgecount >= 3){$userbadgecount = 3;}
+    for ($i=0; $i < $userbadgecount; $i++) { 
+        array_push($badge_id, $userbadges[$i]['badge_id']);
+    } 
+    $badgesor = $conn->prepare("SELECT * FROM badge WHERE badge_id = :badge_id1 OR badge_id = :badge_id2 OR badge_id = :badge_id3");
+    $badgesor->bindParam(':badge_id1', $badge_id[0]);
+    $badgesor->bindParam(':badge_id2', $badge_id[1]);
+    $badgesor->bindParam(':badge_id3', $badge_id[2]);
+    $badgesor->execute();
+
+    // set the resulting array to associative
+    $badges = $badgesor->setFetchMode(PDO::FETCH_ASSOC);
+    $badges = $badgesor->fetchAll();
+
 }
 
 ?>
@@ -55,10 +78,10 @@ if(isset($_SESSION['user_id'])) {
                     <h3><?php if(isset($_SESSION['user_id'])) {echo $user['name'];} ?><br /><span>İl Muhtarı</span></h3>
                     <ul>
                         <li>
-                            <i class="fa fa-user"></i><a href="#">Proflim</a>
+                            <i class="fa fa-user"></i><a href="profile.php">Proflim</a>
                         </li>
                         <li>
-                            <i class="fa fa-suitcase"></i><a href="#">Takaslar</a>
+                            <i class="fa fa-suitcase"></i><a href="trades.php">Takaslar</a>
                         </li>
                         <li>
                             <i class="fa fa-users"></i><a href="#">Arkadaşlar</a>

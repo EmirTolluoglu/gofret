@@ -243,7 +243,6 @@ main .row #left aside ul li i {
   width: 75%;
 }
 #profile-card .side-card .banner {
-  background-image: url("../img/banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -255,7 +254,6 @@ main .row #left aside ul li i {
 
 /* main profile */
 main #middle .banner {
-  background-image: url("../img/banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -690,10 +688,22 @@ nav .btn {
 }/*# sourceMappingURL=style.css.map */
 
 #bio{
-  border: 0px;
-  resize: none;
+  border: 0 !important;
+  resize: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
-
+#bio:focus {
+  outline: none !important;
+  border:1px solid red;
+  
+  outline: none !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 
 #m-product {
   padding: 1rem;

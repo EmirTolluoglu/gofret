@@ -13,16 +13,18 @@ if ($user) {
   exit;
 }
 // prepare sql and bind parameters
-$stmt = $conn->prepare("INSERT INTO user (name, email, password)
-VALUES (:name, :email, :password)");
+$stmt = $conn->prepare("INSERT INTO user (name, email, password, biography)
+VALUES (:name, :email, :password, :biography)");
 $stmt->bindParam(':name', $name);
 $stmt->bindParam(':email', $email);
+$stmt->bindParam(':biography', $biography);
 $stmt->bindParam(':password', $hashed_password);
-
 // insert a row
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['pass'];
+$biography = "Merhaba benim adım " .$name .".";
+
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 $stmt->execute();
 

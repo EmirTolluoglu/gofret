@@ -45,14 +45,6 @@
         right: 50%;
     }
 
-    main form {
-        position: absolute;
-        top: 40%;
-        right: 50%;
-        transform: translateX(50%);
-
-    }
-
     main .motto {
         font-weight: 600;
         color: aliceblue;
@@ -61,8 +53,6 @@
         width: 100%;
         top: 8rem;
         font-size: 1.7rem;
-        right: 50%;
-        transform: translateX(50%);
     }
 
     /* @extend display-flex; */
@@ -389,68 +379,148 @@
         border: 2px solid white;
         border-radius: 50%;
     }
+
+    .part .container {
+        height: 90%;
+    }
+
+    #part2 {
+        transform: translateX(100%);
+    }
+
+    #part1 {
+        transform: translateX(0);
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideOut {
+        0% {
+            transform: translateX(0%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+    @keyframes slideIn2 {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideOut2 {
+        0% {
+            transform: translateX(0%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
     </style>
     <main>
         <div class="back">
-            <h4 class="motto">Yeni bir sırrı<br> açığa çıkarmak<br> üzeresin</h4>
-            <form action="src/sign.php" method="POST" class="register-form" id="register-form">
-                <div class="form-group">
-                    <label for="name"><i class="fa fa-user fa-xs ms-1 text-white"></i></label>
-                    <input type="text" name="name" id="name" placeholder="Your Name" />
+            <div id="part1" class="part h-100 w-100 position-absolute">
+                <h4 class="motto">Yeni bir sırrı<br> açığa çıkarmak<br> üzeresin</h4>
+                <div class="container d-flex justify-content-center align-items-center">
+                    <form action="src/sign.php" method="POST" class="register-form" id="register-form">
+                        <div class="form-group">
+                            <label for="name"><i class="fa fa-user fa-xs ms-1 text-white"></i></label>
+                            <input type="text" name="name" id="name" placeholder="Your Name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
+                            <input type="email" name="email" id="email" placeholder="Your Email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
+                            <input type="password" name="pass" id="pass" placeholder="Password" onChange="onChange()" />
+                        </div>
+                        <div class="form-group mb-1">
+                            <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
+                            <input type="password" name="confirm" id="confirm_password" placeholder="Confirm Password"
+                                onChange="onChange()" />
+                        </div>
+                        <div class="form-group form-button">
+                            <input onclick="gopart()" type="submit" name="signup" id="signup" class="form-submit" value="Kayıt Ol" />
+                        </div>
+                        <div class="btn-hr"></div>
+                        <a class="text-decoration-none" href="login.php"><div class="btn-reg py-2 mt-3 rounded-4 border-white bg-transparent w-100 text-center text-white">Bir hesabım var!</div></a>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="email"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
-                    <input type="email" name="email" id="email" placeholder="Your Email"  />
+
+            </div>
+
+            <div id="part2" class="part h-100 w-100 position-absolute">
+                <button onclick="repart()" class="text-decoration-none btn" style="border: 0; outline: 0;" href=""><i class="fa fa-angle-left fa-2x text-white m-3"></i></button>
+                <h4 class="motto mb-0">Aaa Kayıt<br> oluyorsun,<br><small class="fs-6">Öğrenci Misin?</small></h4>
+                <div class="container d-flex justify-content-center align-items-center">
+                    <form method="POST" class="register-form" id="register-form">
+                        <div class="form-group">
+                            <label for="name"><i class="fa fa-user fa-xs ms-1 text-white"></i></label>
+                            <input type="text" name="name" id="name" placeholder="Okuduğun Okul" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
+                            <input type="email" name="email" id="email" placeholder="Sınıf Numaran" />
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="fa fa-pen-to-square fa-xs ms-1 text-white"></i></label>
+                            <input type="text" name="pass" id="pass" placeholder="Öğrenci Belgesi" />
+                            <div class="check"></div>
+                        </div>
+                        <div class="form-group mb-1">
+                            <label for="pass"><i class="fa fa-pen-to-square fa-xs ms-1 text-white"></i></label>
+                            <input type="text" name="pass" id="pass" placeholder="Akbil" />
+                            <div class="check"></div>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signup" id="signup" class="form-submit"
+                                value="Başvuru gönder ve devam et" />
+                            <p class="text-center mt-2 mx-auto">Öğrenci olduğunu doğrulamak için bu bilgilere ihtiyacımız duyuyoruz en fazla 1 gün sürüyor.</p>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
-                    <input type="password" name="pass" id="pass" placeholder="Password" onChange="onChange()" />
-                </div>
-                <div class="form-group mb-1">
-                    <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
-                    <input type="password" name="confirm" id="confirm_password" placeholder="Confirm Password" onChange="onChange()" />
-                </div>
-                <div class="form-group form-button">
-                    <input type="submit" name="signup" id="signup" class="form-submit" value="Kayıt Ol" />
-                </div>
-                <div class="btn-hr"></div>
-                <div class="btn-reg py-2 mt-3 rounded-4 border-white bg-transparent w-100 text-center text-white">Bir
-                    hesabım var!</div>
+
+            </div>
         </div>
-        </form>
-        
-        
-        
-        <!-- <div class=""><a class="text-decoration-none" href=""><i class="fa fa-angle-left fa-2x text-white m-3"></i></a></div>
-    <h4 class="motto mb-0">Aaa Kayıt<br> oluyorsun,<br><small class="fs-6">Öğrenci Misin?</small></h4>
-      <form method="POST" class="register-form" id="register-form">
-        <div class="form-group">
-            <label for="name"><i class="fa fa-user fa-xs ms-1 text-white"></i></label>
-            <input type="text" name="name" id="name" placeholder="Okuduğun Okul"/>
-        </div>
-        <div class="form-group">
-          <label for="email"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
-          <input type="email" name="email" id="email" placeholder="Sınıf Numaran" />
-        </div>
-        <div class="form-group">
-          <label for="pass"><i class="fa fa-pen-to-square fa-xs ms-1 text-white"></i></label>
-          <input type="text" name="pass" id="pass" placeholder="Öğrenci Belgesi" />
-          <div class="check"></div>
-        </div>
-        <div class="form-group mb-1">
-            <label for="pass"><i class="fa fa-pen-to-square fa-xs ms-1 text-white"></i></label>
-            <input type="text" name="pass" id="pass" placeholder="Akbil" />
-            <div class="check"></div>
-          </div>
-      <div class="form-group form-button">
-          <input type="submit" name="signup" id="signup" class="form-submit" value="Başvuru gönder ve devam et"/>
-          <p class="text-center mt-2 mx-auto">Öğrenci olduğunu doğrulamak için bu bilgilere ihtiyacımız duyuyoruz en fazla 1 gün sürüyor.</p>
-      </div>
-    </div>
-    </form> -->
+
+
+
+
+
         <img class="logo" src="img/gofret.png" alt="logo" />
         </div>
     </main>
+
+    <script>
+    var part1 = document.getElementById('part1');
+    var part2 = document.getElementById('part2');
+    
+    function repart() {
+        part1.style.animation = "slideIn2 1s forwards";
+        part2.style.animation = "slideOut2 1s forwards";
+    }
+
+    function gopart(){
+        part1.style.animation = "slideOut 1s forwards";
+        part2.style.animation = "slideIn 1s forwards";
+    }
+    </script>
+
 
     <script src="js/all.min.js"></script>
     <script src="js/main.js"></script>

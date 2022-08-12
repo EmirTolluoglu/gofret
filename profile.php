@@ -15,7 +15,7 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-5 col-md-8">
                 <div class="badge-handle">
                     <div class="side-card rounded-4 bg-white">
-                        <div class="banner">
+                        <div class="banner" style="background-image: url(<?php if(isset($_SESSION['user_id'])) {echo $user['profile_banner'];} ?>)">
                             <div class="profile-card">
                                 <img src="<?php if(isset($_SESSION['user_id'])) {echo $user['profile_photo'];} ?>" class="" alt="Profile Photo">
                                 <div class="card-section">
@@ -26,9 +26,11 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
                             </div>
                         </div>
                         <div class="level d-flex justify-content-end pt-2 me-3">
-                            <p class="fs-5 mb-0 fw-bold text-name">lvl.12</p>
+                            <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php if(isset($_SESSION['user_id'])) {echo $user['level'];} ?></p>
                             <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
-                                <div class="progress-bar" role="progressbar" style="width: 75%; background-color: rgb(233, 205, 84);" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar"
+                        style="width: <?php if(isset($_SESSION['user_id'])) {echo $user['level_xp'];} ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php if(isset($_SESSION['user_id'])) {echo $user['level_xp'];} ?>" aria-valuemin="0"
+                        aria-valuemax="100"></div>
                             </div>
                         </div>
                         <div class="d-flex flex-row justify-content-around mt-4">
@@ -40,9 +42,9 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
                         </div>
                     </div>
                     <div class="badge-container me-4 h-25">
-                        <div class="badge mx-1"><i class="fa fa-bookmark fa-3x"></i></div>
-                        <div class="badge mx-1"><i class="fa fa-bookmark fa-3x"></i></div>
-                        <div class="badge mx-1"><i class="fa fa-bookmark fa-3x"></i></div>
+                        <?php for ($i=0; $i < $userbadgecount; $i++) { ?>
+                        <div class="badge mx-1"><i class="fa fa-<?php echo $badges[$i]['badge_pic']; ?> fa-3x"></i></div>
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -52,7 +54,7 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
                     <h6 class="text-name ms-2">Hakkında</h6>
 
                     <form action="src/edit_bio.php" method="POST">
-                    <textarea id="bio" class="w-100" name="bio" rows="7" cols="65" onchange="benimfonksiyon()"><?php echo $user['bio'];?></textarea>
+                    <textarea id="biography" class="input w-100" name="biography" onchange="benimfonksiyon()"><?php echo $user['biography'];?></textarea>
                     <br>
                     <input id="biobtn" disabled type="submit" value="Kaydet">
                     <script>
