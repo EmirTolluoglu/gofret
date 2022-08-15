@@ -2,12 +2,16 @@
 ob_start();
 session_start();
 include 'src/connect.php';
+$_SESSION['user_profile_photo'] = "img/default_photo.jpg";
+$_SESSION['user_profile_banner'] = "img/default_banner.jpg";
 
 if(isset($_SESSION['user_id'])) {
     $userid = $_SESSION['user_id'];
-    $kullanicisor=$conn->prepare("SELECT * FROM user where id=$userid");
+    $kullanicisor=$conn->prepare("SELECT * FROM user where user_id=$userid");
     $kullanicisor->execute();
     $user=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+    $_SESSION['user_profile_photo'] = $user['user_profile_photo'];
+    $_SESSION['user_profile_banner'] = $user['user_profile_banner'];
 
     $userbadgesor = $conn->prepare("SELECT * FROM user_badge WHERE user_id = $userid");
     $userbadgesor->execute();
@@ -31,9 +35,7 @@ if(isset($_SESSION['user_id'])) {
     // set the resulting array to associative
     $badges = $badgesor->setFetchMode(PDO::FETCH_ASSOC);
     $badges = $badgesor->fetchAll();
-
 }
-
 ?>
 
 
@@ -45,8 +47,9 @@ if(isset($_SESSION['user_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/ico.png">
+    <base href="http://localhost/gofret/">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="css/reset.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Gofret | Keşfet</title>
@@ -72,10 +75,10 @@ if(isset($_SESSION['user_id'])) {
             <div class="btn btn-gofret">Takas Oluştur</div>
             <div class="action">
                 <div class="profile" onclick="menuToggle();">
-                    <img src="<?php if(isset($_SESSION['user_id'])) {echo $user['profile_photo'];} ?>" alt="fef" />
+                    <img src="<?php echo $_SESSION['user_profile_photo']; ?>" alt="fef" />
                 </div>
                 <div class="menu">
-                    <h3><?php if(isset($_SESSION['user_id'])) {echo $user['name'];} ?><br /><span>İl Muhtarı</span></h3>
+                    <h3><?php if(isset($_SESSION['user_id'])) {echo $user['user_name'];} ?><br /><span>İl Muhtarı</span></h3>
                     <ul>
                         <li>
                             <i class="fa fa-user"></i><a href="profile.php">Proflim</a>

@@ -3,7 +3,7 @@ require_once 'connect.php';
 session_start();
 
 if (isset($_POST['signup'])) {
-  $stmt1 = $conn->prepare("SELECT * FROM user WHERE email = :email");
+  $stmt1 = $conn->prepare("SELECT * FROM user WHERE user_email = :email");
   $stmt1->bindParam(':email', $email);
   $email = $_POST['email'];
   $stmt1->execute();
@@ -13,7 +13,7 @@ if ($user) {
   exit;
 }
 // prepare sql and bind parameters
-$stmt = $conn->prepare("INSERT INTO user (name, email, password, biography)
+$stmt = $conn->prepare("INSERT INTO user (user_name, user_email, user_password, user_biography)
 VALUES (:name, :email, :password, :biography)");
 $stmt->bindParam(':name', $name);
 $stmt->bindParam(':email', $email);
@@ -44,7 +44,7 @@ if ($stmt) {
 if (isset($_POST['login'])) {
 
 
-    $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email");
+    $stmt = $conn->prepare("SELECT * FROM user WHERE user_email = :email");
     $stmt->bindParam(':email', $email);
     $email = $_POST['email'];
     $password = $_POST['pass'];
@@ -55,8 +55,8 @@ if (isset($_POST['login'])) {
 
   if($stmt->rowCount() > 0) {
     $row = $stmt->fetch();
-    if (password_verify($password, $row['password'])) {
-        $_SESSION['user_id'] = $row['id'];
+    if (password_verify($password, $row['user_password'])) {
+        $_SESSION['user_id'] = $row['user_id'];
         Header("Location:../index.php");
         exit;
     } else {

@@ -6,18 +6,25 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
     exit;
 }
 
+if(isset($_GET['u'])){
+    $userid = $_GET['u'];
+}
+
+$kullanicisor=$conn->prepare("SELECT * FROM user where user_id=$userid");
+$kullanicisor->execute();
+$user=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+$_SESSION['user_profile_photo'] = $user['user_profile_photo'];
+$_SESSION['user_profile_banner'] = $user['user_profile_banner'];
 
 $user_interests_valuesor = $conn->prepare("SELECT user_interests_value FROM user_interests WHERE user_id = :user_id");
 $user_interests_valuesor->bindParam(':user_id', $user_id);
-$user_id = $_SESSION['user_id'];
 $user_interests_valuesor->execute();
 
 
-// set the resulting array to associative
+
 $user_interests_values = $user_interests_valuesor->setFetchMode(PDO::FETCH_ASSOC);
 $user_interests_values = $user_interests_valuesor->fetchAll();
 $user_interests_count = count($user_interests_values);
-echo $user_interests_values[0];
 
 ?>
 
@@ -28,21 +35,21 @@ echo $user_interests_values[0];
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-5 col-md-8">
                 <div class="badge-handle">
                     <div class="side-card rounded-4 bg-white">
-                        <div class="banner" style="background-image: url(<?php if(isset($_SESSION['user_id'])) {echo $user['profile_banner'];} ?>)">
+                        <div class="banner" style="background-image: url(<?php echo $_SESSION['user_profile_banner']; ?>)">
                             <div class="profile-card">
-                                <img src="<?php if(isset($_SESSION['user_id'])) {echo $user['profile_photo'];} ?>" class="" alt="Profile Photo">
+                                <img src="<?php echo $_SESSION['user_profile_photo']; ?>" alt="Profile Photo">
                                 <div class="card-section">
-                                    <h4 class="text-name font-monospace"><?php if(isset($_SESSION['user_id'])) {echo $user['name'];} ?></h5>
-                                        <p class="school gtext-secondary fs-7"><?php if(isset($_SESSION['user_id'])) {echo $user['school'];} ?><br><?php if(isset($_SESSION['user_id'])) {echo $user['city'];} ?></p>
-                                        <p class="degree text-name"><?php if(isset($_SESSION['user_id'])) {echo $user['class'];} ?>.sınıf</p>
+                                    <h4 class="text-name font-monospace"><?php if(isset($_SESSION['user_id'])) {echo $user['user_name'];} ?></h5>
+                                        <p class="school gtext-secondary fs-7"><?php if(isset($_SESSION['user_id'])) {echo $user['user_school'];} ?><br><?php if(isset($_SESSION['user_id'])) {echo $user['user_city'];} ?></p>
+                                        <p class="degree text-name"><?php if(isset($_SESSION['user_id'])) {echo $user['user_class'];} ?>.sınıf</p>
                                 </div>
                             </div>
                         </div>
                         <div class="level d-flex justify-content-end pt-2 me-3">
-                            <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php if(isset($_SESSION['user_id'])) {echo $user['level'];} ?></p>
+                            <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php if(isset($_SESSION['user_id'])) {echo $user['user_level'];} ?></p>
                             <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
                             <div class="progress-bar" role="progressbar"
-                        style="width: <?php if(isset($_SESSION['user_id'])) {echo $user['level_xp'];} ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php if(isset($_SESSION['user_id'])) {echo $user['level_xp'];} ?>" aria-valuemin="0"
+                        style="width: <?php if(isset($_SESSION['user_id'])) {echo $user['user_level_xp'];} ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php if(isset($_SESSION['user_id'])) {echo $user['user_level_xp'];} ?>" aria-valuemin="0"
                         aria-valuemax="100"></div>
                             </div>
                         </div>
@@ -67,7 +74,7 @@ echo $user_interests_values[0];
                     <h6 class="text-name ms-2">Hakkında</h6>
 
                     <form action="src/edit_bio.php" method="POST">
-                    <textarea id="biography" class="input w-100" rows="7" maxlength="420" name="biography" oninput="benimfonksiyon()"><?php echo $user['biography'];?></textarea>
+                    <textarea id="biography" class="input w-100" rows="7" maxlength="420" name="biography" oninput="benimfonksiyon()"><?php echo $user['user_biography'];?></textarea>
                     <br>
                     <input id="biobtn" disabled type="submit" value="Kaydet">
                     <script>
