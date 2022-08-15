@@ -2,7 +2,7 @@
 require_once "connect.php";
 session_start();
 if (isset($_POST['biography'])) {
-    $stmt= $conn->prepare("UPDATE user SET biography=:biography WHERE id=:id");
+    $stmt= $conn->prepare("UPDATE user SET user_biography=:biography WHERE user_id=:id");
     $stmt->bindParam(":id", $id);
     $stmt->bindParam(':biography',$biography);
     $id = $_SESSION['user_id'];
