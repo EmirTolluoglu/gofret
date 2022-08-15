@@ -25,6 +25,7 @@ $user_interests_valuesor->execute();
 $user_interests_values = $user_interests_valuesor->setFetchMode(PDO::FETCH_ASSOC);
 $user_interests_values = $user_interests_valuesor->fetchAll();
 $user_interests_count = count($user_interests_values);
+
 ?>
 
 <main>
