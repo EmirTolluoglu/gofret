@@ -105,7 +105,7 @@ $productcount = count($products);
                         $authprofilephoto = $auth['user_profile_photo'];
                     ?>
                         <div class="col-4">
-                            <div class="card mx-4" style="height: 20rem;">
+                            <div class="card" style="height: 20rem;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <img class="profile-photo" src="<?php echo $authprofilephoto; ?>" alt="pp">
                                     <div class="handle me-auto ms-2">
@@ -122,7 +122,7 @@ $productcount = count($products);
                                 </div>
 
                                 <p class="m-0 mb-3"><?php echo $products[$i]['product_content']; ?></p>
-                                <a class="mx-auto mt-auto" href="">
+                                <a class="mx-auto mt-auto" href="product/<?php echo $products[$i]['product_name']; ?>">
                                     <div class="btn btn-gofret ">Mesaj At</div>
                                 </a>
 

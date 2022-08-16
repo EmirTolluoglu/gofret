@@ -34,7 +34,7 @@ $guestbadgesor->execute();
 $guestbadges = $guestbadgesor->setFetchMode(PDO::FETCH_ASSOC);
 $guestbadges = $guestbadgesor->fetchAll();
 $guestbadgecount = count($guestbadges);
-
+$realguestbadgecount = count($guestbadges);
 $guestbadge_id = array();
 if ($guestbadgecount >= 3) {
     $guestbadgecount = 3;
@@ -52,7 +52,6 @@ $guestbadges = $guestbadgesor->fetchAll();
 
 $realUser = $_SESSION['user_id'];
 $realUserName = $_SESSION['user_name'];
-//SELECT * FROM user_friend WHERE ((friend_first_id = $user_id OR friend_second_id = $user_id) and friend_status = 'friends') or ((friend_first_id = $realUser OR friend_second_id = $realUser) and friend_status = 'friends')
 $friendler = $conn->prepare("SELECT * FROM user_friend WHERE (friend_first_id = $user_id OR friend_second_id = $user_id) and friend_status = 'friends'");
 $ikimiz = $conn->prepare("SELECT * FROM user_friend WHERE ((friend_first_id = $user_id OR friend_second_id = $user_id) and (friend_first_id = $realUser OR friend_second_id = $realUser)) and friend_status = 'friends'");
 $friendler->execute();
@@ -63,8 +62,12 @@ count($ikimizResult);
 $friendlerResult = $friendler->setFetchMode(PDO::FETCH_ASSOC);
 $friendlerResult = $friendler->fetchAll();
 $friendlercount = count($friendlerResult);
-// echo in_array($_SESSION['user_id'] , $friendlerResult);
-// if (in_array($_SESSION['user_id'] , $friendlerResult)){echo "heyoo";}
+
+$productstmt = $conn->prepare("SELECT * FROM product WHERE user_id = $user_id");
+$productstmt->execute();
+$products = $productstmt->fetchAll(PDO::FETCH_ASSOC);
+$productscount = count($products);
+
 ?>
 
 <main>
@@ -103,8 +106,10 @@ $friendlercount = count($friendlerResult);
                             <div class="p-2 text-name"><a href="profile/<?php echo $user['user_name']; ?>/friends/"><?php echo $friendlercount; ?> arkadaş</a>
                                 <!-- <p class="fs-7 text-name-muted">20 ortak arkadaş</p> -->
                             </div>
-                            <div class="p-2 gtext-secondary">57 tamamlanmış takas</div>
-                            <div class="p-2 gtext-secondary"><?php echo $guestbadgecount; ?> Rozet</div>
+                            <!-- <div class="p-2 gtext-secondary">57 tamamlanmış takas</div> -->
+                            <div class="p-2 gtext-secondary"><a href="profile/<?php echo $user['user_name']; ?>/product/"><?php echo $productscount; ?> takas</a></div>
+
+                            <div class="p-2 gtext-secondary"><a href="profile/<?php echo $user['user_name']; ?>/badges/"> <?php echo $realguestbadgecount; ?> Rozet</a></div>
                         </div>
                     </div>
                     <div class="badge-container me-4 h-25">

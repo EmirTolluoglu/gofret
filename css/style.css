@@ -2,9 +2,11 @@ body {
   background-color: #F2F2F2;
   height: 100%;
 }
+
 .d-none {
   display: none !important;
 }
+
 .text-gofret {
   color: #2E276D;
 }
@@ -13,6 +15,7 @@ body {
   border: 1px solid black;
   width: 50%;
 }
+
 .text-name {
   color: #463d9b;
 }
@@ -20,6 +23,7 @@ body {
 .letter-space {
   letter-spacing: 1px;
 }
+
 .text-name-muted {
   color: #9997b4;
 }
@@ -36,10 +40,12 @@ body {
   width: 64px !important;
   height: 64px !important;
 }
-.img1-2x{
+
+.img1-2x {
   width: 32px !important;
   height: 32px !important;
 }
+
 /* ===================== NAV ===================== */
 nav {
   width: 100%;
@@ -85,7 +91,7 @@ nav .search i {
   color: #F2F2F2;
 }
 .btn-gofret:hover {
-opacity: 0.8;
+  opacity: 0.8;
 }
 
 .btn-gofret3 {
@@ -143,10 +149,7 @@ nav .search-bar input[type=search] {
 nav .search-bar input[type=search]::-moz-placeholder {
   color: var(--bs-gray);
 }
-nav .search-bar input[type=search]:-ms-input-placeholder {
-  color: var(--bs-gray);
-}
-nav .search-bar input[type=search]::placeholder {
+nav .search-bar input[type=search]::-moz-placeholder, nav .search-bar input[type=search]:-ms-input-placeholder, nav .search-bar input[type=search]::placeholder {
   color: var(--bs-gray);
 }
 nav .create {
@@ -398,13 +401,13 @@ main #middle .banner .profile-card .card-section .degree {
   border-radius: 50%;
   border: 4px solid rgb(224, 151, 15);
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   vertical-align: middle;
 }
 
 .content p {
   -moz-text-align-last: center;
-       text-align-last: center;
+  text-align-last: center;
   color: #463ccf;
   font-weight: bold;
 }
@@ -505,7 +508,7 @@ footer .top {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .action .menu {
   position: absolute;
@@ -604,8 +607,7 @@ footer .top {
   #left {
     position: static !important;
   }
-  #left .mission,
-#left .trade-request {
+  #left .mission, #left .trade-request {
     display: none;
   }
 }
@@ -616,8 +618,7 @@ footer .top {
   #middle .leve p {
     font-size: 0.8rem;
   }
-  #left,
-nav .btn {
+  #left, nav .btn {
     display: none !important;
   }
   .search-bar {
@@ -638,8 +639,10 @@ nav .btn {
     box-shadow: 0 12px 9px -4px rgba(0, 0, 0, 0.2);
     padding: 0.7rem 0;
     overflow: hidden;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
+    position: fixed;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
   }
   header .banner {
     box-shadow: 5px 10px inset;
@@ -663,10 +666,7 @@ nav .btn {
   header .search-bar input[type=search]::-moz-placeholder {
     color: var(--bs-gray);
   }
-  header .search-bar input[type=search]:-ms-input-placeholder {
-    color: var(--bs-gray);
-  }
-  header .search-bar input[type=search]::placeholder {
+  header .search-bar input[type=search]::-moz-placeholder, header .search-bar input[type=search]:-ms-input-placeholder, header .search-bar input[type=search]::placeholder {
     color: var(--bs-gray);
   }
   nav {
@@ -690,26 +690,21 @@ nav .btn {
     overflow: hidden;
     cursor: pointer;
   }
-}/*# sourceMappingURL=style.css.map */
-
-#biography{
+}
+/*# sourceMappingURL=style.css.map */
+#biography {
   border: 0 !important;
   resize: none !important;
   outline: none !important;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 #biography:focus {
   outline: none !important;
-  border:1px solid red;
-  
+  border: 1px solid red;
   outline: none !important;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 
 #m-product {
   padding: 1rem;
-}
+}/*# sourceMappingURL=style.css.map */
