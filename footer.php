@@ -101,12 +101,11 @@
     <!-- Copyright -->
 
 </footer>
-
 <script src="lib/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="js/all.min.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js\vendor\modernizr-3.11.2.min.js"></script>
 <script src="js/main.js"></script>
+
 </body>
 
 </html>

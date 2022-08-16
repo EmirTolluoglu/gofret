@@ -24,13 +24,19 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['pass'];
 $biography = "Merhaba benim adım " .$name .".";
+$stmt = $conn->prepare("INSERT INTO user_badge (user_id, badge_id) VALUES (:user_id, :badge_id)");
+$stmt->bindParam(':user_id', $user_id);
+$stmt->bindParam(':badge_id', $badge_id);
+$user_id = $user['user_id'];
+$badge_id = 1;
+$stmt->execute();
 
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 $stmt->execute();
 
 if ($stmt) {
 
-    Header("Location:../index.php");
+    Header("Location:../login.php");
     exit;
 
 } else {
@@ -52,11 +58,20 @@ if (isset($_POST['login'])) {
 
   // set the resulting array to associative
   $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  
+
 
   if($stmt->rowCount() > 0) {
-    $row = $stmt->fetch();
-    if (password_verify($password, $row['user_password'])) {
-        $_SESSION['user_id'] = $row['user_id'];
+    $user = $stmt->fetch();
+    if (password_verify($password, $user['user_password'])) {
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user_name'] = $user['user_name'];
+        $_SESSION['user_email'] = $user['user_email'];
+        $_SESSION['user_level'] = $user['user_level'];
+        $_SESSION['user_level_xp'] = $user['user_level_xp'];
+        $_SESSION['user_profile_photo'] = $user['user_profile_photo'];
+        $_SESSION['user_profile_banner'] = $user['user_profile_banner'];
+
         Header("Location:../index.php");
         exit;
     } else {

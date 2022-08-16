@@ -84,6 +84,9 @@ nav .search i {
   outline: 0;
   color: #F2F2F2;
 }
+.btn-gofret:hover {
+opacity: 0.8;
+}
 
 .btn-gofret3 {
   border-radius: 0.8rem;
@@ -710,5 +713,3 @@ nav .btn {
 #m-product {
   padding: 1rem;
 }
-
-

@@ -1,14 +1,16 @@
 <?php require_once "src/connect.php";
+ob_start();
 session_start();
-$userid = $_SESSION['user_id'];
-$product_id = $_GET['product_id'];
-$kullanicisor = $conn->prepare("SELECT * FROM user where id=$userid");
-$kullanicisor->execute();
-$user = $kullanicisor->fetch(PDO::FETCH_ASSOC);
+$product_name = $_GET['u'];
 
-$productsor = $conn->prepare("SELECT * FROM product where product_id=$_GET[product_id]");
+$productsor = $conn->prepare("SELECT * FROM product where product_name='$product_name'");
 $productsor->execute();
 $product = $productsor->fetch(PDO::FETCH_ASSOC);
+
+$user_id = $product['user_id'];
+$authstmt = $conn->prepare("SELECT * FROM user where user_id=$user_id");
+$authstmt->execute();
+$auth = $authstmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +19,7 @@ $product = $productsor->fetch(PDO::FETCH_ASSOC);
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="http://localhost/gofret/">
   <link rel="icon" type="image/x-icon" href="img/ico.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
   <link rel="stylesheet" href="css/normalize.css" />
@@ -55,20 +58,20 @@ $product = $productsor->fetch(PDO::FETCH_ASSOC);
       <a class="text-decoration-none text-danger" href=""><i class="fa fa-x fa-xl"></i></a>
       <div class="card mt-2">
         <div class="d-flex mb-4">
-          <img class="profile-photo me-2 img2x" src="<?php echo $_SESSION['user_profile_photo']; ?>" alt="pp" />
+          <img class="profile-photo me-2 img2x" src="<?php echo $auth['user_profile_photo']; ?>" alt="pp" />
           <div class="handle me-auto">
             <h5 class="m-0 fw-bold fs-2 text-danger"><?php echo $product['product_name']; ?></h5>
             <p class="m-0 fs-4 text-danger">Yazım</p>
           </div>
           <div class="">
             <p class="m-0 bg-warning px-3 py-1 rounded-4 text-white fw-bold">
-              lvl. <?php echo $user['user_level']; ?>
+              lvl. <?php echo $auth['user_level']; ?>
             </p>
           </div>
         </div>
         <div class="intro-name mb-2">
-          <h5 class="mb-0 letter-space fw-light fs-3"><?php echo $user['user_name']; ?></h5>
-          <p class="mb-0 letter-space fw-light fs-6"><?php echo $user['user_class']; ?>.sınıf </p>
+          <h5 class="mb-0 letter-space fw-light fs-3"><?php echo $auth['user_name']; ?></h5>
+          <p class="mb-0 letter-space fw-light fs-6"><?php echo $auth['user_class']; ?>.sınıf </p>
         </div>
         <div class="bio">
           <?php echo $product['product_content']; ?>

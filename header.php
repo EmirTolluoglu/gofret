@@ -36,6 +36,7 @@ if(isset($_SESSION['user_id'])) {
     $badges = $badgesor->setFetchMode(PDO::FETCH_ASSOC);
     $badges = $badgesor->fetchAll();
 }
+
 ?>
 
 
@@ -81,10 +82,10 @@ if(isset($_SESSION['user_id'])) {
                     <h3><?php if(isset($_SESSION['user_id'])) {echo $user['user_name'];} ?><br /><span>İl Muhtarı</span></h3>
                     <ul>
                         <li>
-                            <i class="fa fa-user"></i><a href="profile.php">Proflim</a>
+                            <i class="fa fa-user"></i><a href="profile/<?php echo $_SESSION['user_name']?>">Proflim</a>
                         </li>
                         <li>
-                            <i class="fa fa-suitcase"></i><a href="trades.php">Takaslar</a>
+                            <i class="fa fa-suitcase"></i><a href="trades">Takaslar</a>
                         </li>
                         <li>
                             <i class="fa fa-users"></i><a href="#">Arkadaşlar</a>

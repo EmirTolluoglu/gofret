@@ -1,6 +1,8 @@
 RewriteEngine On
+RewriteRule /(.*)/friends/$ friends.php?u=$1 [L,QSA]
 RewriteRule ^profile/([^/]+)/? profile.php?u=$1 [L,QSA]
+RewriteRule ^product/([^/]+)/? product.php?u=$1 [L,QSA]
 
-RewriteEngine On
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]

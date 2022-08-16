@@ -4,12 +4,12 @@
             <div class="banner" style="background-image: url(<?php echo $_SESSION['user_profile_banner']; ?>)">
                 <img src="<?php echo $_SESSION['user_profile_photo']; ?>" class="mx-auto img2" alt="Profile Photo">
             </div>
-            <h5 class="mt-5 name"><?php if(isset($_SESSION['user_id'])) {echo $user['user_name'];} ?></h5>
+            <h5 class="mt-5 name"><?php echo $_SESSION['user_name'];?></h5>
             <div class="level">
-                <p class="mb-0">lvl.<?php if(isset($_SESSION['user_id'])) {echo $user['user_level'];} ?></p>
+                <p class="mb-0">lvl.<?php echo $_SESSION['user_level']; ?></p>
                 <div class="progress rounded-5" style="height: 1.2rem;">
                     <div class="progress-bar" role="progressbar"
-                        style="width: <?php if(isset($_SESSION['user_id'])) {echo $user['user_level_xp'];} ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php if(isset($_SESSION['user_id'])) {echo $user['user_level_xp'];} ?>" aria-valuemin="0"
+                        style="width: <?php echo $_SESSION['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $_SESSION['user_level_xp']; ?>" aria-valuemin="0"
                         aria-valuemax="100"></div>
                 </div>
                 <form action="src/level.php" method="POST">
