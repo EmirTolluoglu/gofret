@@ -26,6 +26,10 @@ $auth = $authstmt->fetch(PDO::FETCH_ASSOC);
   <link rel="stylesheet" href="css/all.min.css" />
   <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <title>Gofret | Trades</title>
 </head>
 
@@ -92,10 +96,16 @@ $auth = $authstmt->fetch(PDO::FETCH_ASSOC);
         </div>
         <div class="select-time">
           <h6>Zaman Aralığı Seç:</h6>
-          <div class="d-flex justify-content-between">
-            <div class="btn blank"></div>
-            <div class="btn btn-gofret py-2 px-3 rounded-5">İletişime Geç</div>
-          </div>
+          <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+          <script>
+            $(function() {
+              $('input[name="daterange"]').daterangepicker({
+                opens: 'right'
+              }, function(start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+              });
+            });
+          </script>
         </div>
       </div>
     </div>

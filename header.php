@@ -73,7 +73,7 @@ if(isset($_SESSION['user_id'])) {
                 <a href=""><i class="fa fa-comment-dots"></i></a>
                 <button onclick="helllo()" class="search" href=""><i class="fa fa-magnifying-glass"></i></button>
             </div>
-            <div class="btn btn-gofret">Takas Oluştur</div>
+            <a href="create-product.php"><div class="btn btn-gofret">Takas Oluştur</div></a>
             <div class="action">
                 <div class="profile" onclick="menuToggle();">
                     <img src="<?php echo $_SESSION['user_profile_photo']; ?>" alt="fef" />

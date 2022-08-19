@@ -6,6 +6,8 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
     exit;
 }
 
+$realUser = $_SESSION['user_id'];
+$realUserName = $_SESSION['user_name'];
 if (isset($_GET['u'])) {
     $username = $_GET['u'];
     $guestusersor = $conn->prepare("SELECT user_id FROM user WHERE user_name = '$username'");
@@ -13,7 +15,10 @@ if (isset($_GET['u'])) {
     $guestuser = $guestusersor->fetch(PDO::FETCH_ASSOC);
     $user_id = $guestuser['user_id'];
 }
-
+$ownProfile = false;
+if($user_id == $realUser){
+    $ownProfile = true;
+}
 $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$user_id");
 $kullanicisor->execute();
 $user = $kullanicisor->fetch(PDO::FETCH_ASSOC);
@@ -50,24 +55,54 @@ $guestbadgesor->execute();
 $guestbadges = $guestbadgesor->setFetchMode(PDO::FETCH_ASSOC);
 $guestbadges = $guestbadgesor->fetchAll();
 
-$realUser = $_SESSION['user_id'];
-$realUserName = $_SESSION['user_name'];
 $friendler = $conn->prepare("SELECT * FROM user_friend WHERE (friend_first_id = $user_id OR friend_second_id = $user_id) and friend_status = 'friends'");
-$ikimiz = $conn->prepare("SELECT * FROM user_friend WHERE ((friend_first_id = $user_id OR friend_second_id = $user_id) and (friend_first_id = $realUser OR friend_second_id = $realUser)) and friend_status = 'friends'");
 $friendler->execute();
-$ikimiz->execute();
-$ikimizResult= $ikimiz->setFetchMode(PDO::FETCH_ASSOC);
-$ikimizResult= $ikimiz->fetchAll();
-count($ikimizResult);
 $friendlerResult = $friendler->setFetchMode(PDO::FETCH_ASSOC);
 $friendlerResult = $friendler->fetchAll();
 $friendlercount = count($friendlerResult);
+
+$kendiArk = $conn->prepare("SELECT * FROM user_friend WHERE (friend_first_id = $realUser OR friend_second_id = $realUser) and friend_status = 'friends'");
+$kendiArk->execute();
+$kendiArkResult = $kendiArk->setFetchMode(PDO::FETCH_ASSOC);
+$kendiArkResult = $kendiArk->fetchAll();
+
+$ikimizResult = false;
+$ortakArkIdler = array();
+if (!$ownProfile) {
+    foreach ($kendiArkResult as $ortakArk) {
+        foreach ($friendlerResult as $friend) {
+            if ($ortakArk['friend_first_id'] == $realUser) {
+                $bubenolmayan = $ortakArk['friend_second_id'];
+            } else if ($ortakArk['friend_first_id'] != $realUser) {
+                $bubenolmayan = $ortakArk['friend_first_id'];
+            }
+
+            if ($friend['friend_first_id'] == $user_id) {
+                $bubenolmayan2 = $friend['friend_second_id'];
+            } else if ($ortakArk['friend_first_id'] != $user_id) {
+                $bubenolmayan2 = $friend['friend_first_id'];
+            }
+
+            if (($realUser > $user_id && $friend['friend_first_id'] == $realUser && $friend['friend_second_id'] == $user_id) ||
+                ($realUser < $user_id && $friend['friend_second_id'] == $realUser && $friend['friend_first_id'] == $user_id)
+            ) {
+                echo "arklar";
+                $ikimizResult = true;
+            }
+            if ($bubenolmayan == $bubenolmayan2) {
+                array_push($ortakArkIdler, $bubenolmayan2);
+            }
+        }
+    }
+}
+
 
 $productstmt = $conn->prepare("SELECT * FROM product WHERE user_id = $user_id");
 $productstmt->execute();
 $products = $productstmt->fetchAll(PDO::FETCH_ASSOC);
 $productscount = count($products);
 
+echo $ownProfile;
 ?>
 
 <main>
@@ -85,18 +120,25 @@ $productscount = count($products);
                                     <p class="school gtext-secondary fs-7"><?php echo $user['user_school']; ?><br><?php echo $user['user_city']; ?></p>
                                     <p class="degree text-name"><?php echo $user['user_class']; ?>.sınıf</p>
                                     <form action="src/user_com.php" method="GET" class="position-absolute">
-                                        <?php if ($realUserName == $user['user_name']) { 
+                                        <?php if ($realUserName == $user['user_name']) {
                                             echo "<input type='submit' class='btn btn-primary' value='Kendi Profilini Düzenle' name='edit'>";
                                         } else { ?>
-                                        <input type="submit" name="friend" <?php if ($ikimizResult){echo "disabled";} ?> value="<?php if ($ikimizResult){echo "ztn";}else {echo $user['user_id'];} ?>" class="btn btn-primary btn-sm">
-                                        <input type="submit" name="follow" value="fol" class="btn btn-primary btn-sm">
-                                        <input type="hidden" name="backurl" value="<?php echo "profile/" . $user['user_name'];?>">
+                                            <input type="submit" name="friend" <?php if ($ikimizResult) {
+                                                                                    echo "disabled";
+                                                                                } ?> value="<?php if ($ikimizResult) {
+                                                                                                echo "ztn";
+                                                                                            } else {
+                                                                                                echo $user['user_id'];
+                                                                                            } ?>" class="btn btn-primary btn-sm">
+                                            <input type="submit" name="follow" value="fol" class="btn btn-primary btn-sm">
+                                            <input type="hidden" name="backurl" value="<?php echo "profile/" . $user['user_name']; ?>">
                                         <?php } ?>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="level d-flex justify-content-end pt-2 me-3">
+                            <a href="message.php" class="btn bg-danger"><i class="fa fa-message"></i></a>
                             <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php echo $user['user_level']; ?></p>
                             <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $user['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $user['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
@@ -104,7 +146,7 @@ $productscount = count($products);
                         </div>
                         <div class="d-flex flex-row justify-content-around mt-4">
                             <div class="p-2 text-name"><a href="profile/<?php echo $user['user_name']; ?>/friends/"><?php echo $friendlercount; ?> arkadaş</a>
-                                <!-- <p class="fs-7 text-name-muted">20 ortak arkadaş</p> -->
+                                <p class="fs-7 text-name-muted"><?php if(!$ownProfile){echo count($ortakArkIdler) . " ortak arkadaş";} ?></p>
                             </div>
                             <!-- <div class="p-2 gtext-secondary">57 tamamlanmış takas</div> -->
                             <div class="p-2 gtext-secondary"><a href="profile/<?php echo $user['user_name']; ?>/product/"><?php echo $productscount; ?> takas</a></div>
