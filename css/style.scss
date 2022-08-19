@@ -496,7 +496,7 @@ body {
   }
   
   #interests {
-    .handle div {
+    .handle .interest {
       border-radius: 0.8rem;
       min-width: 6.2rem;
       text-align: center;
@@ -519,17 +519,17 @@ body {
         margin: 0;
       }
   
-      &:last-child {
-        margin: 0;
-        margin-left: 0.5rem;
-        min-width: 0;
-        width: 32px;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        border: 1px dashed black;
-        background-color: #F2F2F2;
-        align-items: center;
-      }
+      // &:last-child {
+      //   margin: 0;
+      //   margin-left: 0.5rem;
+      //   min-width: 0;
+      //   width: 32px;
+      //   aspect-ratio: 1/1;
+      //   border-radius: 50%;
+      //   border: 1px dashed black;
+      //   background-color: #F2F2F2;
+      //   align-items: center;
+      // }
     }
   
     i {

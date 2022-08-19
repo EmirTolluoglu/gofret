@@ -6,18 +6,12 @@
             </div>
             <h5 class="mt-5 name"><?php echo $_SESSION['user_name'];?></h5>
             <div class="level">
-                <p class="mb-0">lvl.<?php echo $_SESSION['user_level']; ?></p>
-                <div class="progress rounded-5" style="height: 1.2rem;">
-                    <div class="progress-bar" role="progressbar"
-                        style="width: <?php echo $_SESSION['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $_SESSION['user_level_xp']; ?>" aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                </div>
-                <form action="src/level.php" method="POST">
-                            <input type="submit" name="levelU" value="U" class="btn btn-primary btn-sm">
-                            <input type="submit" name="levelD" value="D" class="btn btn-primary btn-sm">
-                            <input type="number" name="quantity" min="0" max="100" class="btn btn-primary btn-sm">
-
-                        </form>
+            <div class="level d-flex justify-content-end pt-2 me-3">
+                            <p class="fs-5 mb-0 fw-bold text-name" style="margin-right: 0px;">lvl.<?php echo $user['user_level']; ?></p>
+                            <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw; margin-right: 2rem;">
+                                <div class="progress-bar" role="progressbar" style="width: <?php echo $user['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $user['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
             </div>
             <p class="desc">il muhtarı<br>****<br></p>
             <hr class="mx-auto mb-1">

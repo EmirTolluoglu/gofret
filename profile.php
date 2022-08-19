@@ -121,7 +121,7 @@ echo $ownProfile;
                                     <p class="degree text-name"><?php echo $user['user_class']; ?>.sınıf</p>
                                     <form action="src/user_com.php" method="GET" class="position-absolute">
                                         <?php if ($realUserName == $user['user_name']) {
-                                            echo "<input type='submit' class='btn btn-primary' value='Kendi Profilini Düzenle' name='edit'>";
+                                            
                                         } else { ?>
                                             <input type="submit" name="friend" <?php if ($ikimizResult) {
                                                                                     echo "disabled";
@@ -138,7 +138,7 @@ echo $ownProfile;
                             </div>
                         </div>
                         <div class="level d-flex justify-content-end pt-2 me-3">
-                            <a href="message.php" class="btn bg-danger"><i class="fa fa-message"></i></a>
+                            
                             <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php echo $user['user_level']; ?></p>
                             <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $user['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $user['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
@@ -181,13 +181,14 @@ echo $ownProfile;
 
 
                 <div id="interests" class="card">
+                    <form action="src/interests.php" method="POST">
                     <h6 class="text-name ms-2">İlgi Alanları</h6>
-                    <div class="handle d-flex flex-wrap justify-content-start text-white">
+                    <div id="interests-group" class="handle d-flex flex-wrap justify-content-start text-white">
 
                         <?php for ($i = 0; $i < $user_interests_count; $i++) {
 
                         ?>
-                            <div>
+                            <div class="interest">
                                 <p><?php echo $user_interests_values[$i]['user_interests_value']; ?></p>
                             </div>
                         <?php
@@ -197,22 +198,32 @@ echo $ownProfile;
                         <div>
 
 
-                            <form id="interests_Form" action="src/interests.php" method="POST">
-
-                                <input name="user_interests_value" id="interest_button" class="card" type="text" style="width: 100px; height:auto;">
-
-                                <input onclick="add_new_interests()" type="submit" value="ekle">
-
+                            
+                        <div class="d-flex justify-content-between">
+                        <span>
+                        <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 422px; position:absolute; margin-bottom:2em; border:0px;">
+                        </span>
+                        <span>
+                        <input type="submit" id="save_interest" name="save_interest" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 222px; position:absolute; margin-bottom:2em; border:0px;">
+                        </span>
+                        <span>
+                        <input type="button" id="add_interest" name="add_interest" value="ekle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 52px; position:absolute; margin-bottom:2em; border:0px;">
+                        </span>
+                        
                         </div>
                         </form>
+                        </div>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                         <script>
-                            var interest = document.getElementById("interests_Form");
-
-                            function add_new_interests() {
-                                interest.classList.add("d-none")
-
-
-                            }
+                            var inputcount = 0;
+                            $('#add_interest').click(function(){
+                                inputcount++;
+                                var interest = document.createElement('input');
+                                interest.classList.add('interest');
+                                interest.setAttribute("name","interest"+inputcount);
+                                $('#interests-group').append(interest);
+                            })
+                           
                         </script>
 
                     </div>
