@@ -37,7 +37,6 @@ $requests2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // $kendiArkResult = $kendiArk->setFetchMode(PDO::FETCH_ASSOC);
 // $kendiArkResult = $kendiArk->fetchAll();
 
-
 ?>
 
 <main>
@@ -49,6 +48,11 @@ $requests2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <a>Takas İstekleri (2) <i class="fa fa-caret-down"></i></a>
                     <div class="handle">
                         <?php foreach ($requests2 as $request) {
+
+                            $requestedProductIsTeach = 0;
+                            if($request['requested_product_type'] == "teach"){
+                                $requestedProductIsTeach = 1;
+                            }
                         ?>
                             <div class="card my-0">
                                 <div class="d-flex align-items-center">
@@ -59,8 +63,8 @@ $requests2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                     <div class="d-flex content align-items-center">
                                         <div class="learn">
-                                            <h6 class="gtext-secondary text-center mb-0"><u>Öğren</u></h6>
-                                            <p class="mb-0 text-center"><?php if ($request['requested_product_type']) {
+                                            <h6 class="gtext-secondary text-center mb-0"><u>Öğren<?php if($requestedProductIsTeach) {echo "(you)";} ?></u></h6>
+                                            <p class="mb-0 text-center"><?php if ($requestedProductIsTeach) {
                                                                             echo $request['requested_product'];
                                                                         } else {
                                                                             echo $request['requester_product'];
@@ -68,8 +72,8 @@ $requests2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                         <i class="fa fa-arrow-right-arrow-left mx-3"></i>
                                         <div class="teach">
-                                            <h6 class="gtext-secondary text-center mb-0"><u>Öğret</u></h6>
-                                            <p class="mb-0 text-center"><?php if ($request['requested_product_type']) {
+                                            <h6 class="gtext-secondary text-center mb-0"><u>Öğret<?php if(!$requestedProductIsTeach) {echo "(you)";} ?></u></h6>
+                                            <p class="mb-0 text-center"><?php if ($requestedProductIsTeach) {
                                                                             echo $request['requester_product'];
                                                                         } else {
                                                                             echo $request['requested_product'];
