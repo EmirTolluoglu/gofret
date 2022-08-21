@@ -539,6 +539,75 @@ footer .top {
 }
 .action .menu::before {
   content: "";
+}
+.action footer {
+  background-image: url(../img/footer.svg);
+  background-size: 100% auto;
+  color: white;
+}
+.action footer .top {
+  background-color: #973b8e;
+  background-size: 100% auto;
+}
+.action .card {
+  background-color: white;
+  width: 100%;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border: 0;
+  border-radius: 1.5rem;
+}
+.action #interests .handle .interest {
+  border-radius: 0.8rem;
+  min-width: 6.2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  margin: 0.2rem;
+}
+.action #interests .handle .interest p {
+  padding: 0.3rem 1rem;
+}
+.action #interests .handle .interest:nth-child(odd) {
+  background-color: #72dfc2;
+}
+.action #interests .handle .interest:nth-child(even) {
+  background-color: #ec4545;
+}
+.action #interests .handle .interest p {
+  margin: 0;
+}
+.action #interests i {
+  /* position: relative;
+  left: 30px; */
+  transform: translateY(0.3rem);
+}
+.action #interests .handle a:hover {
+  transition-delay: 0.5s;
+  opacity: 0.6;
+  transition: all 0.2s;
+  transition-delay: 0.5s;
+  opacity: 0.6;
+  transition: all 0.2s;
+}
+.action .action {
+  position: relative;
+}
+.action .action .profile {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.action .action .profile img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.action .action .menu {
   position: absolute;
   top: -5px;
   right: 28px;
@@ -547,7 +616,7 @@ footer .top {
   background: #fff;
   transform: rotate(45deg);
 }
-.action .menu h3 {
+.action .action h3 {
   width: 100%;
   text-align: center;
   font-size: 18px;
@@ -556,35 +625,35 @@ footer .top {
   color: #555;
   line-height: 1.5em;
 }
-.action .menu h3 span {
+.action .action h3 span {
   font-size: 14px;
   color: #cecece;
   font-weight: 300;
 }
-.action .menu ul li {
+.action .action ul li {
   list-style: none;
   padding: 16px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
 }
-.action .menu ul li i {
+.action .action ul li i {
   max-width: 20px;
   margin-right: 10px;
   opacity: 0.5;
   transition: 0.5s;
 }
-.action .menu ul li:hover i {
+.action .action ul li:hover i {
   opacity: 1;
 }
-.action .menu ul li a {
+.action .action ul li a {
   display: inline-block;
   text-decoration: none;
   color: #555;
   font-weight: 500;
   transition: 0.5s;
 }
-.action .menu ul li:hover a {
+.action .action ul li:hover a {
   color: #ff5d94;
 }
 

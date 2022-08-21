@@ -10,12 +10,12 @@ if (isset($_POST['biography'])) {
     $stmt->execute();
     if ($stmt) {
         $conn=null;
-        header("Location:../profile.php");
+        header("Location:../profile.php?u=". $_SESSION['user_name']);
         exit;
     }
 
     $conn=null;
-    header("Location:../profile.php");
+    header("Location:../profile.php?u=". $_SESSION['user_name']);
     exit;
 
 }

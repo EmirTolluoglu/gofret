@@ -601,6 +601,103 @@ footer {
 
     &::before {
       content: "";
+    }
+  }
+
+  footer {
+    background-image: url(../img/footer.svg);
+    background-size: 100% auto;
+    color: white;
+
+    .top {
+      background-color: #973b8e;
+      background-size: 100% auto;
+    }
+  }
+
+  .card {
+    background-color: white;
+    width: 100%;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border: 0;
+    border-radius: 1.5rem;
+  }
+
+  #interests {
+    .handle .interest {
+      border-radius: 0.8rem;
+      min-width: 6.2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      margin: 0.2rem;
+
+      p {
+        padding: 0.3rem 1rem;
+      }
+
+      &:nth-child(odd) {
+        background-color: #72dfc2;
+      }
+
+      &:nth-child(even) {
+        background-color: #ec4545;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      // &:last-child {
+      //   margin: 0;
+      //   margin-left: 0.5rem;
+      //   min-width: 0;
+      //   width: 32px;
+      //   aspect-ratio: 1/1;
+      //   border-radius: 50%;
+      //   border: 1px dashed black;
+      //   background-color: #F2F2F2;
+      //   align-items: center;
+      // }
+    }
+
+    i {
+      /* position: relative;
+      left: 30px; */
+      transform: translateY(0.3rem);
+    }
+
+    .handle a:hover {
+      transition-delay: 0.5s;
+      opacity: 0.6;
+      transition: all 0.2s;
+      transition-delay: 0.5s;
+      opacity: 0.6;
+      transition: all 0.2s;
+    }
+  }
+
+  .action {
+    position: relative;
+
+    .profile {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+      }
+    }
+
+    .menu {
       position: absolute;
       top: -5px;
       right: 28px;
