@@ -1,59 +1,88 @@
-<div id="right" class="col">
+<?php
+
+$stmt2 = $conn->prepare("SELECT product_order.product_order_id,
+fp.product_name AS first_product,
+sp.product_name AS second_product,
+fu.user_name AS first_user,
+su.user_name AS second_user,
+fu.user_profile_photo AS first_profile,
+fu.user_level AS first_level,
+fu.user_level AS second_level,
+su.user_profile_photo AS second_profile,
+fp.product_type AS first_statu,
+sp.product_type AS second_statu
+
+FROM product_order
+
+INNER JOIN product AS fp
+	ON product_order.product_first_id = fp.product_id
+    
+INNER JOIN product AS sp
+	ON product_order.product_second_id = sp.product_id
+
+INNER JOIN user AS fu
+	ON fp.user_id = fu.user_id
+    
+INNER JOIN user AS su
+	ON sp.user_id = su.user_id
+    
+WHERE su.user_id = $user_id OR fu.user_id = $user_id");
+$stmt2->execute();
+$orders = $stmt2->fetchAll(PDO::FETCH_ASSOC); ?>
+
+<div id="right" class="col-xl-3 col-lg-3">
     <div id="profile-card" class="badge-handle">
         <div class="side-card rounded-4">
-            <div class="banner" style="background-image: url(<?php echo $_SESSION['user_profile_banner']; ?>)">
-                <img src="<?php echo $_SESSION['user_profile_photo']; ?>" class="mx-auto img2" alt="Profile Photo">
+            <div class="banner" style="background-image: url(<?= $_SESSION['user_profile_banner']; ?>)">
+                <img src="<?= $_SESSION['user_profile_photo']; ?>" class="mx-auto img2" alt="Profile Photo">
             </div>
-            <h5 class="mt-5 name"><?php echo $_SESSION['user_name'];?></h5>
+            <h5 class="mt-5 name"><?= $_SESSION['user_name']; ?></h5>
             <div class="level">
-                <p class="mb-0">lvl.<?php echo $_SESSION['user_level']; ?></p>
+                <p class="mb-0">lvl.<?= $_SESSION['user_level']; ?></p>
                 <div class="progress rounded-5" style="height: 1.2rem;">
-                    <div class="progress-bar" role="progressbar"
-                        style="width: <?php echo $_SESSION['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $_SESSION['user_level_xp']; ?>" aria-valuemin="0"
-                        aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" style="width: <?= $_SESSION['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?= $_SESSION['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <form action="src/level.php" method="POST">
-                            <input type="submit" name="levelU" value="U" class="btn btn-primary btn-sm">
-                            <input type="submit" name="levelD" value="D" class="btn btn-primary btn-sm">
-                            <input type="number" name="quantity" min="0" max="100" class="btn btn-primary btn-sm">
+                    <input type="submit" name="levelU" value="U" class="btn btn-primary btn-sm">
+                    <input type="submit" name="levelD" value="D" class="btn btn-primary btn-sm">
+                    <input type="number" name="quantity" min="0" max="100" class="btn btn-primary btn-sm">
 
-                        </form>
+                </form>
             </div>
             <p class="desc">il muhtarı<br>****<br></p>
             <hr class="mx-auto mb-1">
             <p class="text-center my-0">başarımlar</p>
         </div>
         <div class="badge-container p-2">
-            <?php for ($i=0; $i < $userbadgecount; $i++) { 
-                
+            <?php for ($i = 0; $i < $userbadgecount; $i++) {
+
             ?>
-            <div class="badge"><i class="fa-regular fa-<?php echo $badges[$i]['badge_pic']; ?> fa-2x"></i></div>
+                <div class="badge"><i class="fa-regular fa-<?= $badges[$i]['badge_pic']; ?> fa-2x"></i></div>
             <?php } ?>
         </div>
     </div>
     <div class="current-trades text-center align-items-center g-3 w-100 container">
         <h6 class="text-gofret">Güncel Takaslar</h6>
         <div class="card-back rounded-4 bg-white p-3">
-            <div class="card2">
-                <img src="img/pp1.jpg" alt="burak">
-                <div class="handle ms-2 w-100">
-                    <div class="handle2">
-                        <p>Burak Gümrah</p>
-                        <p class="m-0">lvl.20</p>
+            <?php foreach ($orders as $order) {
+                $finished_user = "first";
+                if ($order['first_user'] == $_SESSION['user_name']) {
+                    $finished_user = "second";
+                }
+            ?>
+                <div class="card2">
+                    <img src="<?= $order[$finished_user . "_profile"] ?>" alt="pp">
+                    <div class="handle ms-2 w-100">
+                        <div class="handle2">
+                            <p><?= $order[$finished_user . "_user"] ?></p>
+                            <p class="m-0">lvl.<?= $order[$finished_user . "_level"] ?></p>
+                        </div>
+                        <div>
+                            <a href="product/<?= $order[$finished_user . "_product"] ?>" style="text-align: left;"><?= $order[$finished_user . "_product"] ?></a>
+                        </div>
                     </div>
-                    <h6 style="text-align: left;">Matematik - Parabol</h6>
                 </div>
-            </div>
-            <div class="card2">
-                <img src="img/pp2.jpg" alt="burak">
-                <div class="handle ms-2 w-100 text-left">
-                    <div class="handle2 align">
-                        <p>Zeynep Erşan :3</p>
-                        <p class="m-0">lvl.28</p>
-                    </div>
-                    <h6 style="text-align: left;">Müzik - Gitar</h6>
-                </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
 </div>

@@ -102,7 +102,67 @@ $productstmt->execute();
 $products = $productstmt->fetchAll(PDO::FETCH_ASSOC);
 $productscount = count($products);
 
-echo $ownProfile;
+
+$stmt2 = $conn->prepare("SELECT product_order.product_order_id,
+fp.product_name AS first_product,
+sp.product_name AS second_product,
+fu.user_name AS first_user,
+su.user_name AS second_user,
+fu.user_profile_photo AS first_profile,
+su.user_profile_photo AS second_profile,
+fp.product_type AS first_statu,
+sp.product_type AS second_statu
+
+FROM product_order
+
+INNER JOIN product AS fp
+	ON product_order.product_first_id = fp.product_id
+    
+INNER JOIN product AS sp
+	ON product_order.product_second_id = sp.product_id
+
+INNER JOIN user AS fu
+	ON fp.user_id = fu.user_id
+    
+INNER JOIN user AS su
+	ON sp.user_id = su.user_id
+    
+WHERE su.user_id = $user_id OR fu.user_id = $user_id");
+$stmt2->execute();
+$guncelTakas = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+
+$stmt3 = $conn->prepare("SELECT product_order.product_order_id, 
+fp.product_name AS first_product,
+sp.product_name AS second_product,
+fu.user_name AS first_user,
+su.user_name AS second_user,
+fu.user_profile_photo AS first_profile,
+su.user_profile_photo AS second_profile,
+fu.user_level AS first_level,
+su.user_level AS second_level,
+fp.product_type AS first_statu,
+sp.product_type AS second_statu,
+product_order.order_status AS order_status
+
+
+FROM product_order
+
+INNER JOIN product AS fp
+	ON product_order.product_first_id = fp.product_id
+    
+INNER JOIN product AS sp
+	ON product_order.product_second_id = sp.product_id
+
+INNER JOIN user AS fu
+	ON fp.user_id = fu.user_id
+    
+INNER JOIN user AS su
+	ON sp.user_id = su.user_id
+    
+WHERE (su.user_id = $user_id OR fu.user_id = $user_id) AND NOT product_order.order_status = 'progress'");
+$stmt3->execute();
+$gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <main>

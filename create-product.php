@@ -53,8 +53,8 @@ $categories = $stmt->fetchAll();
   </header>
 
   <div class="card align-items-center" style="
-          height: 630px;
           margin-top: 62px;
+          margin-bottom: 62px;
           box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.2);
         ">
     <div>
@@ -121,6 +121,10 @@ $categories = $stmt->fetchAll();
               } ?>
             </select>
           </div>
+          <div class="input-group">
+            <input type="text" name="product_name">
+            <textarea name="product_content" id="product_content" cols="30" rows="10"></textarea>
+          </div>
           <div class="drop-handler">
             <select name="teachdrop2" id="teachdrop2">
               <option> </option>
@@ -142,6 +146,7 @@ $categories = $stmt->fetchAll();
           <input type="radio" name="takasnasıl" id="" />
           <p style="font-size: 13px" class="m-0">Kütüphane/cafe vs.</p>
         </div>
+
         <div>
           <div class="d-flex rounded-pill m-0 ps-2 justify-content-center align-items-center" style="
                 width: 100%;
@@ -152,6 +157,8 @@ $categories = $stmt->fetchAll();
             <input type="datetime-local" class="pe-1 ms-1" style="height: 25px; width: 40%; border: none" />
           </div>
         </div>
+
+
       </div>
 
       <div style="width: 100%; justify-content: end; height: fit-content" class="d-flex my-2">

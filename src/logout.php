@@ -6,6 +6,6 @@ if (isset($_SESSION['user_id'])) {
     session_destroy();
 }
 $_SESSION['user_id'] = 1;
-header("Location:../index.php");
+header("Location:../login.php");
 
 ?>
