@@ -3,10 +3,12 @@ include "header.php";
 
 
 if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
-    header("Location:pre-register.php");
+    header("Location:pre-register");
     exit;
 }
 
+$realUser = $_SESSION['user_id'];
+$realUserName = $_SESSION['user_name'];
 if (isset($_GET['u'])) {
     $username = $_GET['u'];
     $guestusersor = $conn->prepare("SELECT user_id FROM user WHERE user_name = '$username'");
@@ -14,7 +16,10 @@ if (isset($_GET['u'])) {
     $guestuser = $guestusersor->fetch(PDO::FETCH_ASSOC);
     $user_id = $guestuser['user_id'];
 }
-
+$ownProfile = false;
+if ($user_id == $realUser) {
+    $ownProfile = true;
+}
 $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$user_id");
 $kullanicisor->execute();
 $user = $kullanicisor->fetch(PDO::FETCH_ASSOC);
@@ -51,24 +56,114 @@ $guestbadgesor->execute();
 $guestbadges = $guestbadgesor->setFetchMode(PDO::FETCH_ASSOC);
 $guestbadges = $guestbadgesor->fetchAll();
 
-$realUser = $_SESSION['user_id'];
-$realUserName = $_SESSION['user_name'];
 $friendler = $conn->prepare("SELECT * FROM user_friend WHERE (friend_first_id = $user_id OR friend_second_id = $user_id) and friend_status = 'friends'");
-$ikimiz = $conn->prepare("SELECT * FROM user_friend WHERE ((friend_first_id = $user_id OR friend_second_id = $user_id) and (friend_first_id = $realUser OR friend_second_id = $realUser)) and friend_status = 'friends'");
 $friendler->execute();
-$ikimiz->execute();
-$ikimizResult= $ikimiz->setFetchMode(PDO::FETCH_ASSOC);
-$ikimizResult= $ikimiz->fetchAll();
-count($ikimizResult);
 $friendlerResult = $friendler->setFetchMode(PDO::FETCH_ASSOC);
 $friendlerResult = $friendler->fetchAll();
 $friendlercount = count($friendlerResult);
+
+$kendiArk = $conn->prepare("SELECT * FROM user_friend WHERE (friend_first_id = $realUser OR friend_second_id = $realUser) and friend_status = 'friends'");
+$kendiArk->execute();
+$kendiArkResult = $kendiArk->setFetchMode(PDO::FETCH_ASSOC);
+$kendiArkResult = $kendiArk->fetchAll();
+
+$ikimizResult = false;
+$ortakArkIdler = array();
+if (!$ownProfile) {
+    foreach ($kendiArkResult as $ortakArk) {
+        foreach ($friendlerResult as $friend) {
+            if ($ortakArk['friend_first_id'] == $realUser) {
+                $bubenolmayan = $ortakArk['friend_second_id'];
+            } else if ($ortakArk['friend_first_id'] != $realUser) {
+                $bubenolmayan = $ortakArk['friend_first_id'];
+            }
+
+            if ($friend['friend_first_id'] == $user_id) {
+                $bubenolmayan2 = $friend['friend_second_id'];
+            } else if ($ortakArk['friend_first_id'] != $user_id) {
+                $bubenolmayan2 = $friend['friend_first_id'];
+            }
+
+            if (($realUser > $user_id && $friend['friend_first_id'] == $realUser && $friend['friend_second_id'] == $user_id) ||
+                ($realUser < $user_id && $friend['friend_second_id'] == $realUser && $friend['friend_first_id'] == $user_id)
+            ) {
+                echo "arklar";
+                $ikimizResult = true;
+            }
+            if ($bubenolmayan == $bubenolmayan2) {
+                array_push($ortakArkIdler, $bubenolmayan2);
+            }
+        }
+    }
+}
+
 
 $productstmt = $conn->prepare("SELECT * FROM product WHERE user_id = $user_id");
 $productstmt->execute();
 $products = $productstmt->fetchAll(PDO::FETCH_ASSOC);
 $productscount = count($products);
 
+
+$stmt2 = $conn->prepare("SELECT product_order.product_order_id,
+fp.product_name AS first_product,
+sp.product_name AS second_product,
+fu.user_name AS first_user,
+su.user_name AS second_user,
+fu.user_profile_photo AS first_profile,
+su.user_profile_photo AS second_profile,
+fp.product_type AS first_statu,
+sp.product_type AS second_statu
+
+FROM product_order
+
+INNER JOIN product AS fp
+	ON product_order.product_first_id = fp.product_id
+    
+INNER JOIN product AS sp
+	ON product_order.product_second_id = sp.product_id
+
+INNER JOIN user AS fu
+	ON fp.user_id = fu.user_id
+    
+INNER JOIN user AS su
+	ON sp.user_id = su.user_id
+    
+WHERE su.user_id = $user_id OR fu.user_id = $user_id");
+$stmt2->execute();
+$guncelTakas = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+
+$stmt3 = $conn->prepare("SELECT product_order.product_order_id, 
+fp.product_name AS first_product,
+sp.product_name AS second_product,
+fu.user_name AS first_user,
+su.user_name AS second_user,
+fu.user_profile_photo AS first_profile,
+su.user_profile_photo AS second_profile,
+fu.user_level AS first_level,
+su.user_level AS second_level,
+fp.product_type AS first_statu,
+sp.product_type AS second_statu,
+product_order.order_status AS order_status
+
+
+FROM product_order
+
+INNER JOIN product AS fp
+	ON product_order.product_first_id = fp.product_id
+    
+INNER JOIN product AS sp
+	ON product_order.product_second_id = sp.product_id
+
+INNER JOIN user AS fu
+	ON fp.user_id = fu.user_id
+    
+INNER JOIN user AS su
+	ON sp.user_id = su.user_id
+    
+WHERE (su.user_id = $user_id OR fu.user_id = $user_id) AND NOT product_order.order_status = 'progress'");
+$stmt3->execute();
+$gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <main>
@@ -86,18 +181,24 @@ $productscount = count($products);
                                     <p class="school gtext-secondary fs-7"><?php echo $user['user_school']; ?><br><?php echo $user['user_city']; ?></p>
                                     <p class="degree text-name"><?php echo $user['user_class']; ?>.sınıf</p>
                                     <form action="src/user_com.php" method="GET" class="position-absolute">
-                                        <?php if ($realUserName == $user['user_name']) { 
-                                            echo "<input type='submit' class='btn btn-primary' value='Kendi Profilini Düzenle' name='edit'>";
+                                        <?php if ($realUserName == $user['user_name']) {
                                         } else { ?>
-                                        <input type="submit" name="friend" <?php if ($ikimizResult){echo "disabled";} ?> value="<?php if ($ikimizResult){echo "ztn";}else {echo $user['user_id'];} ?>" class="btn btn-primary btn-sm">
-                                        <input type="submit" name="follow" value="fol" class="btn btn-primary btn-sm">
-                                        <input type="hidden" name="backurl" value="<?php echo "profile/" . $user['user_name'];?>">
+                                            <input type="submit" name="friend" <?php if ($ikimizResult) {
+                                                                                    echo "disabled";
+                                                                                } ?> value="<?php if ($ikimizResult) {
+                                                                                                echo "ztn";
+                                                                                            } else {
+                                                                                                echo $user['user_id'];
+                                                                                            } ?>" class="btn btn-primary btn-sm">
+                                            <input type="submit" name="follow" value="fol" class="btn btn-primary btn-sm">
+                                            <input type="hidden" name="backurl" value="<?php echo "profile/" . $user['user_name']; ?>">
                                         <?php } ?>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="level d-flex justify-content-end pt-2 me-3">
+
                             <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php echo $user['user_level']; ?></p>
                             <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $user['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $user['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
@@ -105,7 +206,9 @@ $productscount = count($products);
                         </div>
                         <div class="d-flex flex-row justify-content-around mt-4">
                             <div class="p-2 text-name"><a href="profile/<?php echo $user['user_name']; ?>/friends/"><?php echo $friendlercount; ?> arkadaş</a>
-                                <!-- <p class="fs-7 text-name-muted">20 ortak arkadaş</p> -->
+                                <p class="fs-7 text-name-muted"><?php if (!$ownProfile) {
+                                                                    echo count($ortakArkIdler) . " ortak arkadaş";
+                                                                } ?></p>
                             </div>
                             <!-- <div class="p-2 gtext-secondary">57 tamamlanmış takas</div> -->
                             <div class="p-2 gtext-secondary"><a href="profile/<?php echo $user['user_name']; ?>/product/"><?php echo $productscount; ?> takas</a></div>
@@ -140,60 +243,70 @@ $productscount = count($products);
 
 
                 <div id="interests" class="card">
-                    <h6 class="text-name ms-2">İlgi Alanları</h6>
-                    <div class="handle d-flex flex-wrap justify-content-start text-white">
+                    <form action="src/interests.php" method="POST">
+                        <h6 class="text-name ms-2">İlgi Alanları</h6>
+                        <div id="interests-group" class="handle d-flex flex-wrap justify-content-start text-white">
 
-                        <?php for ($i = 0; $i < $user_interests_count; $i++) {
+                            <?php for ($i = 0; $i < $user_interests_count; $i++) {
 
-                        ?>
-                            <div>
-                                <p><?php echo $user_interests_values[$i]['user_interests_value']; ?></p>
-                            </div>
-                        <?php
-                        }
-                        ?>
-
-                        <div>
-
-
-                            <form id="interests_Form" action="src/interests.php" method="POST">
-
-                                <input name="user_interests_value" id="interest_button" class="card" type="text" style="width: 100px; height:auto;">
-
-                                <input onclick="add_new_interests()" type="submit" value="ekle">
-
-                        </div>
-                        </form>
-                        <script>
-                            var interest = document.getElementById("interests_Form");
-
-                            function add_new_interests() {
-                                interest.classList.add("d-none")
-
-
+                            ?>
+                                <div class="interest">
+                                    <p><?php echo $user_interests_values[$i]['user_interests_value']; ?></p>
+                                </div>
+                            <?php
                             }
-                        </script>
+                            ?>
 
-                    </div>
+                            <div>
+
+
+
+                                <div class="d-flex justify-content-between">
+                                    <span>
+                                        <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 422px; position:absolute; margin-bottom:2em; border:0px;">
+                                    </span>
+                                    <span>
+                                        <input type="submit" id="save_interest" name="save_interest" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 222px; position:absolute; margin-bottom:2em; border:0px;">
+                                    </span>
+                                    <span>
+                                        <input type="button" id="add_interest" name="add_interest" value="ekle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 52px; position:absolute; margin-bottom:2em; border:0px;">
+                                    </span>
+
+                                </div>
+                    </form>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script>
+                    var inputcount = 0;
+                    $('#add_interest').click(function() {
+                        inputcount++;
+                        var interest = document.createElement('input');
+                        interest.classList.add('interest');
+                        interest.setAttribute("name", "interest" + inputcount);
+                        $('#interests-group').append(interest);
+                    })
+                </script>
+
+            </div>
+            <p><br><br><br><br><br></p>
+        </div>
+        <div id="trade" class="row">
+            <div class="col" style="height: 100%;">
+                <h5 class="text-name m-0">Güncel Takaslar</h5>
+                <div class="card mt-2">
                     <p><br><br><br><br><br></p>
                 </div>
-                <div id="trade" class="row">
-                    <div class="col" style="height: 100%;">
-                        <h5 class="text-name m-0">Güncel Takaslar</h5>
-                        <div class="card mt-2">
-                            <p><br><br><br><br><br></p>
-                        </div>
-                    </div>
-                    <div class="col" style="height: 100%;">
-                        <h5 class="text-name m-0">Geçmiş Takaslar</h5>
-                        <div class="card mt-2">
-                            <p><br><br><br><br><br></p>
-                        </div>
-                    </div>
+            </div>
+            <div class="col" style="height: 100%;">
+                <h5 class="text-name m-0">Geçmiş Takaslar</h5>
+                <div class="card mt-2">
+                    <p><br><br><br><br><br></p>
                 </div>
             </div>
-            <?php include_once "right-sidebar.php" ?>
         </div>
+    </div>
+    <?php include_once "right-sidebar.php" ?>
+    </div>
     </div>
 
 </main>

@@ -1,74 +1,95 @@
-const profile = document.getElementById("profile-card");
-const right = document.getElementById("right");
-const left = document.getElementById("left");
-const primary = document.getElementById("primary-icons");
-const search_bar = document.getElementById("search-bar");
-const search_focus = document.getElementById("search_input");
-const logo = document.getElementById("head-logo");
-const banner = document.getElementById("banner");
-
-function large(respond) {
-  if (respond.matches) {
-    // If media query matches
-    left.appendChild(profile);
-    left.insertBefore(profile, left.children[0]);
-  } else {
-    right.appendChild(profile);
-    right.insertBefore(profile, right.children[0]);
+window.onresize = function () {
+  if (
+    window.innerWidth <= 575.98 &&
+    document.getElementsByTagName("NAV")[0] == null
+  ) {
+    const template =
+      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index"><i class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="trades"><img src="img/trade.png" alt=""></a><a href="profile/degister"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+    const node = document.createElement("nav");
+    node.setAttribute("id", "mobile-nav");
+    node.innerHTML = template;
+    document.getElementsByTagName("BODY")[0].appendChild(node);
+  } else if (
+    window.innerWidth > 575.98 &&
+    document.getElementsByTagName("NAV")[0] != null
+  ) {
+    const node = document.getElementById("mobile-nav");
+    node.parentNode.removeChild(node);
   }
-}
+};
 
-function small(respond) {
-  if (respond.matches) {
-    // If media query matches
-    logo.src = "img/ico.png";
-    logo.width = "36";
-    logo.height = "36";
-  } else {
-    logo.src = "img/gofret.png";
-    logo.width = "96";
-    logo.height = "36";
+window.onload = function () {
+  if (
+    window.innerWidth <= 575.98 &&
+    document.getElementsByTagName("NAV")[0] == null
+  ) {
+    const template =
+      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index"><i class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="trades"><img src="img/trade.png" alt=""></a><a href="profile/"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+    const node = document.createElement("nav");
+    node.setAttribute("id", "mobile-nav");
+    node.innerHTML = template;
+    document.getElementsByTagName("BODY")[0].appendChild(node);
   }
+  var fadeTarget = document.getElementById("preloader");
+  var fadeEffect = setInterval(function () {
+    if (!fadeTarget.style.opacity) {
+      fadeTarget.style.opacity = 1;
+    }
+    if (fadeTarget.style.opacity > 0) {
+      fadeTarget.style.opacity -= 0.1;
+    } else {
+      clearInterval(fadeEffect);
+      fadeTarget.remove();
+      var element = document.getElementById("pop-up");
+      element.classList.add("open");
+    }
+  }, 50);
+};
+
+function menuToggle() {
+  const toggleMenu = document.querySelector(".menu");
+  toggleMenu.classList.toggle("active");
 }
 
-function helllo() {
-  primary.style.display = "none";
-  search_bar.style.display = "block";
-  search_focus.focus();
-}
+// const profile = document.getElementById("profile-card");
+// const right = document.getElementById("right");
+// const left = document.getElementById("left");
+// const primary = document.getElementById("primary-icons");
+// const search_bar = document.getElementById("search-bar");
+// const search_focus = document.getElementById("search_input");
+// const logo = document.getElementById("head-logo");
+// const banner = document.getElementById("banner");
 
-function focusgg() {
-  primary.style.display = "";
-  search_bar.style.display = "";
-}
+// const template = '<nav id="mobile-nav"><div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index"><i class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="trades"><img src="img/trade.png" alt=""></a><a href="profile/degister"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div></nav>';
 
-function ogren() {
-  banner.src = "img/ogren.png";
-}
-function ogret() {
-  banner.src = "img/ogret.svg";
-}
+//if window is less than 768px then show mobile nav
 
-var password = document.getElementById("password"),
-  confirm_password = document.getElementById("confirm_password");
+// $(document).ready(function () {
+//   alert("Merhaba");
+// $(window).resize(function () {
+//   alert("resize");
+//     if ($(window).width() <= 575) {
+//       $("body").append(template);
+//     }
+//   })
+// });
+// function ogren() {
+//   banner.src = "img/ogren.png";
+// }
+// function ogret() {
+//   banner.src = "img/ogret.svg";
+// }
 
-function validatePassword() {
-  if (password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
-  } else {
-    confirm_password.setCustomValidity("");
-  }
-}
+// var password = document.getElementById("password"),
+//   confirm_password = document.getElementById("confirm_password");
 
+// function validatePassword() {
+//   if (password.value != confirm_password.value) {
+//     confirm_password.setCustomValidity("Passwords Don't Match");
+//   } else {
+//     confirm_password.setCustomValidity("");
+//   }
+// }
 
-
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
-
-const lg = window.matchMedia("(max-width: 991.98px)");
-const sm = window.matchMedia("(max-width: 575.98px)");
-large(lg);
-small(sm);
-lg.addListener(large);
-sm.addListener(small);
+// password.onchange = validatePassword;
+// confirm_password.onkeyup = validatePassword;

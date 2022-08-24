@@ -3,21 +3,8 @@ include_once "header.php";
 
 $productsor = $conn->prepare("SELECT product_name,user_id,product_content FROM product");
 $productsor->execute();
-
-// set the resulting array to associative
 $products = $productsor->setFetchMode(PDO::FETCH_ASSOC);
 $products = $productsor->fetchAll();
-$productcount = count($products);
-
-// function GetAuth($product_user_id)
-// {
-
-
-//     $authsor = $conn->prepare("SELECT user_name,user_level,user_class FROM user where user_id=$product_user_id");
-//     $authsor->execute();
-//     $auth = $authsor->fetch(PDO::FETCH_ASSOC);
-//     return $auth;
-// }
 ?>
 
 <main>
@@ -94,12 +81,14 @@ $productcount = count($products);
                         </label>
                     </div>
                     <div onclick="changeState(this)" id="teach" type="button" class="btn btn-gofret2 m-2">Öğret</div>
-
                 </div>
                 <div id="type-flag" class="learn" style="height: 0.3rem;"></div>
                 <div class="row">
-                    <?php for ($i = 0; $i < $productcount; $i++) {
-                        $authid = $products[$i]['user_id'];
+                    <?php foreach($products as $product){
+                        if(isset($_SESSION['user_id']) && $product['user_id'] == $_SESSION['user_id']){
+                            continue;
+                        }
+                        $authid = $product['user_id'];
                         $authsor = $conn->prepare("SELECT user_name,user_level,user_class,user_profile_photo FROM user where user_id=$authid");
                         $authsor->execute();
                         $auth = $authsor->fetch(PDO::FETCH_ASSOC);
@@ -108,25 +97,25 @@ $productcount = count($products);
                         $authclass = $auth['user_class'];
                         $authprofilephoto = $auth['user_profile_photo'];
                     ?>
-                        <div class="col-4">
+                        <div class="col">
                             <div class="card" style="height: 20rem;">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <img class="profile-photo" src="<?php echo $authprofilephoto; ?>" alt="pp">
+                                    <img class="profile-photo" src="<?= $authprofilephoto; ?>" alt="pp">
                                     <div class="handle me-auto ms-2">
-                                        <h4 class="m-0"><?php echo $products[$i]['product_name']; ?></h6>
+                                        <h4 class="m-0"><?= $product['product_name']; ?></h6>
                                             <p class="m-0">Pilav</p>
                                     </div>
 
                                 </div>
-                                <h5 class="m-0 mt-3 fs-5"><?php echo $authname; ?></h5>
+                                <h5 class="m-0 mt-3 fs-5"><?= $authname; ?></h5>
                                 <div class="d-flex justify-content-start align-items-center mt-1">
-                                    <div class=" pe-3 fw-bold align-self-baseline">lvl. <?php echo $authlevel; ?>
+                                    <div class=" pe-3 fw-bold align-self-baseline">lvl. <?= $authlevel; ?>
                                     </div>
-                                    <p class="align-self-baseline"><?php echo $authclass; ?>.sınıf</p>
+                                    <p class="align-self-baseline"><?= $authclass; ?>.sınıf</p>
                                 </div>
 
-                                <p class="m-0 mb-3"><?php echo $products[$i]['product_content']; ?></p>
-                                <a class="mx-auto mt-auto" href="product/<?php echo $products[$i]['product_name']; ?>">
+                                <p class="m-0 mb-3"><?= $product['product_content']; ?></p>
+                                <a class="mx-auto mt-auto" href="product/<?= $product['product_name']; ?>">
                                     <div class="btn btn-gofret ">Mesaj At</div>
                                 </a>
 

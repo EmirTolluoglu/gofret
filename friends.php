@@ -2,7 +2,7 @@
 include "header.php";
 
 if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
-    header("Location:pre-register.php");
+    header("Location:pre-register");
     exit;
 }
 
@@ -35,15 +35,6 @@ echo $friendscount;
                     <h6 class="text-name ms-2">Arkadaşların</h6>
                     <div class="row">
                         <?php for ($i=0; $i < $friendscount; $i++) { 
-                            if ($friends[$i]['friend_first_id'] == $user_id) {
-                                $friend_id = $friends[$i]['friend_second_id'];
-                            } else {
-                                $friend_id = $friends[$i]['friend_first_id'];
-                            }
-
-                            $friendsuser = $conn->prepare("SELECT * FROM user WHERE user_id = $friend_id");
-                            $friendsuser->execute();
-                            $friendsuserresult = $friendsuser->fetch(PDO::FETCH_ASSOC);
                         ?>
                         <div class="col-4 text-center fw-bold">
                             <img class="img-fluid" src="<?php echo $friendsuserresult['user_profile_photo']; ?>" alt="profile" >

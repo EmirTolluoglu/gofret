@@ -1,15 +1,13 @@
-<?php 
+<?php
 ob_start();
 session_start();
 include 'src/connect.php';
-$_SESSION['user_profile_photo'] = "img/default_photo.jpg";
-$_SESSION['user_profile_banner'] = "img/default_banner.jpg";
-
-if(isset($_SESSION['user_id'])) {
+$user_id = 0;
+if (isset($_SESSION['user_id'])) {
     $userid = $_SESSION['user_id'];
-    $kullanicisor=$conn->prepare("SELECT * FROM user where user_id=$userid");
+    $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$userid");
     $kullanicisor->execute();
-    $user=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+    $user = $kullanicisor->fetch(PDO::FETCH_ASSOC);
     $_SESSION['user_profile_photo'] = $user['user_profile_photo'];
     $_SESSION['user_profile_banner'] = $user['user_profile_banner'];
 
@@ -22,10 +20,12 @@ if(isset($_SESSION['user_id'])) {
     $userbadgecount = count($userbadges);
 
     $badge_id = array();
-    if($userbadgecount >= 3){$userbadgecount = 3;}
-    for ($i=0; $i < $userbadgecount; $i++) { 
+    if ($userbadgecount >= 3) {
+        $userbadgecount = 3;
+    }
+    for ($i = 0; $i < $userbadgecount; $i++) {
         array_push($badge_id, $userbadges[$i]['badge_id']);
-    } 
+    }
     $badgesor = $conn->prepare("SELECT * FROM badge WHERE badge_id = :badge_id1 OR badge_id = :badge_id2 OR badge_id = :badge_id3");
     $badgesor->bindParam(':badge_id1', $badge_id[0]);
     $badgesor->bindParam(':badge_id2', $badge_id[1]);
@@ -57,46 +57,39 @@ if(isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    
-    </style>
-    <header id="mobile-header" style="backdrop-filter: blur(20px);
-     -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);">
-      <div class="container-fluid d-flex justify-content-between align-items-center">
-        <a href="#"><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36" class="" /></a>
-        <div id="search-bar" class="search-bar ms-auto me-2">
-          <i class="fa fa-magnifying-glass"></i>
-          <input onfocusout="focusgg()" id="search_input" type="search"
-            placeholder="Search for creators, inspirations, and projects" />
-        </div>
-        <i class="fa-solid fa-comment-dots text-muted"></i>
-      </div>
-    </header>
+    <div class="load">
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+    </div>
 
-    <nav>
+    <header>
         <div class="container">
             <a href=""><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36"></a>
             <div id="search-bar" class="search-bar">
-                <input onfocusout="focusgg()" id="search_input" type="search" placeholder="Search for creators, inspirations, and projects">
                 <i class="fa fa-magnifying-glass"></i>
+                <input onfocusout="focusgg()" id="search_input" type="search" placeholder="Search for creators, inspirations, and projects">
             </div>
-            <div id="primary-icons" class="primary justify-content-center align-items-center">
-                <a href=""><i class="fa fa-home"></i></a>
-                <a href=""><i class="fa fa-heart"></i></a>
-                <a href=""><i class="fa fa-user"></i></a>
-                <a href=""><i class="fa fa-bell"></i></a>
-                <a href=""><i class="fa fa-comment-dots"></i></a>
-                <button onclick="helllo()" class="search" href=""><i class="fa fa-magnifying-glass"></i></button>
-            </div>
-            <div class="btn btn-gofret">Takas Oluştur</div>
+
+            <a href="create-product.php">
+                <div class="btn btn-gofret <?php if (!$user) {
+                                                echo "btn-gofret-disabled";
+                                            } ?>">
+                    <p>Takas Oluştur</p><i class="fa fa-arrow-right-arrow-left"></i>
+                </div>
+            </a>
             <div class="action">
                 <div class="profile" onclick="menuToggle();">
-                    <img src="<?php echo $_SESSION['user_profile_photo']; ?>" alt="fef" />
+                    <img src="<?= $user_id ? $_SESSION['user_profile_photo'] : "img/default_photo.jpg"; ?>" alt="fef" />
                 </div>
                 <div class="menu">
-                    <h3><?php if(isset($_SESSION['user_id'])) {echo $user['user_name'];} ?><br /><span>İl Muhtarı</span></h3>
+                    <h3><?php if (isset($_SESSION['user_id'])) {
+                            echo $user['user_name'];
+                        } ?><br /><span>İl Muhtarı</span></h3>
                     <ul>
                         <li>
-                            <i class="fa fa-user"></i><a href="profile/<?php echo $_SESSION['user_name']?>">Proflim</a>
+                            <i class="fa fa-user"></i><a href="<?= $user_id ? "profile/" . $_SESSION['user_name'] : "pre-register" ?>">Proflim</a>
                         </li>
                         <li>
                             <i class="fa fa-suitcase"></i><a href="trades">Takaslar</a>
@@ -114,13 +107,33 @@ if(isset($_SESSION['user_id'])) {
                     </ul>
                 </div>
             </div>
-            <script>
-                function menuToggle() {
-                    const toggleMenu = document.querySelector(".menu");
-                    toggleMenu.classList.toggle("active");
-                }
-            </script>
+            <i class="fa-solid fa-comment-dots text-muted"></i>
         </div>
-    </nav>
-    
-</body>    
+    </header>
+    <?php include_once 'preloader.php'; ?>
+    <div class="pop-back">
+    <div id="pop-up" class="pop-up open">
+                <div class="content">
+                    <div class="container">
+                        <div class="dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <span class="close">close</span>
+                        <div class="title">
+                            <h1>Mesajlar</h1>
+                        </div>
+
+                        <img src="img/gofret_vec.webp" alt="Car">
+
+                        <div class="subscribe">
+                            <h1>Gofretin Tadına Bakmak için <span>Giriş Yap</span> :|</h1>
+
+                            <a href="login"><button class="btn btn-gofret me-2 fs-3">Giriş</button></a>
+                            <a href="register"><button class="btn btn-gofret2 fs-3">Kayıt Ol</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>

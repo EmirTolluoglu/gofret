@@ -12,12 +12,12 @@ if (isset($_POST['user_interests_value'])) {
 
     if ($stmt) {
         $conn=null;
-        header("Location:../profile.php");
+        header("Location:../profile.php?u=". $_SESSION['user_name']);
         exit;
     }
 
     $conn=null;
-    header("Location:../profile.php");
+    header("Location:../profile.php?u=". $_SESSION['user_name']);
     exit;
 
 }
