@@ -51,10 +51,10 @@ function menuToggle() {
   toggleMenu.classList.toggle("active");
 }2
 
-function closePopUpMenu() {
-  var element = document.getElementById("pop-up");
-  element.classList.remove("open");
-}
+// function closePopUpMenu() {
+//   var element = document.getElementById("pop-up");
+//   element.classList.remove("open");
+// }
 
 
 // const profile = document.getElementById("profile-card");

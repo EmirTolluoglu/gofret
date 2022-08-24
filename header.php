@@ -3,7 +3,6 @@ ob_start();
 session_start();
 include 'src/connect.php';
 $user_id = 0;
-
 $mobil = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up.browser|up.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 if (isset($_SESSION['user_id'])) {
     $userid = $_SESSION['user_id'];
