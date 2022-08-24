@@ -1,5 +1,5 @@
 <?php include 'header.php'; 
-if($mobil) {header('Location: trades');}
+if(!$mobil) {header('Location: trades');}
 ?>
 
     <main id="m-trade">
