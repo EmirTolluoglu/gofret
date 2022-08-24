@@ -112,8 +112,8 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </header>
     <?php include_once 'preloader.php'; ?>
-    <div class="pop-back open" id="pop-up">
-    <div class="pop-up ">
+    <div class="pop-back" >
+    <div class="pop-up" id="pop-up">
                 <div class="content">
                     <div class="container">
                         <div class="dots">

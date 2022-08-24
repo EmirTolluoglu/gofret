@@ -2,6 +2,7 @@
 $user_id = 0;
 $orders = [];
 $finished_orders = [];
+if(!$mobil) {header('Location: trades');}
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $stmt = $conn->prepare("SELECT product_request.product_request_id,
