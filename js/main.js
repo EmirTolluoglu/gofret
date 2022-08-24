@@ -49,7 +49,13 @@ window.onload = function () {
 function menuToggle() {
   const toggleMenu = document.querySelector(".menu");
   toggleMenu.classList.toggle("active");
+}2
+
+function closePopUpMenu() {
+  var element = document.getElementById("pop-up");
+  element.classList.remove("open");
 }
+
 
 // const profile = document.getElementById("profile-card");
 // const right = document.getElementById("right");

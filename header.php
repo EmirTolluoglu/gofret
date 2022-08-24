@@ -3,6 +3,8 @@ ob_start();
 session_start();
 include 'src/connect.php';
 $user_id = 0;
+
+$mobil = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up.browser|up.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 if (isset($_SESSION['user_id'])) {
     $userid = $_SESSION['user_id'];
     $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$userid");
@@ -111,8 +113,8 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </header>
     <?php include_once 'preloader.php'; ?>
-    <div class="pop-back">
-    <div id="pop-up" class="pop-up open">
+    <div class="pop-back open" id="pop-up">
+    <div class="pop-up ">
                 <div class="content">
                     <div class="container">
                         <div class="dots">
@@ -120,7 +122,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class="dot"></div>
                             <div class="dot"></div>
                         </div>
-                        <span class="close">close</span>
+                        <span class="close" onclick="closePopUpMenu()">close</span>
                         <div class="title">
                             <h1>Mesajlar</h1>
                         </div>

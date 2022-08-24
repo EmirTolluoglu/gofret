@@ -1,59 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="img/ico.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/all.min.css" />
-    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Gofret | Trades</title>
-  </head>
-
-  <body>
-    <header id="mobile-header">
-      <div
-        class="container-fluid d-flex justify-content-between align-items-center"
-      >
-        <a href=""
-          ><img
-            id="head-logo"
-            src="img/gofret.png"
-            alt="Gofret"
-            width="96"
-            height="36"
-            class=""
-        /></a>
-        <div id="search-bar" class="search-bar ms-auto me-2">
-          <i class="fa fa-magnifying-glass"></i>
-          <input
-            onfocusout="focusgg()"
-            id="search_input"
-            type="search"
-            placeholder="Search for creators, inspirations, and projects"
-          />
-        </div>
-        <i class="fa-solid fa-comment-dots text-muted"></i>
-      </div>
-    </header>
-
-    <nav id="mobile-nav">
-      <div class="container">
-        <div class="d-flex justify-content-around py-3 w-100">
-          <a href=""><i class="fa fa-home text-secondary fa-lg"></i></a>
-          <a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a>
-          <a href=""><img src="img/trade.png" alt="" /></a>
-          <a href=""><i class="fa fa-user text-secondary fa-lg"></i></a>
-          <a href=""><i class="fa fa-bell text-secondary fa-lg"></i></a>
-        </div>
-      </div>
-    </nav>
+<?php include 'header.php'; 
+if($mobil) {header('Location: trades');}
+?>
 
     <main id="m-trade">
       <div class="container mb-5 p-1">

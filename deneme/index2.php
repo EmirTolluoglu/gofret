@@ -1,9 +1,19 @@
-<?php 
-$user = $_POST['email'];
+<?php
+
+
+function mobilmi()
+{
+    //Sunucuya tarayıcıdan gelen istek doğrultusunda ziyaretçinin cihaz bilgileri iletilir, 
+    //preg_match methodu ile bu terimlerin olup olmadığı kontrol edilir.
+    //return ile döndürülür.
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up.browser|up.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +21,12 @@ $user = $_POST['email'];
     <title>Document</title>
 
 </head>
-<body>
-    <?php
-    echo $user;
-    ?>
 
+<body>
+    <script>
+        document.cookie = 'sandwich=turkey;';
+    </script>
+    <?php echo $_COOKIE['sandwich']; ?>
 </body>
+
 </html>
