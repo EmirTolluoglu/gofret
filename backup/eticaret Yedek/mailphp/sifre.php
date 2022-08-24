@@ -109,7 +109,7 @@ echo "Mesaj Gönderildi";
 
 
 ?>
-<meta http-equiv="refresh" content="0;URL=../login.php">
+<meta http-equiv="refresh" content="0;URL=../login">
 <?php
 }
 

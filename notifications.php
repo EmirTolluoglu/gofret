@@ -1,9 +1,10 @@
 <?php
 include_once "header.php";
-
-$stmt = $conn->prepare("SELECT *,CURRENT_TIMESTAMP() AS today FROM notification WHERE user_id =" . $_SESSION['user_id'] . " ORDER BY notification_date DESC");
-$stmt->execute();
-$notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if ($user_id) {
+    $stmt = $conn->prepare("SELECT *,CURRENT_TIMESTAMP() AS today FROM notification WHERE user_id =" . $_SESSION['user_id'] . " ORDER BY notification_date DESC");
+    $stmt->execute();
+    $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 
 <main>
@@ -28,6 +29,7 @@ $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php include_once "left-sidebar.php" ?>
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-6 col-md-8">
                 <div class="card flex-column" id="notifications">
+                    <?php if($user_id) {?>
                     <h6>Yakın Zaman</h6>
 
                     <?php $yeni = 0;
@@ -86,7 +88,7 @@ $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </a>
 
-                    <?php } ?>
+                    <?php }}else{ echo "<br><br><br><p class='text-center m-0'>Mesajlarını Görmen İçin Giriş Yap</p><br><br><br>"; } ?>
                 </div>
             </div>
             <?php include_once "right-sidebar.php" ?>

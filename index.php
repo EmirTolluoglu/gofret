@@ -3,20 +3,8 @@ include_once "header.php";
 
 $productsor = $conn->prepare("SELECT product_name,user_id,product_content FROM product");
 $productsor->execute();
-
-// set the resulting array to associative
 $products = $productsor->setFetchMode(PDO::FETCH_ASSOC);
 $products = $productsor->fetchAll();
-
-// function GetAuth($product_user_id)
-// {
-
-
-//     $authsor = $conn->prepare("SELECT user_name,user_level,user_class FROM user where user_id=$product_user_id");
-//     $authsor->execute();
-//     $auth = $authsor->fetch(PDO::FETCH_ASSOC);
-//     return $auth;
-// }
 ?>
 
 <main>
@@ -93,7 +81,7 @@ $products = $productsor->fetchAll();
                 <div id="type-flag" class="learn" style="height: 0.3rem;"></div>
                 <div class="row">
                     <?php foreach($products as $product){
-                        if($product['user_id'] == $_SESSION['user_id']){
+                        if(isset($_SESSION['user_id']) && $product['user_id'] == $_SESSION['user_id']){
                             continue;
                         }
                         $authid = $product['user_id'];

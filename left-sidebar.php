@@ -1,84 +1,97 @@
 <?php
 require_once 'src/connect.php';
 
-$user_id = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT product_request.product_request_id,
-product_request.requested_product_id AS requested_product_id,
-product_requested.product_name AS requested_product,
-product_requested.product_type AS requested_product_type,
-product_requester.product_name AS requester_product, 
-product_requester.product_id AS requester_product_id, 
-product_requester.product_type AS requester_product_type,
-user_requester.user_name AS requester_username, 
-user_requester.user_profile_photo AS requester_user_profile,
-user_requester.user_level AS requester_level 
+$requestler = [];
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT product_request.product_request_id,
+    product_request.requested_product_id AS requested_product_id,
+    product_requested.product_name AS requested_product,
+    product_requested.product_type AS requested_product_type,
+    product_requester.product_name AS requester_product, 
+    product_requester.product_id AS requester_product_id, 
+    product_requester.product_type AS requester_product_type,
+    user_requester.user_name AS requester_username, 
+    user_requester.user_profile_photo AS requester_user_profile,
+    user_requester.user_level AS requester_level 
 
-FROM product_request 
+    FROM product_request 
 
-INNER JOIN product AS product_requested 
-	ON product_request.requested_product_id=product_requested.product_id 
-    
-INNER JOIN product AS product_requester 
-	ON product_request.product_id=product_requester.product_id 
+    INNER JOIN product AS product_requested 
+        ON product_request.requested_product_id=product_requested.product_id 
+        
+    INNER JOIN product AS product_requester 
+        ON product_request.product_id=product_requester.product_id 
 
-INNER JOIN user AS user_requested
-	ON product_requested.user_id=user_requested.user_id 
-    
-INNER JOIN user AS user_requester 
-	ON product_requester.user_id=user_requester.user_id 
+    INNER JOIN user AS user_requested
+        ON product_requested.user_id=user_requested.user_id 
+        
+    INNER JOIN user AS user_requester 
+        ON product_requester.user_id=user_requester.user_id 
 
-WHERE user_requested.user_id = $user_id AND product_request.product_request_statu = 0
-ORDER BY product_request.product_request_time ASC");
+    WHERE user_requested.user_id = $user_id AND product_request.product_request_statu = 0
+    ORDER BY product_request.product_request_time ASC");
 
-$stmt->execute();
-$requestler = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->execute();
+    $requestler = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt5 = $conn->prepare("SELECT COUNT(notification_id) AS not_count FROM notification WHERE user_id =" . $_SESSION['user_id'] . " AND is_readed = 0");
-$stmt5->execute();
-$onlyNot = $stmt5->fetch(PDO::FETCH_ASSOC);
+    $stmt5 = $conn->prepare("SELECT COUNT(notification_id) AS not_count FROM notification WHERE user_id =" . $_SESSION['user_id'] . " AND is_readed = 0");
+    $stmt5->execute();
+    $onlyNot = $stmt5->fetch(PDO::FETCH_ASSOC);
 
-$stmt6 = $conn->prepare("SELECT COUNT(message_id) AS mes_count FROM message WHERE to_user_id =".$_SESSION['user_id']." AND is_readed = 0");
-$stmt6->execute();
-$onlyMes = $stmt6->fetch(PDO::FETCH_ASSOC);
+    $stmt6 = $conn->prepare("SELECT COUNT(message_id) AS mes_count FROM message WHERE to_user_id =" . $_SESSION['user_id'] . " AND is_readed = 0");
+    $stmt6->execute();
+    $onlyMes = $stmt6->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 
 <div id="left" class="col-xl-3 col-lg-3 col-md-4">
     <div class="mission text-center align-items-center g-3 w-100 container">
         <h5 class="text-gofret">Görevler</h5>
         <div class="reco-mission rounded-4 bg-white p-1">
-            <h5 class="m-0">20 öğrenciyle tanış</h5>
-            <div class="progress my-3 mx-auto rounded-5" style="height: 20px;">
-                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <p class="mb-0">kalan 2</p>
+            <?php if ($user_id) { ?>
+                <h5 class="m-0">20 öğrenciyle tanış</h5>
+                <div class="progress my-3 mx-auto rounded-5" style="height: 20px;">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="mb-0">kalan 2</p>
+            <?php }else { echo "<br/><br/><p>Heyy! Hala Giriş Yapmadın mı?</p><br/><br/>"; } ?>
         </div>
 
     </div>
 
     <aside class="bg-white mt-4 rounded-4">
         <ul>
-            <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "index" or basename($_SERVER['REQUEST_URI'], ".php") == "profile") {
+            <li class="<?php if (basename($_SERVER['REQUEST_URI']) == "gofret" || basename($_SERVER['REQUEST_URI'], ".php") == "profile") {
                             echo "active";
-                        } ?>"><a href="index.php"><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
+                        } ?>"><a href="./"><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
             <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "discover") {
                             echo "active";
-                        } ?>"><a href="discover.php"><i class="fa fa-heart"></i><span>Keşfet</span></a></li>
+                        } ?>"><a href="discover"><i class="fa fa-heart"></i><span>Keşfet</span></a></li>
             <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "trades") {
                             echo "active";
-                        } ?>"><a href="trades.php"><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
+                        } ?>"><a href="trades"><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
             <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "notifications") {
                             echo "active";
-                        } ?>"><a href="notifications.php"><i class="fa fa-bell"></i><span>Bildirimler</span>
-                    <div class="mx-auto">
-                        <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?= $onlyNot['not_count'] ?></span></div>
-                    </div>
+                        } ?>"><a href="notifications"><i class="fa fa-bell"></i><span>Bildirimler</span>
+                    <?php if (isset($_SESSION['user_id'])) { ?>
+                        <div class="mx-auto">
+                            <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?= $onlyNot['not_count'] ?></span></div>
+                        </div>
+                    <?php } ?>
                 </a></li>
             <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "message") {
                             echo "active";
-                        } ?>"><a href="message.php?u=38"><i class="fa fa-comment-dots"></i><span>Mesajlar</span>
-                    <div class="mx-auto">
-                        <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?php if($onlyMes['mes_count'] > 9) {echo "9+"; } else{ echo $onlyMes['mes_count']; } ?></span></div>
-                    </div>
+                        } ?>"><a href="message"><i class="fa fa-comment-dots"></i><span>Mesajlar</span>
+                    <?php if (isset($_SESSION['user_id'])) { ?>
+                        <div class="mx-auto">
+                            <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?php if ($onlyMes['mes_count'] > 9) {
+                                                                                                                                                                                                                echo "9+";
+                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                echo $onlyMes['mes_count'];
+                                                                                                                                                                                                            } ?></span></div>
+                        </div>
+                    <?php } ?>
                 </a></li>
         </ul>
     </aside>
@@ -88,23 +101,24 @@ $onlyMes = $stmt6->fetch(PDO::FETCH_ASSOC);
         <div class="card2 rounded-3 bg-white p-3 d-block" id="left-request">
             <?php if (count($requestler) == 0) {
                 echo "<p>Burda Neden Hiçbirşey Yok Ki :(</p>";
-            }
-            foreach ($requestler as $request) {
-                $ogren = $request['requested_product_id'];
-                $ogret = $request['requester_product_id'];
-                $ogrenName = $request['requested_product'];
-                $ogretName = $request['requester_product'];
-                if ($request['requested_product_type'] == "teach") {
-                    $ogret = $request['requested_product_id'];
-                    $ogren = $request['requester_product_id'];
-                    $ogrenName = $request['requester_product'];
-                    $ogretName = $request['requested_product'];
-                }
+            } else {
+                foreach ($requestler as $request) {
+                    $ogren = $request['requested_product_id'];
+                    $ogret = $request['requester_product_id'];
+                    $ogrenName = $request['requested_product'];
+                    $ogretName = $request['requester_product'];
+                    if ($request['requested_product_type'] == "teach") {
+                        $ogret = $request['requested_product_id'];
+                        $ogren = $request['requester_product_id'];
+                        $ogrenName = $request['requester_product'];
+                        $ogretName = $request['requested_product'];
+                    }
 
-                $finished_user = "requester";
-                if ($request['requester_username'] == $_SESSION['user_name']) {
-                    $finished_user = "requested";
-                }
+                    $finished_user = "requester";
+                    if ($request['requester_username'] == $_SESSION['user_name']) {
+                        $finished_user = "requested";
+                    }
+                
             ?>
                 <div class="content row mb-3">
                     <div class="col-5 pe-0">
@@ -130,13 +144,14 @@ $onlyMes = $stmt6->fetch(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php }} ?>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script>
         //jquery document ready
         $(document).ready(function() {
+            if(!<?= $user_id ?>)
             $(".requestbtn-mini").click(function() {
                 var requester_id = $(this).parent().attr("data-product-id");
                 var requested_id = $(this).parent().attr("data-requested-id");

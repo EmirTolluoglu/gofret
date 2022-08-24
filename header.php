@@ -2,9 +2,7 @@
 ob_start();
 session_start();
 include 'src/connect.php';
-$_SESSION['user_profile_photo'] = "img/default_photo.jpg";
-$_SESSION['user_profile_banner'] = "img/default_banner.jpg";
-
+$user_id = 0;
 if (isset($_SESSION['user_id'])) {
     $userid = $_SESSION['user_id'];
     $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$userid");
@@ -59,23 +57,31 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
+    <div class="load">
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+    </div>
+
     <header>
         <div class="container">
             <a href=""><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36"></a>
             <div id="search-bar" class="search-bar">
                 <i class="fa fa-magnifying-glass"></i>
                 <input onfocusout="focusgg()" id="search_input" type="search" placeholder="Search for creators, inspirations, and projects">
-
             </div>
 
             <a href="create-product.php">
-                <div class="btn btn-gofret">
+                <div class="btn btn-gofret <?php if (!$user) {
+                                                echo "btn-gofret-disabled";
+                                            } ?>">
                     <p>Takas Oluştur</p><i class="fa fa-arrow-right-arrow-left"></i>
                 </div>
             </a>
             <div class="action">
                 <div class="profile" onclick="menuToggle();">
-                    <img src="<?php echo $_SESSION['user_profile_photo']; ?>" alt="fef" />
+                    <img src="<?= $user_id ? $_SESSION['user_profile_photo'] : "img/default_photo.jpg"; ?>" alt="fef" />
                 </div>
                 <div class="menu">
                     <h3><?php if (isset($_SESSION['user_id'])) {
@@ -83,7 +89,7 @@ if (isset($_SESSION['user_id'])) {
                         } ?><br /><span>İl Muhtarı</span></h3>
                     <ul>
                         <li>
-                            <i class="fa fa-user"></i><a href="profile/<?php echo $_SESSION['user_name'] ?>">Proflim</a>
+                            <i class="fa fa-user"></i><a href="<?= $user_id ? "profile/" . $_SESSION['user_name'] : "pre-register" ?>">Proflim</a>
                         </li>
                         <li>
                             <i class="fa fa-suitcase"></i><a href="trades">Takaslar</a>
@@ -104,3 +110,31 @@ if (isset($_SESSION['user_id'])) {
             <i class="fa-solid fa-comment-dots text-muted"></i>
         </div>
     </header>
+    <?php include_once 'preloader.php'; ?>
+    <div class="pop-back">
+    <div id="pop-up" class="pop-up open">
+                <div class="content">
+                    <div class="container">
+                        <div class="dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <span class="close">close</span>
+                        <div class="title">
+                            <h1>Mesajlar</h1>
+                        </div>
+
+                        <img src="img/gofret_vec.webp" alt="Car">
+
+                        <div class="subscribe">
+                            <h1>Gofretin Tadına Bakmak için <span>Giriş Yap</span> :|</h1>
+
+                            <a href="login"><button class="btn btn-gofret me-2 fs-3">Giriş</button></a>
+                            <a href="register"><button class="btn btn-gofret2 fs-3">Kayıt Ol</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    

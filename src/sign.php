@@ -36,7 +36,7 @@ $stmt->execute();
 
 if ($stmt) {
 
-    Header("Location:../login.php");
+    Header("Location:../login");
     exit;
 
 } else {
@@ -75,11 +75,11 @@ if (isset($_POST['login'])) {
         Header("Location:../index.php");
         exit;
     } else {
-        Header("Location:../login.php");
+        Header("Location:../login");
         exit;
     }
   } else {
-    Header("Location:../login.php");
+    Header("Location:../login");
     exit;
   }
 }

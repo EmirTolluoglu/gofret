@@ -328,7 +328,7 @@ if (isset($_POST['admingiris'])) {
 
 	} else {
 
-		header("Location:../production/login.php?durum=no");
+		header("Location:../production/login?durum=no");
 		exit;
 	}
 	

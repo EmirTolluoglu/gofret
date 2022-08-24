@@ -73,7 +73,7 @@
                       <a style="color: rgb(153, 35, 131);" class="text-decoration-none" href="register.php">Kayıt Ol</a>
                     </div>
                     <div class="btn login mt-3 fs-5-5 fw-bold">
-                      <a style="color: rgb(62, 186, 162);" class="text-decoration-none" href="login.php">Giriş Yap</a>
+                      <a style="color: rgb(62, 186, 162);" class="text-decoration-none" href="login">Giriş Yap</a>
                     </div>
                     <img src="img/gofret.png" alt="logo" />
             </div>

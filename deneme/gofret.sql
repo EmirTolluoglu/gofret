@@ -1,3 +1,5 @@
+
+
 CREATE TABLE `badge` (
   `badge_id` int(11) NOT NULL AUTO_INCREMENT,
   `badge_name` varchar(32) NOT NULL,
@@ -13,6 +15,8 @@ INSERT INTO badge VALUES("1","Kayıt Ol","Kayıt Ol","20","1","0ff","compass");
 INSERT INTO badge VALUES("2","deneme","Kayıt Ol","20","1","0ff","atom");
 INSERT INTO badge VALUES("3","deneme2","Kayıt Ol","20","1","0f5","compass");
 INSERT INTO badge VALUES("4","deneme2","Kayıt Ol","20","1","091e5c","angry");
+
+
 
 
 CREATE TABLE `category` (
@@ -34,6 +38,7 @@ INSERT INTO category VALUES("9","Oyun Geliştirme","7");
 INSERT INTO category VALUES("10","Uygulama Geliştirme","7");
 INSERT INTO category VALUES("11","Diğer","0");
 INSERT INTO category VALUES("12","Tasarım","0");
+
 
 
 CREATE TABLE `message` (
@@ -74,6 +79,7 @@ INSERT INTO message VALUES("30","38","32","0","2022-08-19 03:54:58","0","lan","0
 INSERT INTO message VALUES("31","38","38","0","2022-08-19 04:48:07","0","hyyyy","0");
 INSERT INTO message VALUES("32","38","32","0","2022-08-19 14:01:42","0","yiğit naber","0");
 INSERT INTO message VALUES("33","38","38","0","2022-08-20 13:02:57","0","fafadawfaw","0");
+
 
 
 CREATE TABLE `notification` (
@@ -149,6 +155,7 @@ INSERT INTO product_order VALUES("14","9","11","2022-08-20 16:12:49","0","progre
 INSERT INTO product_order VALUES("15","12","12","2022-08-20 18:56:03","0","progress","","");
 
 
+
 CREATE TABLE `product_request` (
   `product_request_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -195,8 +202,6 @@ INSERT INTO user VALUES("32","yigit_dikkulak","yigitdikkulak@gmail.com","$2y$10$
 INSERT INTO user VALUES("34","zeynep_ersen","zeynep@gmail.com","$2y$10$IL3CSZdqnNYrSS92oISzhu7QrJNH3ub8Y8kEZMdlj1P37ei9lTaSe","Merhaba benim adım Zeynep Erşen.","","Türkiye/İstanbul","Haydarpaşa Lisesi","12","6","34","img/default.jpg","img/default_banner.jpg","2022-08-14 16:25:36","0","2022-08-11 10:03:17");
 INSERT INTO user VALUES("38","emir_tolluoglu","emirtolluoglu@gmail.com","$2y$10$oUhTQey/LOSuGI7q1f.kPuuP.uJ6/l9K/fFTqTIlY.u0s.2zsCQb.","Merhaba benim adım Emir Tolluoğlu.","","Türkiye/İstanbul","Haydarpaşa Lisesi","10","5","77","img/profile.jpg","img/default_banner.jpg","2022-08-14 16:25:36","0","2022-08-12 01:35:57");
 INSERT INTO user VALUES("45","huseyin_korkmaz","huso.korkmaz57@gmail.com","$2y$10$QTnPnI33jrnxRXDtlA8dYeek6hLTlkasZkM.k4dcP4.xSeuHVu3oO","Merhaba benim adım Hüseyin Korkmaz.","","Türkiye/İstanbul","Haydarpaşa Lisesi","12","1","86","img/default.jpg","img/default_banner.jpg","2022-08-14 16:25:36","0","2022-08-11 11:20:22");
-
-
 
 
 CREATE TABLE `user_badge` (

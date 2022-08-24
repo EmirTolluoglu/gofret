@@ -1,96 +1,100 @@
 <?php include_once "header.php";
+$user_id = 0;
+$orders = [];
+$finished_orders = [];
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT product_request.product_request_id,
+    product_request.requested_product_id AS requested_product_id,
+    product_requested.product_name AS requested_product,
+    product_requested.product_type AS requested_product_type,
+    product_requester.product_name AS requester_product, 
+    product_requester.product_id AS requester_product_id, 
+    product_requester.product_type AS requester_product_type,
+    user_requester.user_name AS requester_username, 
+    user_requester.user_profile_photo AS requester_user_profile_photo,
+    user_requester.user_level AS requester_level 
 
-$user_id = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT product_request.product_request_id,
-product_request.requested_product_id AS requested_product_id,
-product_requested.product_name AS requested_product,
-product_requested.product_type AS requested_product_type,
-product_requester.product_name AS requester_product, 
-product_requester.product_id AS requester_product_id, 
-product_requester.product_type AS requester_product_type,
-user_requester.user_name AS requester_username, 
-user_requester.user_profile_photo AS requester_user_profile_photo,
-user_requester.user_level AS requester_level 
+    FROM product_request 
 
-FROM product_request 
+    INNER JOIN product AS product_requested 
+        ON product_request.requested_product_id=product_requested.product_id 
+        
+    INNER JOIN product AS product_requester 
+        ON product_request.product_id=product_requester.product_id 
 
-INNER JOIN product AS product_requested 
-	ON product_request.requested_product_id=product_requested.product_id 
-    
-INNER JOIN product AS product_requester 
-	ON product_request.product_id=product_requester.product_id 
+    INNER JOIN user AS user_requested
+        ON product_requested.user_id=user_requested.user_id 
+        
+    INNER JOIN user AS user_requester 
+        ON product_requester.user_id=user_requester.user_id 
 
-INNER JOIN user AS user_requested
-	ON product_requested.user_id=user_requested.user_id 
-    
-INNER JOIN user AS user_requester 
-	ON product_requester.user_id=user_requester.user_id 
+    WHERE user_requested.user_id = $user_id AND product_request.product_request_statu = 0
+    ORDER BY product_request.product_request_time ASC");
+    $stmt->execute();
+    $requests2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-WHERE user_requested.user_id = $user_id AND product_request.product_request_statu = 0
-ORDER BY product_request.product_request_time ASC");
-$stmt->execute();
-$requests2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt2 = $conn->prepare("SELECT product_order.product_order_id,
+    fp.product_name AS first_product,
+    sp.product_name AS second_product,
+    fu.user_name AS first_user,
+    su.user_name AS second_user,
+    fu.user_profile_photo AS first_profile,
+    su.user_profile_photo AS second_profile,
+    fp.product_type AS first_statu,
+    sp.product_type AS second_statu
 
-$stmt2 = $conn->prepare("SELECT product_order.product_order_id,
-fp.product_name AS first_product,
-sp.product_name AS second_product,
-fu.user_name AS first_user,
-su.user_name AS second_user,
-fu.user_profile_photo AS first_profile,
-su.user_profile_photo AS second_profile,
-fp.product_type AS first_statu,
-sp.product_type AS second_statu
+    FROM product_order
 
-FROM product_order
+    INNER JOIN product AS fp
+        ON product_order.product_first_id = fp.product_id
+        
+    INNER JOIN product AS sp
+        ON product_order.product_second_id = sp.product_id
 
-INNER JOIN product AS fp
-	ON product_order.product_first_id = fp.product_id
-    
-INNER JOIN product AS sp
-	ON product_order.product_second_id = sp.product_id
-
-INNER JOIN user AS fu
-	ON fp.user_id = fu.user_id
-    
-INNER JOIN user AS su
-	ON sp.user_id = su.user_id
-    
-WHERE su.user_id = $user_id OR fu.user_id = $user_id");
-$stmt2->execute();
-$orders = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-
-$stmt3 = $conn->prepare("SELECT product_order.product_order_id, 
-fp.product_name AS first_product,
-sp.product_name AS second_product,
-fu.user_name AS first_user,
-su.user_name AS second_user,
-fu.user_profile_photo AS first_profile,
-su.user_profile_photo AS second_profile,
-fu.user_level AS first_level,
-su.user_level AS second_level,
-fp.product_type AS first_statu,
-sp.product_type AS second_statu,
-product_order.order_status AS order_status
+    INNER JOIN user AS fu
+        ON fp.user_id = fu.user_id
+        
+    INNER JOIN user AS su
+        ON sp.user_id = su.user_id
+        
+    WHERE su.user_id = $user_id OR fu.user_id = $user_id");
+    $stmt2->execute();
+    $orders = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
 
-FROM product_order
+    $stmt3 = $conn->prepare("SELECT product_order.product_order_id, 
+    fp.product_name AS first_product,
+    sp.product_name AS second_product,
+    fu.user_name AS first_user,
+    su.user_name AS second_user,
+    fu.user_profile_photo AS first_profile,
+    su.user_profile_photo AS second_profile,
+    fu.user_level AS first_level,
+    su.user_level AS second_level,
+    fp.product_type AS first_statu,
+    sp.product_type AS second_statu,
+    product_order.order_status AS order_status
 
-INNER JOIN product AS fp
-	ON product_order.product_first_id = fp.product_id
-    
-INNER JOIN product AS sp
-	ON product_order.product_second_id = sp.product_id
 
-INNER JOIN user AS fu
-	ON fp.user_id = fu.user_id
-    
-INNER JOIN user AS su
-	ON sp.user_id = su.user_id
-    
-WHERE (su.user_id = $user_id OR fu.user_id = $user_id) AND NOT product_order.order_status = 'progress'");
-$stmt3->execute();
-$finished_orders = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+    FROM product_order
+
+    INNER JOIN product AS fp
+        ON product_order.product_first_id = fp.product_id
+        
+    INNER JOIN product AS sp
+        ON product_order.product_second_id = sp.product_id
+
+    INNER JOIN user AS fu
+        ON fp.user_id = fu.user_id
+        
+    INNER JOIN user AS su
+        ON sp.user_id = su.user_id
+        
+    WHERE (su.user_id = $user_id OR fu.user_id = $user_id) AND NOT product_order.order_status = 'progress'");
+    $stmt3->execute();
+    $finished_orders = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 
 <main>
@@ -100,66 +104,67 @@ $finished_orders = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-6 col-md-8">
                 <div id="trade-requests" class="mb-5">
                     <a>Takas İstekleri (2) <i class="fa fa-caret-down"></i></a>
-                    <?php if (count($requests2) == 0) {
+                    <?php if (count($requestler) == 0) {
                         echo '<div class="text-center" style="height: 75px;"><p class="my-5 fs-5">Hala Takasların Yok mu?? :(</p></div>';
-                    }
-                    foreach ($requests2 as $request) {
+                    } else {
+                        foreach ($requests2 as $request) {
 
-                        $ogren = $request['requested_product_id'];
-                        $ogret = $request['requester_product_id'];
-                        $ogrenName = $request['requested_product'];
-                        $ogretName = $request['requester_product'];
-                        $benogretiyorum = false;
-                        if ($request['requested_product_type'] == "teach") {
-                            $ogret = $request['requested_product_id'];
-                            $ogren = $request['requester_product_id'];
-                            $ogrenName = $request['requester_product'];
-                            $ogretName = $request['requested_product'];
-                            $benogretiyorum = true;
-                        }
+                            $ogren = $request['requested_product_id'];
+                            $ogret = $request['requester_product_id'];
+                            $ogrenName = $request['requested_product'];
+                            $ogretName = $request['requester_product'];
+                            $benogretiyorum = false;
+                            if ($request['requested_product_type'] == "teach") {
+                                $ogret = $request['requested_product_id'];
+                                $ogren = $request['requester_product_id'];
+                                $ogrenName = $request['requester_product'];
+                                $ogretName = $request['requested_product'];
+                                $benogretiyorum = true;
+                            }
 
                     ?>
-                        <div class="handle" data-request-id="<?= $request['product_request_id'] ?>">
-                            <div class="card my-0">
-                                <div class="d-flex align-items-center">
-                                    <img src="<?= $request['requester_user_profile_photo'] ?>" alt="PP" class="border-1 profile-photo s3 me-2">
-                                    <div class="me-5">
-                                        <h6 class="mb-0 fs-7 text-name"><?= $request['requester_username'] ?></h5>
-                                            <!-- <p class="fs-7 mb-0 text-name"> Ortak Arkadaş</p> -->
-                                    </div>
-                                    <div class="d-flex content align-items-center">
-                                        <div class="learn" data-product-id="<?= $ogren ?>">
-                                            <h6 class="gtext-secondary text-center mb-0">Öğren<?php if (!$benogretiyorum) {
-                                                                                                    echo "(you)";
-                                                                                                } ?></h6>
-                                            <p class="mb-0 text-center"><?= $ogrenName ?></p>
+                            <div class="handle" data-request-id="<?= $request['product_request_id'] ?>">
+                                <div class="card my-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="<?= $request['requester_user_profile_photo'] ?>" alt="PP" class="border-1 profile-photo s3 me-2">
+                                        <div class="me-5">
+                                            <h6 class="mb-0 fs-7 text-name"><?= $request['requester_username'] ?></h5>
+                                                <!-- <p class="fs-7 mb-0 text-name"> Ortak Arkadaş</p> -->
                                         </div>
-                                        <i class="fa fa-arrow-right-arrow-left mx-3"></i>
-                                        <div class="teach" data-product-id="<?= $ogret ?>">
-                                            <h6 class="gtext-secondary text-center mb-0">Öğret<?php if ($benogretiyorum) {
-                                                                                                    echo "(you)";
-                                                                                                } ?></h6>
-                                            <p class="mb-0 text-center"><?= $ogretName ?></p>
+                                        <div class="d-flex content align-items-center">
+                                            <div class="learn" data-product-id="<?= $ogren ?>">
+                                                <h6 class="gtext-secondary text-center mb-0">Öğren<?php if (!$benogretiyorum) {
+                                                                                                        echo "(you)";
+                                                                                                    } ?></h6>
+                                                <p class="mb-0 text-center"><?= $ogrenName ?></p>
+                                            </div>
+                                            <i class="fa fa-arrow-right-arrow-left mx-3"></i>
+                                            <div class="teach" data-product-id="<?= $ogret ?>">
+                                                <h6 class="gtext-secondary text-center mb-0">Öğret<?php if ($benogretiyorum) {
+                                                                                                        echo "(you)";
+                                                                                                    } ?></h6>
+                                                <p class="mb-0 text-center"><?= $ogretName ?></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="d-flex justify-content-end me-4">
+                                    <button class="requestbtn btn btn-gofret text-light pup-50 mx-2" value="a">İletişime Geç</button>
+                                    <button class="btn btn-danger requestbtn text-light pup-50" style="width: 2rem; height: 2rem;" value="d"><i></i></button>
+
+                                </div>
+
                             </div>
-
-                            <div class="d-flex justify-content-end me-4">
-                                <button class="requestbtn btn btn-gofret text-light pup-50 mx-2" value="a">İletişime Geç</button>
-                                <button class="btn btn-danger requestbtn text-light pup-50" style="width: 2rem; height: 2rem;" value="d"><i></i></button>
-
-                            </div>
-
-                        </div>
-                    <?php } ?>
+                    <?php }
+                    } ?>
                 </div>
 
                 <div id="current-trades" class="mb-5">
                     <a>Güncel Takaslar (1) <i class="fa fa-caret-down"></i></a>
                     <?php if (count($orders) == 0) {
                         echo '<div class="text-center" style="height: 75px;"><p class="my-5 fs-5">Hala Takasların Yok mu?? :(</p></div>';
-                    }
+                    }else {
                     foreach ($orders as $order) {
                         $ogren = 'first';
                         $ogret = 'second';
@@ -213,7 +218,7 @@ $finished_orders = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
+                    <?php }} ?>
                 </div>
 
                 <div id="trade-history">

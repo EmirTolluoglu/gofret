@@ -21,7 +21,7 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 if ($say==0) {
 
-  Header("Location:login.php?durum=izinsiz");
+  Header("Location:login?durum=izinsiz");
   exit;
 
 }

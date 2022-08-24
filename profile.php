@@ -2,7 +2,7 @@
 include "header.php";
 
 if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
-    header("Location:pre-register.php");
+    header("Location:pre-register");
     exit;
 }
 
@@ -16,7 +16,7 @@ if (isset($_GET['u'])) {
     $user_id = $guestuser['user_id'];
 }
 $ownProfile = false;
-if($user_id == $realUser){
+if ($user_id == $realUser) {
     $ownProfile = true;
 }
 $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$user_id");
@@ -181,7 +181,6 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                                     <p class="degree text-name"><?php echo $user['user_class']; ?>.sınıf</p>
                                     <form action="src/user_com.php" method="GET" class="position-absolute">
                                         <?php if ($realUserName == $user['user_name']) {
-                                            
                                         } else { ?>
                                             <input type="submit" name="friend" <?php if ($ikimizResult) {
                                                                                     echo "disabled";
@@ -198,7 +197,7 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                         <div class="level d-flex justify-content-end pt-2 me-3">
-                            
+
                             <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php echo $user['user_level']; ?></p>
                             <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $user['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $user['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
@@ -206,7 +205,9 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="d-flex flex-row justify-content-around mt-4">
                             <div class="p-2 text-name"><a href="profile/<?php echo $user['user_name']; ?>/friends/"><?php echo $friendlercount; ?> arkadaş</a>
-                                <p class="fs-7 text-name-muted"><?php if(!$ownProfile){echo count($ortakArkIdler) . " ortak arkadaş";} ?></p>
+                                <p class="fs-7 text-name-muted"><?php if (!$ownProfile) {
+                                                                    echo count($ortakArkIdler) . " ortak arkadaş";
+                                                                } ?></p>
                             </div>
                             <!-- <div class="p-2 gtext-secondary">57 tamamlanmış takas</div> -->
                             <div class="p-2 gtext-secondary"><a href="profile/<?php echo $user['user_name']; ?>/product/"><?php echo $productscount; ?> takas</a></div>
@@ -242,70 +243,69 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
                 <div id="interests" class="card">
                     <form action="src/interests.php" method="POST">
-                    <h6 class="text-name ms-2">İlgi Alanları</h6>
-                    <div id="interests-group" class="handle d-flex flex-wrap justify-content-start text-white">
+                        <h6 class="text-name ms-2">İlgi Alanları</h6>
+                        <div id="interests-group" class="handle d-flex flex-wrap justify-content-start text-white">
 
-                        <?php for ($i = 0; $i < $user_interests_count; $i++) {
+                            <?php for ($i = 0; $i < $user_interests_count; $i++) {
 
-                        ?>
-                            <div class="interest">
-                                <p><?php echo $user_interests_values[$i]['user_interests_value']; ?></p>
-                            </div>
-                        <?php
-                        }
-                        ?>
+                            ?>
+                                <div class="interest">
+                                    <p><?php echo $user_interests_values[$i]['user_interests_value']; ?></p>
+                                </div>
+                            <?php
+                            }
+                            ?>
 
-                        <div>
+                            <div>
 
 
-                            
-                        <div class="d-flex justify-content-between">
-                        <span>
-                        <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 422px; position:absolute; margin-bottom:2em; border:0px;">
-                        </span>
-                        <span>
-                        <input type="submit" id="save_interest" name="save_interest" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 222px; position:absolute; margin-bottom:2em; border:0px;">
-                        </span>
-                        <span>
-                        <input type="button" id="add_interest" name="add_interest" value="ekle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 52px; position:absolute; margin-bottom:2em; border:0px;">
-                        </span>
-                        
-                        </div>
-                        </form>
-                        </div>
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-                        <script>
-                            var inputcount = 0;
-                            $('#add_interest').click(function(){
-                                inputcount++;
-                                var interest = document.createElement('input');
-                                interest.classList.add('interest');
-                                interest.setAttribute("name","interest"+inputcount);
-                                $('#interests-group').append(interest);
-                            })
-                           
-                        </script>
 
-                    </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>
+                                        <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 422px; position:absolute; margin-bottom:2em; border:0px;">
+                                    </span>
+                                    <span>
+                                        <input type="submit" id="save_interest" name="save_interest" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 222px; position:absolute; margin-bottom:2em; border:0px;">
+                                    </span>
+                                    <span>
+                                        <input type="button" id="add_interest" name="add_interest" value="ekle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 52px; position:absolute; margin-bottom:2em; border:0px;">
+                                    </span>
+
+                                </div>
+                    </form>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script>
+                    var inputcount = 0;
+                    $('#add_interest').click(function() {
+                        inputcount++;
+                        var interest = document.createElement('input');
+                        interest.classList.add('interest');
+                        interest.setAttribute("name", "interest" + inputcount);
+                        $('#interests-group').append(interest);
+                    })
+                </script>
+
+            </div>
+            <p><br><br><br><br><br></p>
+        </div>
+        <div id="trade" class="row">
+            <div class="col" style="height: 100%;">
+                <h5 class="text-name m-0">Güncel Takaslar</h5>
+                <div class="card mt-2">
                     <p><br><br><br><br><br></p>
                 </div>
-                <div id="trade" class="row">
-                    <div class="col" style="height: 100%;">
-                        <h5 class="text-name m-0">Güncel Takaslar</h5>
-                        <div class="card mt-2">
-                            <p><br><br><br><br><br></p>
-                        </div>
-                    </div>
-                    <div class="col" style="height: 100%;">
-                        <h5 class="text-name m-0">Geçmiş Takaslar</h5>
-                        <div class="card mt-2">
-                            <p><br><br><br><br><br></p>
-                        </div>
-                    </div>
+            </div>
+            <div class="col" style="height: 100%;">
+                <h5 class="text-name m-0">Geçmiş Takaslar</h5>
+                <div class="card mt-2">
+                    <p><br><br><br><br><br></p>
                 </div>
             </div>
-            <?php include_once "right-sidebar.php" ?>
         </div>
+    </div>
+    <?php include_once "right-sidebar.php" ?>
+    </div>
     </div>
 
 </main>

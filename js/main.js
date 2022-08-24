@@ -9,7 +9,10 @@ window.onresize = function () {
     node.setAttribute("id", "mobile-nav");
     node.innerHTML = template;
     document.getElementsByTagName("BODY")[0].appendChild(node);
-  }else if(window.innerWidth > 575.98 && document.getElementsByTagName("NAV")[0] != null){
+  } else if (
+    window.innerWidth > 575.98 &&
+    document.getElementsByTagName("NAV")[0] != null
+  ) {
     const node = document.getElementById("mobile-nav");
     node.parentNode.removeChild(node);
   }
@@ -27,6 +30,20 @@ window.onload = function () {
     node.innerHTML = template;
     document.getElementsByTagName("BODY")[0].appendChild(node);
   }
+  var fadeTarget = document.getElementById("preloader");
+  var fadeEffect = setInterval(function () {
+    if (!fadeTarget.style.opacity) {
+      fadeTarget.style.opacity = 1;
+    }
+    if (fadeTarget.style.opacity > 0) {
+      fadeTarget.style.opacity -= 0.1;
+    } else {
+      clearInterval(fadeEffect);
+      fadeTarget.remove();
+      var element = document.getElementById("pop-up");
+      element.classList.add("open");
+    }
+  }, 50);
 };
 
 function menuToggle() {
