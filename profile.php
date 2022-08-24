@@ -1,6 +1,7 @@
 <?php
 include "header.php";
 
+
 if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
     header("Location:pre-register.php");
     exit;

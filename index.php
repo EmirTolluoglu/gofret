@@ -77,8 +77,12 @@ $productcount = count($products);
         div.switcher label input:checked+span small {
             left: 50%;
         }
+
     </style>
+    
+    
     <div class="container">
+
         <div class="row my-5">
             <?php include_once "left-sidebar.php"; ?>
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-5 col-md-8">

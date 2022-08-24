@@ -1,4 +1,29 @@
-<?php require_once "src/connect.php" ?>
+<?php 
+require_once "src/connect.php";
+if (isset($_POST['login'])){
+  $email = $_POST['email'];
+  $password = $_POST['pass'];
+  $select= mysqli_query($conn,"SELECT * FROM user WHERE user_email = '$email' user_password = '$password' ");
+  $row = mysqli_fetch_array($select);
+
+if(is_array($row)){
+  $_SESSION["user_email"] = $row['user_email'];
+  $_SESSION["password"] = $row['password'];
+}else{
+  echo '<script type="text/javascript"> ';
+  echo 'alert("kullanıcı adı veya şifre yanlış")';
+  echo 'window.location.href = "login.php"';
+  echo '<script>';
+}
+}
+if(isset($_SESSION["user_email"])){
+  header("Location:profile.php");
+}
+
+  
+    
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -367,7 +392,7 @@
   <main>
     <div class="back">
       <h4 class="motto">Mağaraya ulaştın</h4>
-      <form action="src/sign.php" method="POST" class="register-form" id="register-form">
+      <form action="login.php" method="POST" class="register-form" id="register-form">
         <div class="form-group">
           <label for="email"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
           <input type="email" name="email" id="email" placeholder="Your Email" />

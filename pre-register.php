@@ -63,20 +63,33 @@
     .fs-5-5 {
         font-size: 1.15rem;
     }
+    img{
+        width:120px;
+    }
+    
     </style>
     <main>
+        
         <div class="back">
-            <div class="handle text-center text-white">
-                <h3>Sonunda<br />Aramıza Katıldın!
-                    </h4>
-                    <div class="btn register mt-5 fs-5-5 fw-bold">
+         
+             <div class="d-flex justify-content-center align-items-center " > 
+                 <img src="img/gofret.png" alt="logo" />
+             </div>
+             <div class=" handle text-center text-white ">
+                
+                 <h3>Sonunda<br />Aramıza Katıldın!</h3>
+                    
+                     <div class="btn register mt-5 fs-5-5 fw-bold">
                       <a style="color: rgb(153, 35, 131);" class="text-decoration-none" href="register.php">Kayıt Ol</a>
-                    </div>
-                    <div class="btn login mt-3 fs-5-5 fw-bold">
-                      <a style="color: rgb(62, 186, 162);" class="text-decoration-none" href="login.php">Giriş Yap</a>
-                    </div>
-                    <img src="img/gofret.png" alt="logo" />
-            </div>
+                      </div>
+                     <div class="btn login mt-3 fs-5-5 fw-bold">
+                       <a style="color: rgb(62, 186, 162);" class="text-decoration-none" href="login.php">Giriş Yap</a>
+                     </div>
+                    
+               </div>
+
+         
+            
         </div>
     </main>
     <script src="lib/bootstrap/bootstrap.bundle.min.js"></script>

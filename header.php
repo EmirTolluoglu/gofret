@@ -57,6 +57,20 @@ if(isset($_SESSION['user_id'])) {
 </head>
 
 <body>
+    
+    </style>
+    <header id="mobile-header" style="backdrop-filter: blur(20px);
+     -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a href="#"><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36" class="" /></a>
+        <div id="search-bar" class="search-bar ms-auto me-2">
+          <i class="fa fa-magnifying-glass"></i>
+          <input onfocusout="focusgg()" id="search_input" type="search"
+            placeholder="Search for creators, inspirations, and projects" />
+        </div>
+        <i class="fa-solid fa-comment-dots text-muted"></i>
+      </div>
+    </header>
 
     <nav>
         <div class="container">
@@ -108,3 +122,5 @@ if(isset($_SESSION['user_id'])) {
             </script>
         </div>
     </nav>
+    
+</body>    
