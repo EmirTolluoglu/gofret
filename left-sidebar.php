@@ -153,7 +153,7 @@ if (isset($_SESSION['user_id'])) {
     <script>
         //jquery document ready
         $(document).ready(function() {
-            if (<?= $user_id != 0 ?>) {
+            if (<?php if($user_id == 0) { echo 0;} else {echo 1;}?>) {
                 $(".requestbtn-mini").click(function() {
                     var requester_id = $(this).parent().attr("data-product-id");
                     var requested_id = $(this).parent().attr("data-requested-id");
