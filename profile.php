@@ -7,15 +7,18 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
     exit;
 }
 
+$username = $_GET['u'];
+if ($_GET['u'] == ".php") {
+    $username = $_SESSION['user_name'];
+}
 $realUser = $_SESSION['user_id'];
 $realUserName = $_SESSION['user_name'];
-if (isset($_GET['u'])) {
-    $username = $_GET['u'];
-    $guestusersor = $conn->prepare("SELECT user_id FROM user WHERE user_name = '$username'");
-    $guestusersor->execute();
-    $guestuser = $guestusersor->fetch(PDO::FETCH_ASSOC);
-    $user_id = $guestuser['user_id'];
-}
+
+$guestusersor = $conn->prepare("SELECT user_id FROM user WHERE user_name = '$username'");
+$guestusersor->execute();
+$guestuser = $guestusersor->fetch(PDO::FETCH_ASSOC);
+$user_id = $guestuser['user_id'];
+
 $ownProfile = false;
 if ($user_id == $realUser) {
     $ownProfile = true;
@@ -198,7 +201,7 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                         <div class="level d-flex justify-content-end pt-2 me-3">
-
+                            <?php if($ownProfile){echo '<a href="src/logout.php"><i class="fa fa-sign-out"></i></a>'; } ?>
                             <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php echo $user['user_level']; ?></p>
                             <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $user['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $user['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>

@@ -78,7 +78,7 @@ body {
   }
 }
 .pop-back {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 99;
@@ -87,7 +87,7 @@ body {
   background-color: rgba(255, 255, 255, 0.4);
 }
 .pop-up {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%) scale(0.9);
@@ -440,6 +440,10 @@ header {
 .btn-gofret-disabled {
   @extend .btn-gofret;
   background-color: #75a095 !important;
+  &:hover {
+    opacity: 1;
+    color: white;
+  }
 }
 
 .btn-gofret3 {
@@ -1333,13 +1337,13 @@ footer {
   height: 100vh;
   width: 100vw;
   font-family: Helvetica;
-  position: absolute;
+  position: fixed;
 }
 
 #preloader .loader {
   height: 20px;
   width: 250px;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -1355,7 +1359,7 @@ footer {
   width: 20px;
   border-radius: 100%;
   background-color: black;
-  position: absolute;
+  position: fixed;
   border: 2px solid white;
 }
 #preloader .loader--dot:first-child {
@@ -1383,7 +1387,7 @@ footer {
   animation-delay: 0s;
 }
 #preloader .loader--text {
-  position: absolute;
+  position: fixed;
   top: 200%;
   left: 0;
   right: 0;

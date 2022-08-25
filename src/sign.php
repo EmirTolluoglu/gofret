@@ -71,6 +71,7 @@ if (isset($_POST['login'])) {
         $_SESSION['user_level_xp'] = $user['user_level_xp'];
         $_SESSION['user_profile_photo'] = $user['user_profile_photo'];
         $_SESSION['user_profile_banner'] = $user['user_profile_banner'];
+        
 
         Header("Location:../index.php");
         exit;

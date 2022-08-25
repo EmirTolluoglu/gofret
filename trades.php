@@ -173,6 +173,9 @@ if (isset($_SESSION['user_id'])) {
                             $ogren = 'second';
                             $ogret = 'first';
                         }
+
+                        echo $order['first_user'];
+                        echo $order['second_user'];
                     ?>
                         <div class="card text-center pt-0 mt-2 border border-secondary">
                             <p class="fs-7">Online / Kalan ders Sayısı: 2/5</p>
@@ -292,7 +295,9 @@ if (isset($_SESSION['user_id'])) {
                 }
             });
             var yardimci = $(this).parent().parent().children().children().children('.content');
-
+            alert(yardimci.children('.teach').attr('data-product-id'));
+            alert(yardimci.children('.learn').attr('data-product-id'));
+            alert($(this).parent().parent().attr('data-request-id'));
             $.ajax({
                 type: "POST",
                 url: "app/ajax/send_request_result.php",

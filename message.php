@@ -2,23 +2,10 @@
 require_once 'src/connect.php';
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-    $activeUserId = $_GET['u'];
-    $realUserId = $_SESSION['user_id'];
-
-    $userStmt = $conn->query("SELECT * FROM user");
-    $userStmt->execute();
-    $users = $userStmt->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($users as $user) {
-        if ($user['user_id'] == $activeUserId) {
-            $activeUser = $user;
-        }
-    }
-
-    $messageStmt = $conn->query("SELECT * FROM `message` WHERE (from_user_id = $activeUserId OR to_user_id = $activeUserId) AND (from_user_id = $realUserId OR to_user_id = $realUserId) ORDER BY message_date ASC");
-    $messageStmt->execute();
-    $messages = $messageStmt->fetchAll(PDO::FETCH_ASSOC);
+if (isset($_SESSION['user_id'])){
+    $stmt = $conn->prepare("SELECT user_id, user_name, user_profile_photo FROM user");
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
@@ -106,18 +93,6 @@ if (isset($_SESSION['user_id'])) {
                 box-sizing: border-box;
             }
 
-            /* :root {
-            
-            --white: #202C33;
-            --black: #000;
-            --bg: #f8f8f8;
-            --grey: #999;
-            --dark: #fff;
-            --light: #e6e6e6;
-            --wrapper: 1000px;
-            --blue: #00b0ff;
-        } */
-
             body {
                 background-color: var(--bg);
                 -webkit-font-smoothing: antialiased;
@@ -135,7 +110,6 @@ if (isset($_SESSION['user_id'])) {
                 transform: translate(-50%, 0);
             }
 
-            .container {}
 
             .container .left {
                 float: left;
@@ -174,6 +148,15 @@ if (isset($_SESSION['user_id'])) {
                 border-radius: 21px;
                 font-family: "Source Sans Pro", sans-serif;
                 font-weight: 400;
+            }
+            @media (max-width: 790px) {
+                .container .left input {
+                width: 100%;
+
+                }
+                .container .left a.search {
+                display: none !important;
+            }
             }
 
             .container .left input:focus {
@@ -412,7 +395,6 @@ if (isset($_SESSION['user_id'])) {
 
             .container .right .write .write-link.attach:before {
                 display: inline-block;
-                float: left;
                 width: 20px;
                 height: 42px;
                 content: "";
@@ -423,7 +405,6 @@ if (isset($_SESSION['user_id'])) {
 
             .container .right .write .write-link.smiley:before {
                 display: inline-block;
-                float: left;
                 width: 20px;
                 height: 42px;
                 content: "";
@@ -594,8 +575,8 @@ if (isset($_SESSION['user_id'])) {
                         </div>
 
                         <ul id="people" class="people">
-                            <?php foreach ($users as $otherUser) { ?>
-
+                            <?php foreach ($users as $otherUser) { if($otherUser['user_id'] == $_SESSION['user_id']) {continue;}?>
+                                
                                 <li class="person" data-chat="<?= $otherUser['user_id'] ?>">
                                     <img src="<?= $otherUser['user_profile_photo'] ?>" alt="Pp" />
                                     <span class="name"><?= $otherUser['user_name'] ?></span>
@@ -603,23 +584,18 @@ if (isset($_SESSION['user_id'])) {
                                 </li>
                             <?php } ?>
                         </ul>
+                        <a href="profile/" class="text-decoration-none position-absolute " style="border: 0; outline: 0; background: 0; top:1rem; left:1rem; ">
+                        <i class="fa fa-angle-left fa-2x text-white m-3"></i></a>
+                    </a>
                     </div>
                     <div class="right">
-                        <div class="top"><span>To: <span class="name"><?= $user["user_name"]; ?></span></span></div>
+                        <div class="top"><span>To: <span class="name"></span></span></div>
 
-                        <div id="chat" class="chat" data-chat="person2">
+                        <div id="chat" class="chat">
                             <div class="conversation-start">
                                 <span>Today, 5:38 PM</span>
                             </div>
-                            <?php foreach ($messages as $message) { ?>
-                                <div class="bubble <?php if ($activeUserId == $message['from_user_id']) {
-                                                        echo "me";
-                                                    } else {
-                                                        echo "you";
-                                                    } ?>">
-                                    <?php echo $message['message_content']; ?>
-                                </div>
-                            <?php } ?>
+
                         </div>
 
 
@@ -650,6 +626,7 @@ if (isset($_SESSION['user_id'])) {
                                 u: event.target.dataset.chat
                             },
                             function(results) {
+                                console.log(results);
                                 var data = JSON.parse(results);
                                 //empty chat box
                                 $('#chat').empty();
@@ -661,7 +638,7 @@ if (isset($_SESSION['user_id'])) {
                                     bubble.setAttribute('data-message', message.message_id);
                                     bubble.classList.add('bubble');
                                     // bubble.attr('data-message', message.message_id);
-                                    if (message.from_user_id == <?= $realUserId ?>) {
+                                    if (message.from_user_id == <?= $_SESSION['user_id']; ?>) {
                                         bubble.classList.add('me');
                                     } else {
                                         bubble.classList.add('you');
@@ -671,7 +648,7 @@ if (isset($_SESSION['user_id'])) {
                                     if (message.message_product_quatation_id != 0) {
                                         prodcutQueue(message.message_id, message.message_product_quatation_id);
                                     }
-                                    //scroll top of #chat without animate
+
                                     $('#chat').scrollTop(0);
                                 }
                             });

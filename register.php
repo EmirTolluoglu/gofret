@@ -1,4 +1,9 @@
-<?php require_once "src/connect.php"; ?>
+<?php require_once "src/connect.php";
+session_start();
+if (isset($_SESSION["user_id"])) {
+    header("Location: profile/" . $_SESSION["user_name"]);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,19 +19,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
     <style>
+        nav {
+            display: none;
+        }
+
         html,
         body,
         main {
+            overflow: hidden;
             height: 100%;
+            margin: 0;
             width: 100%;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            position: relative;
         }
 
         main .back {
@@ -35,12 +45,12 @@
             background-repeat: no-repeat;
             background-image: url("img/back.png");
             background-size: cover;
-            position: absolute;
+            position: fixed;
             filter: blur(5px);
         }
 
         main .logo {
-            position: absolute;
+            position: fixed;
             width: 112px;
             height: 42px;
             transform: translateX(50%);
@@ -371,17 +381,20 @@
             border-radius: 50%;
         }
 
-
+        .part {
+            overflow: hidden;
+        }
         .part .container {
             height: 90%;
         }
 
         #part1 {
+            position: fixed;
             transform: translateX(-50%);
         }
 
         #part2 {
-            transform: translateX(50%);
+            transform: translateX(50%);position: fixed;
         }
 
         @keyframes slideIn {
@@ -428,134 +441,10 @@
             display: none;
         }
 
-        #preloader {
-            z-index: 100;
-            background-color: white;
-            height: 100vh;
-            width: 100vw;
-            font-family: Helvetica;
-            position: absolute;
-        }
-
-        .loader {
-            height: 20px;
-            width: 250px;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
-
-        .loader--dot {
-            animation-name: loader;
-            animation-timing-function: ease-in-out;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
-            height: 20px;
-            width: 20px;
-            border-radius: 100%;
-            background-color: black;
-            position: absolute;
-            border: 2px solid white;
-        }
-
-        .loader--dot:first-child {
-            background-color: #8cc759;
-            animation-delay: 0.5s;
-        }
-
-        .loader--dot:nth-child(2) {
-            background-color: #8c6daf;
-            animation-delay: 0.4s;
-        }
-
-        .loader--dot:nth-child(3) {
-            background-color: #ef5d74;
-            animation-delay: 0.3s;
-        }
-
-        .loader--dot:nth-child(4) {
-            background-color: #f9a74b;
-            animation-delay: 0.2s;
-        }
-
-        .loader--dot:nth-child(5) {
-            background-color: #60beeb;
-            animation-delay: 0.1s;
-        }
-
-        .loader--dot:nth-child(6) {
-            background-color: #fbef5a;
-            animation-delay: 0s;
-        }
-
-        .loader--text {
-            position: absolute;
-            top: 200%;
-            left: 0;
-            right: 0;
-            width: 4rem;
-            margin: auto;
-        }
-
-        .loader--text:after {
-            content: "Loading";
-            font-weight: bold;
-            animation-name: loading-text;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
-        }
-
-        @keyframes loader {
-            15% {
-                transform: translateX(0);
-            }
-
-            45% {
-                transform: translateX(230px);
-            }
-
-            65% {
-                transform: translateX(230px);
-            }
-
-            95% {
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes loading-text {
-            0% {
-                content: "Loading";
-            }
-
-            25% {
-                content: "Loading.";
-            }
-
-            50% {
-                content: "Loading..";
-            }
-
-            75% {
-                content: "Loading...";
-            }
-        }
+        
     </style>
 
-    <div id="preloader">
-        <div class='loader'>
-            <div class='loader--dot'></div>
-            <div class='loader--dot'></div>
-            <div class='loader--dot'></div>
-            <div class='loader--dot'></div>
-            <div class='loader--dot'></div>
-            <div class='loader--dot'></div>
-            <div class='loader--text'></div>
-        </div>
-    </div>
+    <?php include_once 'preloader.php'; ?>
     <main>
 
         <div class="back">
@@ -664,7 +553,7 @@
 
         function validate() {
 
-            
+
 
             if (password.value != confirm_password.value) {
                 confirm_password.setCustomValidity("Passwords Don't Match");

@@ -5,9 +5,15 @@ include '../../src/connect.php';
 $trade_id = $_POST['i'];
 $trade_id2 = $_POST['u'];
 if($trade_id > $trade_id2){
-    $trade_id = $trade_id2;
+    $trade_id = $_POST['i'];
     $trade_id2 = $_POST['u'];
+}else {
+    $trade_id = $_POST['u'];
+    $trade_id2 = $_POST['i'];
 }
+
+
+
 $request_id = $_POST['r'];
 $request_state = $_POST['t'];
 
@@ -26,6 +32,6 @@ if($request_state == "s"){
 }
 
 
-echo $request_state. "success";
+echo $request_state. "success" . $request_state ;
 
 ?>

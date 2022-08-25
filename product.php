@@ -1,6 +1,11 @@
 <?php require_once "src/connect.php";
 ob_start();
 session_start();
+
+if (empty($_SESSION['user_id'])){
+  header("Location: ../login");
+  exit;
+}
 $product_name = $_GET['u'];
 
 $productsor = $conn->prepare("SELECT * FROM product where product_name='$product_name'");

@@ -4,7 +4,7 @@ window.onresize = function () {
     document.getElementsByTagName("NAV")[0] == null
   ) {
     const template =
-      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index"><i class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="trades"><img src="img/trade.png" alt=""></a><a href="profile/degister"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index"><i class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="trades"><img src="img/trade.png" alt=""></a><a href="profile/"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
     const node = document.createElement("nav");
     node.setAttribute("id", "mobile-nav");
     node.innerHTML = template;
@@ -24,7 +24,7 @@ window.onload = function () {
     document.getElementsByTagName("NAV")[0] == null
   ) {
     const template =
-      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index"><i class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="trades"><img src="img/trade.png" alt=""></a><a href="profile/"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index"><i class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img src="img/trade.png" alt=""></a><a href="profile/"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
     const node = document.createElement("nav");
     node.setAttribute("id", "mobile-nav");
     node.innerHTML = template;
@@ -39,9 +39,13 @@ window.onload = function () {
       fadeTarget.style.opacity -= 0.1;
     } else {
       clearInterval(fadeEffect);
+
       fadeTarget.remove();
+
       var element = document.getElementById("pop-up");
-      element.classList.add("open");
+      if (element) {
+        element.classList.add("open");
+      }
     }
   }, 50);
 };
@@ -49,13 +53,14 @@ window.onload = function () {
 function menuToggle() {
   const toggleMenu = document.querySelector(".menu");
   toggleMenu.classList.toggle("active");
-}2
+}
+2;
 
 function closePopUpMenu() {
   var element = document.getElementById("pop-up");
   element.classList.remove("open");
+  element.parentElement.style.display = "none";
 }
-
 
 // const profile = document.getElementById("profile-card");
 // const right = document.getElementById("right");

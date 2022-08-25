@@ -1,5 +1,8 @@
-<?php 
+<?php
 require_once "src/connect.php";
+if (isset($_SESSION["user_id"])) {
+  header("Location: profile/" . $_SESSION["user_name"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +11,8 @@ require_once "src/connect.php";
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log in | gofret</title>
+  <title>register | gofret</title>
+
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/all.min.css" />
   <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css" />
@@ -16,29 +20,36 @@ require_once "src/connect.php";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
   <style>
+    nav {
+      display: none;
+    }
+
     html,
     body,
     main {
       height: 100%;
+      margin: 0;
       width: 100%;
       font-family: 'Poppins', sans-serif;
     }
 
     main .back {
-      height: 100%;
-      width: auto;
+      height: 100vh;
+      width: 100vw;
       background-repeat: no-repeat;
       background-image: url("img/back.png");
       background-size: cover;
-      position: relative;
+      position: absolute;
+      filter: blur(5px);
     }
 
     main .logo {
-      position: absolute;
+      position: fixed;
       width: 112px;
       height: 42px;
       transform: translateX(50%);
@@ -239,10 +250,12 @@ require_once "src/connect.php";
       display: none;
     }
 
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: rgb(255, 255, 255);
-  opacity: 1; /* Firefox */
-  }
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: rgb(255, 255, 255);
+      opacity: 1;
+      /* Firefox */
+    }
 
     input[type=checkbox]:not(old)+label {
       display: inline-block;
@@ -280,11 +293,13 @@ require_once "src/connect.php";
       font-family: 'Material-Design-Iconic-Font';
       font-weight: bold;
     }
+
     .forget {
       position: absolute;
       right: 0 !important;
       left: unset;
     }
+
     .forget a {
       font-size: 12px;
       color: orangered;
@@ -347,53 +362,60 @@ require_once "src/connect.php";
       font-weight: 500;
       cursor: pointer;
     }
-    .border-b{
+
+    .border-b {
       border-bottom-width: 1px;
 
     }
-    .translate-y-1\/2{
+
+    .translate-y-1\/2 {
       transform: translateY(50%);
     }
+
     .btn-hr {
       height: 4px;
       width: 100%;
       border-bottom: #714aab solid 2px;
       border-radius: 15px;
     }
-    .btn-reg{
+
+    .btn-reg {
       border: 2px solid #ffffff;
       font-size: 13px;
       font-weight: bolder;
     }
   </style>
+  <?php include_once 'preloader.php'; ?>
   <main>
-    <div class="back">
-      <h4 class="motto">Mağaraya ulaştın</h4>
-      <form action="src/sign.php" method="POST" class="register-form" id="register-form">
-        <div class="form-group">
-          <label for="email"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
-          <input type="email" name="email" id="email" placeholder="Your Email" />
-        </div>
-        <div class="form-group mb-1">
-          <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
-          <input type="password" name="pass" id="pass" placeholder="Password" />
-        </div>
+    <div class="back"> </div>
+    <h4 class="motto">Mağaraya ulaştın</h4>
+    <form action="src/sign.php" method="POST" class="register-form" id="register-form">
+      <div class="form-group">
+        <label for="email"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
+        <input type="email" name="email" id="email" placeholder="Your Email" />
+      </div>
+      <div class="form-group mb-1">
+        <label for="pass"><i class="fa fa-lock fa-xs ms-1 text-white"></i></label>
+        <input type="password" name="pass" id="pass" placeholder="Password" />
+      </div>
 
-        <div class="form-group">
-          <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-          <label for="agree-term" class="label-agree-term"><span><span></span></span>Beni Unutma</label>
-          <label for="agree-term" class="forget"><a class="" href="">Şifremi Unuttum :/</a></label>
+      <div class="form-group">
+        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+        <label for="agree-term" class="label-agree-term"><span><span></span></span>Beni Unutma</label>
+        <label for="agree-term" class="forget"><a class="" href="">Şifremi Unuttum :/</a></label>
       </div>
       <div class="form-group form-button">
-          <input type="submit" name="login" id="login" class="form-submit" value="Giriş Yap"/>
+        <input type="submit" name="login" id="login" class="form-submit" value="Giriş Yap" />
       </div>
-        <div class="btn-hr"></div>
-        <a class="text-decoration-none" href="register.php"><div class="btn-reg py-2 mt-3 rounded-4 border-white bg-transparent w-100 text-center text-white">Kayıt Olmalıyım</div></a>
-    </div>
+      <div class="btn-hr"></div>
+      <a class="text-decoration-none" href="register">
+        <div class="btn-reg py-2 mt-3 rounded-4 border-white bg-transparent w-100 text-center text-white">Kayıt Olmalıyım</div>
+      </a>
+      </div>
     </form>
-    
+
     <img class="logo" src="img/gofret.png" alt="logo" />
-    </div>
+
   </main>
 
   <script src="js/all.min.js"></script>

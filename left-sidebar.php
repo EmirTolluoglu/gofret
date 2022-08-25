@@ -55,19 +55,20 @@ if (isset($_SESSION['user_id'])) {
                     <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mb-0">kalan 2</p>
-            <?php }else { echo "<br/><br/><p>Heyy! Hala Giriş Yapmadın mı?</p><br/><br/>"; } ?>
+            <?php } else {
+                echo "<br/><br/><p>Heyy! Hala Giriş Yapmadın mı?</p><br/><br/>";
+            } ?>
         </div>
-
     </div>
 
     <aside class="bg-white mt-4 rounded-4">
         <ul>
-            <li class="<?php if (basename($_SERVER['REQUEST_URI']) == "gofret" || basename($_SERVER['REQUEST_URI'], ".php") == "profile") {
+            <li class="<?php if (basename($_SERVER['REQUEST_URI']) == "gofret") {
                             echo "active";
                         } ?>"><a href="./"><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
-            <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "discover") {
+            <li class="<?php if (strpos($_SERVER['REQUEST_URI'], 'profile')) {
                             echo "active";
-                        } ?>"><a href="discover"><i class="fa fa-heart"></i><span>Keşfet</span></a></li>
+                        } ?>"><a href="profile"><i class="fa fa-heart"></i><span>Profile</span></a></li>
             <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "trades") {
                             echo "active";
                         } ?>"><a href="trades"><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
@@ -118,69 +119,69 @@ if (isset($_SESSION['user_id'])) {
                     if ($request['requester_username'] == $_SESSION['user_name']) {
                         $finished_user = "requested";
                     }
-                
+
             ?>
-                <div class="content row mb-3">
-                    <div class="col-5 pe-0">
-                        <p class="text-end"><?= $ogrenName ?></p>
-                    </div>
-                    <div class="col-2 text-center">
-                        <i class="fa fa-arrows-turn-to-dots"></i>
-                    </div>
-                    <div class="col-5 ps-0 text-start ">
-                        <p><?= $ogretName ?></p>
-                    </div>
-                    <div class="profile-card d-flex justify-content-between align-items-center">
-                        <img class="border-0" src="<?= $request[$finished_user . '_user_profile'] ?>" alt="logo">
-                        <div class="handle ms-2 w-100 text-left">
-                            <div class="handle2 align">
-                                <p class="text-name fw-bold"><?= $request['requester_username'] ?></p>
+                    <div class="content row mb-3">
+                        <div class="col-5 pe-0">
+                            <p class="text-end"><?= $ogrenName ?></p>
+                        </div>
+                        <div class="col-2 text-center">
+                            <i class="fa fa-arrows-turn-to-dots"></i>
+                        </div>
+                        <div class="col-5 ps-0 text-start ">
+                            <p><?= $ogretName ?></p>
+                        </div>
+                        <div class="profile-card d-flex justify-content-between align-items-center">
+                            <img class="border-0" src="<?= $request[$finished_user . '_user_profile'] ?>" alt="logo">
+                            <div class="handle ms-2 w-100 text-left">
+                                <div class="handle2 align">
+                                    <p class="text-name fw-bold"><?= $request['requester_username'] ?></p>
+                                </div>
+                                <h6 class="fw-light text-name">9 ortak Ark.</h6>
                             </div>
-                            <h6 class="fw-light text-name">9 ortak Ark.</h6>
-                        </div>
-                        <div class="confirmation d-flex" id="heyoo" data-product-request-id="<?= $request['product_request_id'] ?>" data-product-id="<?= $request['requester_product_id'] ?>" data-requested-id="<?= $request['requested_product_id'] ?>">
-                            <button class="border-0 requestbtn-mini box me-1" value="s" style="background-color: #04cf98; color: black;"><i class="fa fa-check"> </i></button>
-                            <button class="border-0 requestbtn-mini box ms-1" value="d" style="background-color: #fa0175; color: aliceblue;"><i class="fa fa-x"> </i></button>
+                            <div class="confirmation d-flex" id="heyoo" data-product-request-id="<?= $request['product_request_id'] ?>" data-product-id="<?= $request['requester_product_id'] ?>" data-requested-id="<?= $request['requested_product_id'] ?>">
+                                <button class="border-0 requestbtn-mini box me-1" value="s" style="background-color: #04cf98; color: black;"><i class="fa fa-check"> </i></button>
+                                <button class="border-0 requestbtn-mini box ms-1" value="d" style="background-color: #fa0175; color: aliceblue;"><i class="fa fa-x"> </i></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php }} ?>
+            <?php }
+            } ?>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
         //jquery document ready
         $(document).ready(function() {
-            if(!<?= $user_id ?>)
-            $(".requestbtn-mini").click(function() {
-                var requester_id = $(this).parent().attr("data-product-id");
-                var requested_id = $(this).parent().attr("data-requested-id");
-                var request_id = $(this).parent().attr("data-product-request-id");
-                alert(request_id);
-                alert(requester_id + " " + requested_id);
-                $(this).parent().parent().parent().fadeOut(1600, "linear", function() {
-                    $(this).remove();
-                    if ($('#left-request').children().length == 0) {
-                        $('#left-request').append('<div class="text-center"><p class="my-2 fs-6">Tüm istekler bitti mi?? :(</p></div>');
+            if (<?= $user_id != 0 ?>) {
+                $(".requestbtn-mini").click(function() {
+                    var requester_id = $(this).parent().attr("data-product-id");
+                    var requested_id = $(this).parent().attr("data-requested-id");
+                    var request_id = $(this).parent().attr("data-product-request-id");
+                    $(this).parent().parent().parent().fadeOut(1600, "linear", function() {
+                        $(this).remove();
+                        if ($('#left-request').children().length == 0) {
+                            $('#left-request').append('<div class="text-center"><p class="my-2 fs-6">Tüm istekler bitti mi?? :(</p></div>');
 
-                    }
+                        }
 
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "app/ajax/send_request_result.php",
+                        data: {
+                            i: requester_id,
+                            u: requested_id,
+                            r: request_id,
+                            t: $(this).val()
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
                 });
-
-                $.ajax({
-                    type: "POST",
-                    url: "app/ajax/send_request_result.php",
-                    data: {
-                        i: requester_id,
-                        u: requested_id,
-                        r: request_id,
-                        t: $(this).val()
-                    },
-                    success: function(data) {
-                        console.log(data);
-                    }
-                });
-            });
+            }
         });
     </script>
 </div>

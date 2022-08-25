@@ -5,14 +5,12 @@ include 'src/connect.php';
 $user_id = 0;
 $mobil = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up.browser|up.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 if (isset($_SESSION['user_id'])) {
-    $userid = $_SESSION['user_id'];
-    $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$userid");
+    $user_id = $_SESSION['user_id'];
+    $kullanicisor = $conn->prepare("SELECT * FROM user where user_id=$user_id");
     $kullanicisor->execute();
     $user = $kullanicisor->fetch(PDO::FETCH_ASSOC);
-    $_SESSION['user_profile_photo'] = $user['user_profile_photo'];
-    $_SESSION['user_profile_banner'] = $user['user_profile_banner'];
 
-    $userbadgesor = $conn->prepare("SELECT * FROM user_badge WHERE user_id = $userid");
+    $userbadgesor = $conn->prepare("SELECT * FROM user_badge WHERE user_id = $user_id");
     $userbadgesor->execute();
 
     // set the resulting array to associative
@@ -58,13 +56,6 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <div class="load">
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-    </div>
-
     <header>
         <div class="container">
             <a href=""><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36"></a>
@@ -73,8 +64,10 @@ if (isset($_SESSION['user_id'])) {
                 <input onfocusout="focusgg()" id="search_input" type="search" placeholder="Search for creators, inspirations, and projects">
             </div>
 
-            <a href="create-product.php">
-                <div class="btn btn-gofret <?php if (!$user) {
+            <a href="<?php if ($user_id) {
+                            echo "create-product";
+                        } ?>">
+                <div class="btn btn-gofret <?php if (!$user_id) {
                                                 echo "btn-gofret-disabled";
                                             } ?>">
                     <p>Takas Oluştur</p><i class="fa fa-arrow-right-arrow-left"></i>
@@ -108,12 +101,13 @@ if (isset($_SESSION['user_id'])) {
                     </ul>
                 </div>
             </div>
-            <i class="fa-solid fa-comment-dots text-muted"></i>
+            <a href="message" class="text-decoration-none"><i class="fa-solid fa-comment-dots text-muted"></i></a>
         </div>
     </header>
-    <?php include_once 'preloader.php'; ?>
-    <div class="pop-back" >
-    <div class="pop-up" id="pop-up">
+    <?php include 'preloader.php'; ?>
+    <?php if (!$user_id) { ?>
+        <div class="pop-back">
+            <div class="pop-up" id="pop-up">
                 <div class="content">
                     <div class="container">
                         <div class="dots">
@@ -123,7 +117,7 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                         <span class="close" onclick="closePopUpMenu()">close</span>
                         <div class="title">
-                            <h1>Mesajlar</h1>
+                            <h1>Beta?</h1>
                         </div>
 
                         <img src="img/gofret_vec.webp" alt="Car">
@@ -137,4 +131,5 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
+    <?php } ?>
