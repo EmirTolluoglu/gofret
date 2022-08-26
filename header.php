@@ -56,11 +56,12 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <header>
-        <div class="container">
+    <header style="backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);">
+        <div class="container" >
             <a href=""><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36"></a>
             <div id="search-bar" class="search-bar">
-                <i class="fa fa-magnifying-glass"></i>
+                <i  class="fa fa-magnifying-glass" style="color:white;"></i>
                 <input onfocusout="focusgg()" id="search_input" type="search" placeholder="Search for creators, inspirations, and projects">
             </div>
 
@@ -83,25 +84,25 @@ if (isset($_SESSION['user_id'])) {
                         } ?><br /><span>İl Muhtarı</span></h3>
                     <ul>
                         <li>
-                            <i class="fa fa-user"></i><a href="<?= $user_id ? "profile/" . $_SESSION['user_name'] : "pre-register" ?>">Proflim</a>
+                            <i  class="fa fa-user"></i><a href="<?= $user_id ? "profile/" . $_SESSION['user_name'] : "pre-register" ?>">Proflim</a>
                         </li>
                         <li>
-                            <i class="fa fa-suitcase"></i><a href="trades">Takaslar</a>
+                            <i  class="fa fa-suitcase"></i><a href="trades">Takaslar</a>
                         </li>
                         <li>
-                            <i class="fa fa-users"></i><a href="#">Arkadaşlar</a>
+                            <i  class="fa fa-users"></i><a href="#">Arkadaşlar</a>
                         </li>
                         <li>
                             <i class="fa fa-cogs"></i><a href="#">Ayarlar</a>
                         </li>
-                        <li><i class="fa fa-info-circle"></i><a href="#">Yardım</a></li>
+                        <li><i  class="fa fa-info-circle"></i><a href="#">Yardım</a></li>
                         <li>
-                            <i class="fa fa-sign-out"></i><a href="src/logout.php">Çıkış</a>
+                            <i  class="fa fa-sign-out"></i><a href="src/logout.php">Çıkış</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <a href="message" class="text-decoration-none"><i class="fa-solid fa-comment-dots text-muted"></i></a>
+            <a href="message" style="color:white;" class="text-decoration-none"><i style="color:white !important;"  class="fa-solid fa-comment-dots text-muted "></i></a>
         </div>
     </header>
     <?php include 'preloader.php'; ?>
@@ -145,7 +146,6 @@ if (isset($_SESSION['user_id'])) {
             align-items: center;
             flex-direction: column;
         }
-
         .video-bg {
             position: fixed;
             right: 0;
@@ -158,9 +158,7 @@ if (isset($_SESSION['user_id'])) {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(5px);
         }
-
         .app {
             background-color: rgba(16 18 27 / 10%);
             max-width: 1250px;
@@ -176,7 +174,7 @@ if (isset($_SESSION['user_id'])) {
         }
   </style>
   <div class="video-bg">
-    <video width="320" height="240" autoplay loop muted>
+    <video  autoplay loop muted>
         <source src="img/7btrrd.mp4" type="video/mp4" />
         Your browser does not support the video tag.
     </video>

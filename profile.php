@@ -285,7 +285,7 @@ function showHint(str) {
 
                                         <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
 
-                                        <input type="submit" id="save_interest" name="save_interest" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
+                                        <input type="submit" id="save_interest" name="user_interests_value" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
 
                                         <input type="button" id="add_interest" name="add_interest" value="ekle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
                                 </div>

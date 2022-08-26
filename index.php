@@ -1,5 +1,6 @@
 <?php
 include_once "header.php";
+if($mobil) {header('Location: m-main');}
 
 $productsor = $conn->prepare("SELECT product_name,user_id,product_content FROM product");
 $productsor->execute();

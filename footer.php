@@ -1,3 +1,9 @@
+<style>
+    footer{
+        overflow: hidden;
+        position: relative;
+    }
+</style>
 <footer class="text-center text-lg-start bg-light text-white">
     <section class="top d-flex justify-content-center justify-content-lg-between p-3">
         <!-- Left -->

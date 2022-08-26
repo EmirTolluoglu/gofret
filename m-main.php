@@ -1,3 +1,10 @@
+<?php 
+$mobil = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up.browser|up.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+if (!$mobil) {
+  header('Location: index');
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -477,20 +484,7 @@
     </div>
     </main>
   </div>
-
-
-  <nav id="mobile-nav " style="backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);">
-    <div class="container">
-      <div class="d-flex justify-content-around py-3 w-100">
-        <a href=""><i class="fa fa-home text-secondary fa-lg"></i></a>
-        <a href=""><i class="fa fa-heart text-secondary fa-lg"></i></a>
-        <a href=""><img src="img/trade.png" alt="" /></a>
-        <a href=""><i class="fa fa-user text-secondary fa-lg"></i></a>
-        <a href=""><i class="fa fa-bell text-secondary fa-lg"></i></a>
-      </div>
-    </div>
-  </nav>
+<script src="js/main.js"></script>
   
 </body>
 

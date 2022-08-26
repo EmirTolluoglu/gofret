@@ -103,15 +103,60 @@ if (isset($_SESSION['user_id'])) {
   $finished_orders = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
+<style>
+    :root {
+      --theme-bg-color: rgba(16 18 27 / 40%);
+      --border-color: rgba(113 119 144 / 25%);
+      --theme-color: #f9fafb;
+      --inactive-color: rgb(113 119 144 / 78%);
+      --body-font: "Poppins", sans-serif;
+      --hover-menu-bg: rgba(12 15 25 / 30%);
+      --content-title-color: #999ba5;
+      --content-bg: rgb(146 151 179 / 13%);
+      --button-inactive: rgb(249 250 251 / 55%);
+      --dropdown-bg: #21242d;
+      --dropdown-hover: rgb(42 46 60);
+      --popup-bg: rgb(22 25 37);
+      --search-bg: #14162b;
+      --overlay-bg: rgba(36, 39, 59, 0.3);
+      --scrollbar-bg: rgb(1 2 3 / 40%);
+    }
+          #m-trade {
+            background-color: rgba(16 18 27 / 40%);
+            max-width: 1250px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height:100%;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            font-size: 15px;
+            font-weight: 500;
+        }
+        body {
+            font-family: var(--body-font);
+            background-image: url("img/backd.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column ;
+        }
+
+
+</style>
 
 <main id="m-trade">
   <div class="container mb-5 p-1">
-    <div id="current-trades">
+    <div id="current-trades" class="d-flex justify-content-center aligh-items-center" style="width:100%; height:200px">
       
-    <a class="text-decoration-none fs-5 text-black ms-2">Aktif Takaslar <i class="fa fa-caret-down"></i></a>
-    <a href="create-product"><i class="fa fa-sign-out"></i></a>
+    <a class="text-decoration-none fs-5 text-black ms-2"><p style="color:white;  display:block !important;"  >Aktif Takaslar <i class="fa fa-caret-down me-2"></i></p></a>
+    <a href="create-product"><i class="fa fa-sign-out" style="color:white;"></i></a>
       <?php if (count($orders) == 0) {
-        echo '<div class="text-center" style="height: 75px;"><p class="my-5 fs-5">Hala Takasların Yok mu?? :(</p></div>';
+        echo '<div class="text-center" style="height: 75px;"><p class="my-5 fs-5" style="color:white">Hala Takasların Yok mu?? :(</p></div>';
       } else {
         foreach ($orders as $order) {
           $ogren = 'first';
@@ -125,7 +170,7 @@ if (isset($_SESSION['user_id'])) {
             $benOgret = 0;
           }
       ?>
-          <div class="card py-3 px-0">
+          <div class="card py-3 px-0 ">
             <div class="d-flex justify-content-between align-items-center mx-3 mb-3">
               <img class="profile-photo" src="<?= $benOgret ? $order[$ogren . '_profile'] : $order[$ogret . '_profile'] ?>" alt="pp">
               <div class="handle me-auto ms-2">
@@ -156,9 +201,9 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
 
-    <div id="trade-requests" class="my-2">
-      <a class="text-decoration-none fs-5 text-black ms-2">Takas İstekleri <i class="fa fa-caret-down"></i></a>
-      <div class="card2 rounded-3 bg-white p-3 d-block" id="left-request">
+    <div id="trade-requests" class="my-4 " style="width:100%; height:200px">
+      <a class="text-decoration-none fs-5 text-black ms-2" ><p style="color:white;">Takas İstekleri <i class="fa fa-caret-down" style="color:white;"> </i></p></a>
+      <div class="card2 rounded-3 bg-white p-3 d-block " id="left-request">
         <?php if (count($requestler) == 0) {
           echo "<p>Burda Neden Hiçbirşey Yok Ki :(</p>";
         } else {
@@ -191,7 +236,7 @@ if (isset($_SESSION['user_id'])) {
                                     } ?></p>
               </div>
               <div class="col-2 text-center">
-                <i class="fa fa-arrows-turn-to-dots"></i>
+                <i class="fa fa-arrows-turn-to-dots" style="color:white;"></i>
               </div>
               <div class="col-5 ps-0 text-start ">
                 <p><?php echo $ogretName;
