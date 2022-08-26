@@ -47,7 +47,7 @@ if (isset($_SESSION['user_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/ico.png">
-    <base href="https://gofret.emirtolluoglu.com/">
+    <base href="http://localhost/gofret/">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
@@ -133,3 +133,51 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
     <?php } ?>
+    <style>
+        
+        body {
+            font-family: var(--body-font);
+            background-image: url("img/backd.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .video-bg {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(5px);
+        }
+
+        .app {
+            background-color: rgba(16 18 27 / 10%);
+            max-width: 1250px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            font-size: 15px;
+            font-weight: 500;
+        }
+  </style>
+  <div class="video-bg">
+    <video width="320" height="240" autoplay loop muted>
+        <source src="img/7btrrd.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+  </div>

@@ -7,10 +7,9 @@ if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
     exit;
 }
 
-$username = $_GET['u'];
-if ($_GET['u'] == ".php") {
+if (empty($_GET['u'])){
     $username = $_SESSION['user_name'];
-}
+}else {$username = $_GET['u'];}
 $realUser = $_SESSION['user_id'];
 $realUserName = $_SESSION['user_name'];
 
@@ -170,6 +169,9 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <main>
+    <div class="app">
+
+
     <div class="container">
         <div class="row my-5">
             <?php include_once "left-sidebar.php" ?>
@@ -244,7 +246,23 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
 
-
+                <script>
+function showHint(str) {
+  if (str.length == 0) {
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  } else {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("hint").innerHTML = this.responseText;
+      }
+    }
+    xmlhttp.open("GET", "app/ajax/show-hint.php?q="+str, true);
+    xmlhttp.send();
+  }
+}
+</script>
                 <div id="interests" class="card">
                     <form action="src/interests.php" method="POST">
                         <h6 class="text-name ms-2">İlgi Alanları</h6>
@@ -259,22 +277,17 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                             <?php
                             }
                             ?>
+                            <input type="text" name="user_interests" class="interest" onkeyup="showHint(this.value)" placeholder="Yaz Bişiler" id="user_interest_input">
+                            <div id="hint"></div>
 
-                            <div>
 
+                                <div class="d-flex justify-content-between bg-white mt-5 w-100">
 
+                                        <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
 
-                                <div class="d-flex justify-content-between">
-                                    <span>
-                                        <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 422px; position:absolute; margin-bottom:2em; border:0px;">
-                                    </span>
-                                    <span>
-                                        <input type="submit" id="save_interest" name="save_interest" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 222px; position:absolute; margin-bottom:2em; border:0px;">
-                                    </span>
-                                    <span>
-                                        <input type="button" id="add_interest" name="add_interest" value="ekle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; bottom: 5px; right: 52px; position:absolute; margin-bottom:2em; border:0px;">
-                                    </span>
+                                        <input type="submit" id="save_interest" name="save_interest" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
 
+                                        <input type="button" id="add_interest" name="add_interest" value="ekle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
                                 </div>
                     </form>
                 </div>
@@ -307,6 +320,7 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <?php include_once "right-sidebar.php" ?>
     </div>

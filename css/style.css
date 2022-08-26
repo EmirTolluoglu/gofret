@@ -714,35 +714,24 @@ footer .top {
   border-radius: 1.5rem;
 }
 
-#interests .handle div {
+#interests .handle div, #interests .handle input {
   border-radius: 0.8rem;
   min-width: 6.2rem;
   text-align: center;
   font-size: 0.8rem;
   margin: 0.2rem;
 }
-#interests .handle div p {
+#interests .handle div p, #interests .handle input p {
   padding: 0.3rem 1rem;
 }
-#interests .handle div:nth-child(odd) {
+#interests .handle div:nth-child(odd), #interests .handle input:nth-child(odd) {
   background-color: #72dfc2;
 }
-#interests .handle div:nth-child(even) {
+#interests .handle div:nth-child(even), #interests .handle input:nth-child(even) {
   background-color: #ec4545;
 }
-#interests .handle div p {
+#interests .handle div p, #interests .handle input p {
   margin: 0;
-}
-#interests .handle div:last-child {
-  margin: 0;
-  margin-left: 0.5rem;
-  min-width: 0;
-  width: 32px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  border: 1px dashed black;
-  background-color: #f2f2f2;
-  align-items: center;
 }
 #interests i {
   /* position: relative;

@@ -852,7 +852,7 @@ footer {
 }
 
 #interests {
-  .handle div {
+  .handle div,.handle input {
     border-radius: 0.8rem;
     min-width: 6.2rem;
     text-align: center;
@@ -875,17 +875,6 @@ footer {
       margin: 0;
     }
 
-    &:last-child {
-      margin: 0;
-      margin-left: 0.5rem;
-      min-width: 0;
-      width: 32px;
-      aspect-ratio: 1/1;
-      border-radius: 50%;
-      border: 1px dashed black;
-      background-color: #f2f2f2;
-      align-items: center;
-    }
   }
 
   i {

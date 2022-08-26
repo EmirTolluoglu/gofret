@@ -64,10 +64,7 @@ $products = $productsor->fetchAll();
         div.switcher label input:checked+span small {
             left: 50%;
         }
-
-    </style>
-    
-    
+        </style>
     <div class="container">
 
         <div class="row my-5">
