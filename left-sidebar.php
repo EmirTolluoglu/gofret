@@ -46,7 +46,7 @@ if (isset($_SESSION['user_id'])) {
 ?>
 
 <div id="left" class="col-xl-3 col-lg-3 col-md-4">
-    <div class="mission text-center align-items-center g-3 w-100 container">
+    <!-- <div class="mission text-center align-items-center g-3 w-100 container">
         <h5 class="text-gofret">Görevler</h5>
         <div class="reco-mission rounded-4 bg-white p-1">
             <?php if ($user_id) { ?>
@@ -59,7 +59,7 @@ if (isset($_SESSION['user_id'])) {
                 echo "<br/><br/><p>Heyy! Hala Giriş Yapmadın mı?</p><br/><br/>";
             } ?>
         </div>
-    </div>
+    </div> -->
 
     <aside class="bg-white mt-4 rounded-4">
         <ul>

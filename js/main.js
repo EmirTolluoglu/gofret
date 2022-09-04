@@ -4,7 +4,7 @@ window.onresize = function () {
     document.getElementsByTagName("NAV")[0] == null
   ) {
     const template =
-      '<div class="container"style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);"><div class="d-flex justify-content-around py-3 w-100" style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);"><a href="index"><i style="color:white !important;" class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i style="color:white !important;" class="fa fa-heart text-secondary fa-lg"></i></a><a href="trades"><img style="filter: opacity(0.4) drop-shadow(0 0 0 white) !important;" src="img/trade.png" alt=""></a><a href="profile"><i style="color:white !important;" class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i style="color:white !important;" class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index" ><i class="fa fa-home text-secondary fa-lg"></i></a><a href="m-index"><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img src="img/trade.png" alt=""></a><a href="profile"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
     const node = document.createElement("nav");
     node.setAttribute("id", "mobile-nav");
     node.innerHTML = template;
@@ -24,7 +24,7 @@ window.onload = function () {
     document.getElementsByTagName("NAV")[0] == null
   ) {
     const template =
-      '<div class="container" style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);"><div class="d-flex justify-content-around py-3 w-100"><a href="index" ><i style="color:white !important;" class="fa fa-home text-secondary fa-lg"></i></a><a href=""><i style="color:white !important;" class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img style="filter: opacity(0.4) drop-shadow(0 0 0 white)  !important;" src="img/trade.png" alt=""></a><a href="profile"><i style="color:white !important;" class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i style="color:white !important;" class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index" ><i class="fa fa-home text-secondary fa-lg"></i></a><a href="m-index"><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img src="img/trade.png" alt=""></a><a href="profile"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
     const node = document.createElement("nav");
     node.setAttribute("id", "mobile-nav");
     node.innerHTML = template;

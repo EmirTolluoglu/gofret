@@ -1,4 +1,5 @@
-<?php include_once "header.php";
+<?php 
+require "header.php";
 $user_id = 0;
 $orders = [];
 $finished_orders = [];
@@ -177,7 +178,7 @@ if (isset($_SESSION['user_id'])) {
                         echo $order['first_user'];
                         echo $order['second_user'];
                     ?>
-                        <div class="card text-center pt-0 mt-2 border border-secondary">
+                        <div class="card text-center pt-0 mt-2">
                             <p class="fs-7">Online / Kalan ders Sayısı: 2/5</p>
                             <div class="row">
                                 <div class="col">
@@ -229,7 +230,7 @@ if (isset($_SESSION['user_id'])) {
 
                     <a>Geçmiş Takaslar (2) <i class="fa fa-caret-down"></i></a>
                     <?php if (count($finished_orders) == 0) {
-                        echo '<div class="text-center" style="height: 75px;"><p class="my-5 fs-5">Hala Geçmiş Takasların Yok mu?? :(</p></div>';
+                        echo '<div class="card"><p class="my-5 fs-5 text-center"><br>Hala Geçmiş Takasların Yok mu?? :(<br></p></div>';
                     } else { ?>
                         <div class="card border border-secondary">
                             <?php foreach ($finished_orders as $finished_order) {

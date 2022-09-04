@@ -2,6 +2,7 @@
     footer{
         overflow: hidden;
         position: relative;
+        width: 100%;
     }
 </style>
 <footer class="text-center text-lg-start bg-light text-white">

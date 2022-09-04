@@ -4,6 +4,7 @@ RewriteRule /(.*)/badges/$ badgeslist.php?u=$1 [L,QSA]
 RewriteRule /(.*)/product/$ productlist.php?u=$1 [L,QSA]
 RewriteRule ^profile/([^/]+)/? profile.php?u=$1 [L,QSA]
 RewriteRule ^product/([^/]+)/? product.php?u=$1 [L,QSA]
+RewriteRule ^productlist/([^/]+)/? m-index.php?u=$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]

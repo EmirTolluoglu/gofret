@@ -1,8 +1,10 @@
 <?php
 include_once "header.php";
-if($mobil) {header('Location: m-main');}
+if ($mobil) {
+    header('Location: m-main');
+}
 
-$productsor = $conn->prepare("SELECT product_name,user_id,product_content FROM product");
+$productsor = $conn->prepare("SELECT product_name,user_id,product_content,product_id,category_id FROM product");
 $productsor->execute();
 $products = $productsor->setFetchMode(PDO::FETCH_ASSOC);
 $products = $productsor->fetchAll();
@@ -65,7 +67,7 @@ $products = $productsor->fetchAll();
         div.switcher label input:checked+span small {
             left: 50%;
         }
-        </style>
+    </style>
     <div class="container">
 
         <div class="row my-5">
@@ -82,34 +84,53 @@ $products = $productsor->fetchAll();
                 </div>
                 <div id="type-flag" class="learn" style="height: 0.3rem;"></div>
                 <div class="row">
-                    <?php foreach($products as $product){
-                        if(isset($_SESSION['user_id']) && $product['user_id'] == $_SESSION['user_id']){
+                    <?php foreach ($products as $product) {
+                        if (isset($_SESSION['user_id']) && $product['user_id'] == $_SESSION['user_id']) {
                             continue;
                         }
                         $authid = $product['user_id'];
-                        $authsor = $conn->prepare("SELECT user_name,user_level,user_class,user_profile_photo FROM user where user_id=$authid");
+                        $authsor = $conn->prepare("SELECT user_name,user_level,user_class,user_profile_photo, full_name FROM user where user_id=$authid");
                         $authsor->execute();
                         $auth = $authsor->fetch(PDO::FETCH_ASSOC);
-                        $authname = $auth['user_name'];
+                        $authname = $auth['full_name'];
                         $authlevel = $auth['user_level'];
                         $authclass = $auth['user_class'];
                         $authprofilephoto = $auth['user_profile_photo'];
+
+                        $category = $conn->prepare("
+                        SELECT 
+                        category.category_name AS MCategory, 
+                        category.category_color AS cat_color, 
+                        parent_category.category_name AS parentCategory,
+                        product.product_name 
+                        
+                        FROM category
+
+                        INNER JOIN product
+                            On product.category_id = category.category_id
+
+                        INNER JOIN category AS parent_category
+                            ON category.parent_category_id = parent_category.category_id
+                            WHERE product.product_id =". $product['product_id']
+                        );
+                        $category->execute();
+                        $category = $category->fetch(PDO::FETCH_ASSOC);
                     ?>
                         <div class="col">
                             <div class="card" style="height: 20rem;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <img class="profile-photo" src="<?= $authprofilephoto; ?>" alt="pp">
                                     <div class="handle me-auto ms-2">
-                                        <h4 class="m-0"><?= $product['product_name']; ?></h6>
-                                            <p class="m-0">Pilav</p>
+                                        <h4 class="m-0 fw-bolder" style="color: <?= $category['cat_color']; ?>;"><?php if(!empty($category['parentCategory'])){ echo $category['parentCategory'];}else{ echo $category['MCategory'];} ?></h4>
+                                            <p class="m-0" style="color: <?= $category['cat_color']; ?>;"><?php if(!empty($category['parentCategory'])){ echo $category['MCategory'];} ?></p>
                                     </div>
 
                                 </div>
                                 <h5 class="m-0 mt-3 fs-5"><?= $authname; ?></h5>
                                 <div class="d-flex justify-content-start align-items-center mt-1">
-                                    <div class=" pe-3 fw-bold align-self-baseline">lvl. <?= $authlevel; ?>
+                                    <div class="px-3 fw-bold align-self-baseline rounded-4  text-white" style="background-color: <?= $category['cat_color']; ?>;">lvl. <?= $authlevel; ?>
                                     </div>
-                                    <p class="align-self-baseline"><?= $authclass; ?>.sınıf</p>
+                                    <p class="ms-2 align-self-baseline"><?= $authclass; ?>.sınıf</p>
                                 </div>
 
                                 <p class="m-0 mb-3"><?= $product['product_content']; ?></p>
@@ -162,5 +183,5 @@ $products = $productsor->fetchAll();
         }
     }
 </script>
-<?php include_once "footer.php"; 
+<?php include_once "footer.php";
 ?>

@@ -1,30 +1,16 @@
 <?php
-require_once 'src/connect.php';
-session_start();
 
-if (isset($_SESSION['user_id'])){
-    $stmt = $conn->prepare("SELECT user_id, user_name, user_profile_photo FROM user");
+include_once "header.php";
+
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT user_id, user_name, user_profile_photo, full_name FROM user");
     $stmt->execute();
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="img/ico.png">
-    <title>Mesajlar</title>
-    <base href="http://localhost/gofret/">
-    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/all.min.css">
-</head>
-
 <body>
+
     <?php if (isset($_SESSION['user_id'])) { ?>
         <style>
             :root {
@@ -54,7 +40,6 @@ if (isset($_SESSION['user_id'])){
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
-                padding: 2em;
             }
 
             .video-bg {
@@ -73,8 +58,7 @@ if (isset($_SESSION['user_id'])){
 
             .app {
                 background-color: rgba(16 18 27 / 40%);
-                max-width: 1250px;
-                max-height: 860px;
+                margin: 100px;
                 height: 90vh;
                 display: flex;
                 flex-direction: column;
@@ -119,6 +103,14 @@ if (isset($_SESSION['user_id'])){
                 background-color: var(--white);
             }
 
+            @media (max-width: 575.98px) {
+                .container .left {
+                    float: unset;
+                    width: unset;
+                    height: 100vh;
+                }
+            }
+
             .container .left .top {
                 position: relative;
                 width: 100%;
@@ -139,8 +131,8 @@ if (isset($_SESSION['user_id'])){
             }
 
             .container .left input {
-                float: left;
-                width: 188px;
+                float: right;
+                width: 155px;
                 height: 42px;
                 padding: 0 15px;
                 border: 1px solid var(--light);
@@ -149,14 +141,16 @@ if (isset($_SESSION['user_id'])){
                 font-family: "Source Sans Pro", sans-serif;
                 font-weight: 400;
             }
+
             @media (max-width: 790px) {
                 .container .left input {
-                width: 100%;
+                    width: 70%;
 
                 }
+
                 .container .left a.search {
-                display: none !important;
-            }
+                    display: none !important;
+                }
             }
 
             .container .left input:focus {
@@ -424,6 +418,30 @@ if (isset($_SESSION['user_id'])){
                 border-radius: 25px;
             }
 
+            .container .right .bubble.you p {
+                margin: 0;
+                margin-left: 25px;
+            }
+
+            .container .right .bubble.me p {
+                margin: 0;
+                margin-right: 25px;
+            }
+
+            .container .right .bubble.me span {
+                position: absolute;
+                font-size: 10px;
+                bottom: 2px;
+                right: 20px;
+            }
+
+            .container .right .bubble.you span {
+                position: absolute;
+                font-size: 10px;
+                bottom: 2px;
+                left: 20px;
+            }
+
             .container .right .bubble:before {
                 position: absolute;
                 top: 22px;
@@ -465,6 +483,8 @@ if (isset($_SESSION['user_id'])){
             .container .right .conversation-start {
                 position: relative;
                 width: 100%;
+                display: inline-block;
+                margin: 20px 0;
                 margin-bottom: 27px;
                 text-align: center;
             }
@@ -568,42 +588,41 @@ if (isset($_SESSION['user_id'])){
         <div class="app rounded-4 container px-0">
             <div class="h-100">
                 <div class="rounded-4">
-                    <div class="left">
+                    <div class="left" id="left">
                         <div class="top">
-                            <input type="text" placeholder="Search" />
-                            <a href="javascript:;" class="search"></a>
+                            <a href="profile/" class="text-decoration-none" style="border: 0; outline: 0; background: 0;">
+                                <i class="fa fa-angle-left fa-2x text-white my-2 ms-3"></i></a>
+                            </a>
+                            <input id="personSearch" type="text" placeholder="Search" />
+
                         </div>
 
                         <ul id="people" class="people">
-                            <?php foreach ($users as $otherUser) { if($otherUser['user_id'] == $_SESSION['user_id']) {continue;}?>
-                                
+                            <?php foreach ($users as $otherUser) {
+                                if ($otherUser['user_id'] == $_SESSION['user_id']) {
+                                    continue;
+                                } ?>
+
                                 <li class="person" data-chat="<?= $otherUser['user_id'] ?>">
                                     <img src="<?= $otherUser['user_profile_photo'] ?>" alt="Pp" />
-                                    <span class="name"><?= $otherUser['user_name'] ?></span>
-                                    <span class="time">2:09 PM</span>
+                                    <span class="name"><?= $otherUser['full_name'] ?></span>
+                                    <!-- <span class="time">2:09 PM</span> -->
                                 </li>
                             <?php } ?>
                         </ul>
-                        <a href="profile/" class="text-decoration-none position-absolute " style="border: 0; outline: 0; background: 0; top:1rem; left:1rem; ">
-                        <i class="fa fa-angle-left fa-2x text-white m-3"></i></a>
-                    </a>
-                    </div>
-                    <div class="right">
-                        <div class="top"><span>To: <span class="name"></span></span></div>
 
+                    </div>
+                    <div class="right" id="right">
+                        <div class="top"><span>To: <span class="name"></span></span></div>
                         <div id="chat" class="chat">
-                            <div class="conversation-start">
-                                <span>Today, 5:38 PM</span>
-                            </div>
 
                         </div>
-
-
 
                         <div class="write d-flex align-items-center">
                             <input class="w-100" type="text" id="send_box" name="send_box" />
                             <button id="m_send" type="button" class="write-link send me-2 d-flex align-items-center" style="color: var(--blue);"><i class="fa fa-paper-plane my-auto mx-2"></i></button>
                         </div>
+                        <!-- <h1 class="text-center text-white fs-2 fw-bolder" id="sil" style="position: absolute; top: 50%; left: 20%;">Arkadaşlar Burada</h1> -->
                     </div>
                 </div>
             </div>
@@ -612,10 +631,26 @@ if (isset($_SESSION['user_id'])){
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script>
                 $(document).ready(function() {
+                    var lastDate = new Date();
                     activeUserId = 0;
+                    const minute = 1000 * 60;
+                    const hour = minute * 60;
+                    const day = hour * 24;
+                    const year = day * 365;
+                    const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+
                     $('#people').click(function(event) {
-                        if (event.target.classList.contains('active')) {
+                        if ((event).target.classList.contains('active')) {
                             return;
+                        }
+
+                        if($("#sil").length){
+                            $("#sil").remove();
+                            $("#right").remove();
+                        }
+                        if (window.innerWidth <= 575.98) {
+                            $('#right').css('display', 'block');
+                            $('#left').css('display', 'none');
                         }
                         event.target.classList.add('active');
                         //remove active class from all other people
@@ -623,33 +658,62 @@ if (isset($_SESSION['user_id'])){
                         //get chat messages from ajax
                         activeUserId = event.target.dataset.chat;
                         $.post("app/ajax/get_message.php", {
-                                u: event.target.dataset.chat
+                                u: activeUserId
                             },
                             function(results) {
-                                console.log(results);
                                 var data = JSON.parse(results);
-                                //empty chat box
+
+
                                 $('#chat').empty();
-                                //append messages to chat box
                                 for (var i = 0; i < data.length; i++) {
                                     var message = data[i];
+
+                                    var msgDate = new Date(message.message_date);
+                                    if (i == 0) {
+                                        $("#chat").append('<div class="conversation-start"><span>' + msgDate.getDate() + " " + monthNames[msgDate.getMonth()] + '</span></div>');
+                                        lastDate = msgDate;
+                                    } else if (msgDate.getDate() != lastDate.getDate() || msgDate.getMonth() != lastDate.getMonth() || msgDate.getFullYear() != lastDate.getFullYear()) {
+                                        lastDate = msgDate;
+                                        $("#chat").append('<div class="conversation-start"><span>' + monthNames[msgDate.getMonth()] + msgDate.getDate() + '</span></div>');
+                                    }
+
+                                    if (dateControl(message.message_date) != "") {
+                                        $('#chat').append(dateControl(message.message_date));
+                                    }
+
                                     var bubble = document.createElement('div');
+                                    var bMsg = document.createElement('p');
+                                    var DMsg = document.createElement('span');
                                     //add data attributes to bubble
-                                    bubble.setAttribute('data-message', message.message_id);
                                     bubble.classList.add('bubble');
+                                    bubble.append(bMsg);
+                                    bubble.append(DMsg);
                                     // bubble.attr('data-message', message.message_id);
                                     if (message.from_user_id == <?= $_SESSION['user_id']; ?>) {
                                         bubble.classList.add('me');
                                     } else {
                                         bubble.classList.add('you');
                                     }
-                                    bubble.innerHTML = message.message_content;
+                                    bMsg.innerHTML = message.message_content;
+                                    var h = msgDate.getHours();
+                                    var m = msgDate.getMinutes();
+                                    //add 0 if less than 10
+                                    if (h < 10) {
+                                        h = '0' + h;
+                                    }
+                                    if (m < 10) {
+                                        m = '0' + m;
+                                    }
+                                    DMsg.innerHTML = h + ":" + m;
                                     $('#chat').append(bubble);
                                     if (message.message_product_quatation_id != 0) {
                                         prodcutQueue(message.message_id, message.message_product_quatation_id);
                                     }
 
                                     $('#chat').scrollTop(0);
+                                    // $('#chat').animate({
+                                    //     scrollTop: $('#chat').prop('scrollHeight')
+                                    // }, 1000, 'swing');
                                 }
                             });
                     });
@@ -672,8 +736,26 @@ if (isset($_SESSION['user_id'])){
                                     if (data == 's') {
                                         message_input.val('');
                                         message_input.focus();
-                                        //scroll down
-                                        $('#chat').append('<div class="bubble me">' + message + '</div>');
+                                        //get today hour and minutes
+                                        var today = new Date();
+                                        var h = today.getHours();
+                                        var m = today.getMinutes();
+                                        //add 0 if less than 10
+                                        if (h < 10) {
+                                            h = '0' + h;
+                                        }
+                                        if (m < 10) {
+                                            m = '0' + m;
+                                        }
+                                        console.log(h + ":" + m);
+
+                                        // var today = new Date();
+                                        // var hh = today.getHours();
+                                        // var mm = today.getMinutes();
+                                        // today = mm + '/' + dd + '/' + yyyy;
+
+
+                                        $('#chat').append('<div class="bubble me"><p>' + message + '</p><span>' + h + ":" + m + '</span></div>');
 
                                         chat.scrollTop(chat.prop('scrollHeight'));
                                     }
@@ -702,38 +784,65 @@ if (isset($_SESSION['user_id'])){
                                 message.append(queue);
                             });
                     }
+
+                    setInterval(function() {
+                        // console.log("yenilendir");
+                        $.post("app/ajax/get_message.php", {
+                                u: activeUserId
+                            },
+                            function(results) {
+                                var data = JSON.parse(results);
+
+                                if (data.length != $('.bubble').length) {
+
+                                    for (var i = ($('.bubble').length); i < data.length; i++) {
+                                        var message = data[i];
+                                        var MsgDate = new Date(message.message_date);
+
+                                        var bubble = document.createElement('div');
+                                        var bMsg = document.createElement('p');
+                                        var DMsg = document.createElement('span');
+                                        //add data attributes to bubble
+                                        bubble.classList.add('bubble');
+                                        bubble.append(bMsg);
+                                        bubble.append(DMsg);
+                                        // bubble.attr('data-message', message.message_id);
+                                        if (message.from_user_id == <?= $_SESSION['user_id']; ?>) {
+                                            bubble.classList.add('me');
+                                        } else {
+                                            bubble.classList.add('you');
+                                        }
+                                        bMsg.innerHTML = message.message_content;
+                                        DMsg.innerHTML = MsgDate.getHours() + ":" + MsgDate.getMinutes();
+                                        $('#chat').append(bubble);
+                                        if (message.message_product_quatation_id != 0) {
+                                            prodcutQueue(message.message_id, message.message_product_quatation_id);
+                                        }
+                                        $('#chat').animate({
+                                            scrollTop: $('#chat').prop('scrollHeight')
+                                        }, 100, 'swing');
+                                    }
+                                }
+                            });
+                    }, 1000);
+
+                    function dateControl(date) {
+                        var msgDate = new Date(date);
+
+                    }
+
+                    $("#personSearch").on("keyup", function() {
+                        var value = $(this).val().toLowerCase();
+                        $("#people .person .name").filter(function() {
+                            $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                    });
                 });
             </script>
         </div>
-    <?php } else { ?>
-        <div class="bg-black">
-            <div class="pop-up open">
-                <div class="content">
-                    <div class="container">
-                        <div class="dots">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
 
-                        <div class="title">
-                            <h1>Mesajlar</h1>
-                        </div>
-
-                        <img src="img/gofret_vec.webp" alt="Car">
-
-                        <div class="subscribe">
-                            <h1>Gofretin Tadına Bakmak için <span>Giriş Yap</span> :|</h1>
-
-                            <a href="login"><button class="btn btn-gofret me-2 fs-3">Giriş</button></a>
-                            <a href="register"><button class="btn btn-gofret2 fs-3">Kayıt Ol</button></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php } ?>
-
+    <?php include 'footer.php';
+    } ?>
 </body>
 
 </html>

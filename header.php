@@ -48,7 +48,8 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/ico.png">
     <base href="http://localhost/gofret/">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/regular.min.css" integrity="sha512-EbT6icebNlvxlD4ECiLvPOVBD0uQdt4pHRg8Gpkfirdu9W8l2rtRZO8rThjqeIK08ubcFeiFKHbek7y+lEbWIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -56,12 +57,12 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <header style="backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);background-color: var(--theme-bg-color);">
+    <header>
         <div class="container" >
             <a href=""><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36"></a>
+            <a href="message" class="text-decoration-none msgi me-2"><i class="fa-solid fa-comment-dots text-muted "></i></a>
             <div id="search-bar" class="search-bar">
-                <i  class="fa fa-magnifying-glass" style="color:white;"></i>
+                <i  class="fa fa-magnifying-glass"></i>
                 <input onfocusout="focusgg()" id="search_input" type="search" placeholder="Search for creators, inspirations, and projects">
             </div>
 
@@ -102,7 +103,8 @@ if (isset($_SESSION['user_id'])) {
                     </ul>
                 </div>
             </div>
-            <a href="message" style="color:white;" class="text-decoration-none"><i style="color:white !important;"  class="fa-solid fa-comment-dots text-muted "></i></a>
+           
+            <a href="src/logout.php" class="text-decoration-none ms-2"><i class="fa-solid fa-arrow-right-from-bracket text-muted"></i></a>
         </div>
     </header>
     <?php include 'preloader.php'; ?>
@@ -134,48 +136,3 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
     <?php } ?>
-    <style>
-        
-        body {
-            font-family: var(--body-font);
-            background-image: url("img/backd.jpg");
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .video-bg {
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .video-bg video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .app {
-            background-color: rgba(16 18 27 / 10%);
-            max-width: 1250px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            font-size: 15px;
-            font-weight: 500;
-        }
-  </style>
-  <div class="video-bg">
-    <video  autoplay loop muted>
-        <source src="img/7btrrd.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-    </video>
-  </div>

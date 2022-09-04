@@ -151,53 +151,53 @@ if (isset($_SESSION['user_id'])) {
 
 <main id="m-trade">
   <div class="container mb-5 p-1">
-    <div id="current-trades" class="d-flex justify-content-center aligh-items-center" style="width:100%; height:200px">
+    <a href="create-product"><div class="w-100 btn btn-gofret mt-3 p-4 fs-4" style="height: 75px;"><p class="text-center">Takasını Oluşturr!</p></div></a>
+    <div id="current-trades">
       
-    <a class="text-decoration-none fs-5 text-black ms-2"><p style="color:white;  display:block !important;"  >Aktif Takaslar <i class="fa fa-caret-down me-2"></i></p></a>
-    <a href="create-product"><i class="fa fa-sign-out" style="color:white;"></i></a>
-      <?php if (count($orders) == 0) {
-        echo '<div class="text-center" style="height: 75px;"><p class="my-5 fs-5" style="color:white">Hala Takasların Yok mu?? :(</p></div>';
-      } else {
-        foreach ($orders as $order) {
-          $ogren = 'first';
-          $ogret = 'second';
-          if ($order['first_statu'] == "teach") {
-            $ogren = 'second';
-            $ogret = 'first';
-          }
-          $benOgret = 1;
-          if ($order[$ogren . '_user'] == $_SESSION['user_name']) {
-            $benOgret = 0;
-          }
-      ?>
-          <div class="card py-3 px-0 ">
-            <div class="d-flex justify-content-between align-items-center mx-3 mb-3">
-              <img class="profile-photo" src="<?= $benOgret ? $order[$ogren . '_profile'] : $order[$ogret . '_profile'] ?>" alt="pp">
-              <div class="handle me-auto ms-2">
-                <h4 class="m-0 mb-1"><?= $benOgret ? $order[$ogren . '_user'] : $order[$ogret . '_user'] ?></h6>
-                  <div class="d-inline-block rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;"><?= $benOgret ? $order[$ogren . '_level'] : $order[$ogret . '_level'] ?>.lvl</div>
+      <a class="text-decoration-none fs-5 text-black ms-2"><p style="color:white;  display:block !important;"  >Aktif Takaslar <i class="fa fa-caret-down me-2"></i></p></a>
+        <?php if (count($orders) == 0) {
+          echo '<div class="text-center" style="height: 75px;"><p class="my-5 fs-5" style="color:white">Hala Takasların Yok mu?? :(</p></div>';
+        } else {
+          foreach ($orders as $order) {
+            $ogren = 'first';
+            $ogret = 'second';
+            if ($order['first_statu'] == "teach") {
+              $ogren = 'second';
+              $ogret = 'first';
+            }
+            $benOgret = 1;
+            if ($order[$ogren . '_user'] == $_SESSION['user_name']) {
+              $benOgret = 0;
+            }
+        ?>
+            <div class="card py-3 px-0 ">
+              <div class="d-flex justify-content-between align-items-center mx-3 mb-3">
+                <img class="profile-photo" src="<?= $benOgret ? $order[$ogren . '_profile'] : $order[$ogret . '_profile'] ?>" alt="pp">
+                <div class="handle me-auto ms-2">
+                  <h4 class="m-0 mb-1"><?= $benOgret ? $order[$ogren . '_user'] : $order[$ogret . '_user'] ?></h6>
+                    <div class="d-inline-block rounded-4 px-2 fw-bold text-light align-self-baseline" style="background-color: crimson;"><?= $benOgret ? $order[$ogren . '_level'] : $order[$ogret . '_level'] ?>.lvl</div>
+                </div>
+                <p>Online <strong>4/5</strong></p>
               </div>
-              <p>Online <strong>4/5</strong></p>
-            </div>
-            <div class="trade-main bg-danger d-flex justify-content-around rounded-4 p-3 text-white mb-3">
-              <div class="handle">
-                <h5 class="mb-0"><?= $order[$ogren . '_product'] . ($benOgret ? "" : "(you)"); ?></h5>
-                <p class="mb-0">Yazım</p>
+              <div class="trade-main bg-danger d-flex justify-content-around rounded-4 p-3 text-white mb-3">
+                <div class="handle">
+                  <h5 class="mb-0"><?= $order[$ogren . '_product'] . ($benOgret ? "" : "(you)"); ?></h5>
+                  <p class="mb-0">Yazım</p>
+                </div>
+                <img src="img/trade.png" alt="trade">
+                <div class="handle">
+                  <h5 class="mb-0"><?= $order[$ogret . '_product'] . ($benOgret ? "(you)" : ""); ?></h5>
+                  <p class="mb-0">İsteği</p>
+                </div>
               </div>
-              <img src="img/trade.png" alt="trade">
-              <div class="handle">
-                <h5 class="mb-0"><?= $order[$ogret . '_product'] . ($benOgret ? "(you)" : ""); ?></h5>
-                <p class="mb-0">İsteği</p>
+              <div class="trade-suc d-flex justify-content-center align-items-center">
+                <div class="btn btn-gofret me-2"> Ders onayla</div>
+                <a href=""><i class="fa fa-flag text-danger me-2"></i></a>
+                <a href=""><i class="fa fa-ellipsis-vertical"></i></a>
               </div>
             </div>
-            <div class="trade-suc d-flex justify-content-center align-items-center">
-              <div class="btn btn-gofret me-2"> Ders onayla</div>
-              <a href=""><i class="fa fa-flag text-danger me-2"></i></a>
-              <a href=""><i class="fa fa-ellipsis-vertical"></i></a>
-            </div>
-          </div>
-      <?php }
-      } ?>
+        <?php }
+        } ?>
     </div>
 
 
@@ -278,7 +278,7 @@ if (isset($_SESSION['user_id'])) {
                     $(this).parent().parent().parent().fadeOut(1600, "linear", function() {
                         $(this).remove();
                         if ($('#left-request').children().length == 0) {
-                            $('#left-request').append('<div class="text-center"><p class="my-2 fs-6">Tüm istekler bitti mi?? :(</p></div>');
+                            $('#left.-request').append('<div class="text-center"><p class="my-2 fs-6">Tüm istekler bitti mi?? :(</p></div>');
 
                         }
 
