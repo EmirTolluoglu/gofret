@@ -80,9 +80,9 @@ if ($user_id) {
                                         <h6 class="mb-0 fs-7 text-black"><?= $notification['notification_content'] ?></h5>
                                             <p class="fs-7 mb-0 text-primary"><?= $time ?></p>
                                     </div>
-                                    <?php if (!$notification['is_readed']) {
-                                        echo '<div><i class="fa fa-circle fa-xs text-primary"></i></div>';
-                                    } ?>
+                                    <?php //if (!$notification['is_readed']) {
+                                        //echo '<div><i class="fa fa-circle fa-xs text-primary"></i></div>';
+                                    //} ?>
 
                                 </div>
                             </div>

@@ -74,13 +74,13 @@ $products = $productsor->fetchAll();
             <?php include_once "left-sidebar.php"; ?>
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-5 col-md-8">
                 <div class="d-flex justify-content-center align-items-center" id="product-order">
-                    <div onclick="changeState(this)" id="learn" type="button" class="btn btn-gofret m-2">Öğren</div>
-                    <div class="switcher">
+                    <div id="learn" type="button" class="btn btn-gofret m-2">Öğren</div>
+                    <!-- <div class="switcher">
                         <label for="toggle-1">
                             <input type="checkbox" class="checkbox1" id="toggle-1" onchange="changeState2()" /><span><small></small></span>
                         </label>
                     </div>
-                    <div onclick="changeState(this)" id="teach" type="button" class="btn btn-gofret2 m-2">Öğret</div>
+                    <div onclick="changeState(this)" id="teach" type="button" class="btn btn-gofret2 m-2">Öğret</div> -->
                 </div>
                 <div id="type-flag" class="learn" style="height: 0.3rem;"></div>
                 <div class="row">

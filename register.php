@@ -450,7 +450,7 @@ if (isset($_SESSION["user_id"])) {
         <div class="back">
         </div>
         <div class="part h-100 w-100 position-absolute">
-            <form action="src/deneme.php" method="POST" class="register-form" id="register-form">
+            <form action="src/sign.php" name="register" method="POST" class="register-form" id="register-form">
 
                 <div id="part1" class="px-5 position-absolute w-100 start-50" style="top: 25%;">
                     <h4 class="text-center text-white mb-5 fs-3">Yeni bir sırrı<br> açığa çıkarmak<br> üzeresin
@@ -488,12 +488,12 @@ if (isset($_SESSION["user_id"])) {
                     </div>
                     <h4 class="text-center text-white mb-5 fs-3">Aaa Kayıt<br> oluyorsun,<br><small class="fs-6">Öğrenci Misin?</small></h4>
                     <div class="form-group">
-                        <label for="school"><i class="fa fa-user fa-xs ms-1 text-white"></i></label>
-                        <input type="text" name="school" id="school" placeholder="Okuduğun Okul" />
+                        <label for="user_school"><i class="fa fa-user fa-xs ms-1 text-white"></i></label>
+                        <input type="text" name="user_school" id="user_school" placeholder="Okuduğun Okul" />
                     </div>
                     <div class="form-group">
-                        <label for="s_num"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
-                        <input type="text" name="s_num" id="s_num" placeholder="Sınıf Numaran" />
+                        <label for="user_class"><i class="fa fa-envelope fa-xs ms-1 text-white"></i></label>
+                        <input type="text" name="user_class" id="user_class" placeholder="Sınıf Numaran" />
                     </div>
 
                     <div class="form-group">
@@ -564,6 +564,16 @@ if (isset($_SESSION["user_id"])) {
 
 
         }
+        function validateForm() {
+            let x = document.forms["register"]["name"].value;
+            let y = document.forms["register"]["email"].value;
+            let z = document.forms["register"]["school"].value;
+            let t = document.forms["register"]["s_num"].value;
+            if (x == "" || y == "" || z == "" || t == "") {
+                alert("Doğru girebilir misin?");
+                window.location.href = 'register';
+                }
+            }
         password.onchange = validate;
         confirm_password.onkeyup = validate;
     </script>

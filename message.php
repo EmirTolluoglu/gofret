@@ -2,10 +2,19 @@
 
 include_once "header.php";
 
+
 if (isset($_SESSION['user_id'])) {
     $stmt = $conn->prepare("SELECT user_id, user_name, user_profile_photo, full_name FROM user");
     $stmt->execute();
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}else{
+    header("Location: ../pre-register");
+}
+
+if ($_GET['u'] == ".php") {
+    $username = "mal";
+} else {
+    $username = $_GET['u'];
 }
 ?>
 
@@ -272,6 +281,20 @@ if (isset($_SESSION['user_id'])) {
                 height: 90vh;
             }
 
+            .sen-gg {
+                display: none;
+            }
+
+            @media (max-width: 575.98px) {
+                .container .right {
+                    width: 100%;
+                }
+
+                .sen-gg {
+                    display: unset;
+                }
+            }
+
             .container .right .top {
                 width: 100%;
                 height: 47px;
@@ -293,7 +316,7 @@ if (isset($_SESSION['user_id'])) {
             .container .right .chat {
                 position: relative;
                 overflow-y: scroll;
-                padding: 40vh 35px 40px;
+                padding: 40vh 35px 62px 35px;
                 border-width: 1px 1px 1px 0;
                 border-style: solid;
                 border-color: var(--light);
@@ -312,55 +335,7 @@ if (isset($_SESSION['user_id'])) {
                 border-radius: 24px !important;
             }
 
-            .container .right .chat.active-chat .bubble:nth-of-type(1) {
-                -webkit-animation-duration: 0.15s;
-                animation-duration: 0.15s;
-            }
 
-            .container .right .chat.active-chat .bubble:nth-of-type(2) {
-                -webkit-animation-duration: 0.3s;
-                animation-duration: 0.3s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(3) {
-                -webkit-animation-duration: 0.45s;
-                animation-duration: 0.45s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(4) {
-                -webkit-animation-duration: 0.6s;
-                animation-duration: 0.6s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(5) {
-                -webkit-animation-duration: 0.75s;
-                animation-duration: 0.75s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(6) {
-                -webkit-animation-duration: 0.9s;
-                animation-duration: 0.9s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(7) {
-                -webkit-animation-duration: 1.05s;
-                animation-duration: 1.05s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(8) {
-                -webkit-animation-duration: 1.2s;
-                animation-duration: 1.2s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(9) {
-                -webkit-animation-duration: 1.35s;
-                animation-duration: 1.35s;
-            }
-
-            .container .right .chat.active-chat .bubble:nth-of-type(10) {
-                -webkit-animation-duration: 1.5s;
-                animation-duration: 1.5s;
-            }
 
             .container .right .write {
                 position: absolute;
@@ -483,6 +458,7 @@ if (isset($_SESSION['user_id'])) {
             .container .right .conversation-start {
                 position: relative;
                 width: 100%;
+                float: right;
                 display: inline-block;
                 margin: 20px 0;
                 margin-bottom: 27px;
@@ -570,11 +546,12 @@ if (isset($_SESSION['user_id'])) {
 
                 text-decoration: underline;
                 background: rgb(66 66 66 / 68%);
-                position: absolute;
-                top: -10px;
-                left: -10px;
                 color: #0069c2;
 
+            }
+
+            .content p {
+                color: #ffffff !important;
             }
         </style>
 
@@ -590,13 +567,12 @@ if (isset($_SESSION['user_id'])) {
                 <div class="rounded-4">
                     <div class="left" id="left">
                         <div class="top">
-                            <a href="profile/" class="text-decoration-none" style="border: 0; outline: 0; background: 0;">
+                            <a href="profile/" class="text-decoration-none sen-gg" style="border: 0; outline: 0; background: 0;">
                                 <i class="fa fa-angle-left fa-2x text-white my-2 ms-3"></i></a>
                             </a>
                             <input id="personSearch" type="text" placeholder="Search" />
 
                         </div>
-
                         <ul id="people" class="people">
                             <?php foreach ($users as $otherUser) {
                                 if ($otherUser['user_id'] == $_SESSION['user_id']) {
@@ -604,22 +580,24 @@ if (isset($_SESSION['user_id'])) {
                                 } ?>
 
                                 <li class="person" data-chat="<?= $otherUser['user_id'] ?>">
-                                    <img src="<?= $otherUser['user_profile_photo'] ?>" alt="Pp" />
-                                    <span class="name"><?= $otherUser['full_name'] ?></span>
+                                    <img src="<?= $otherUser['user_profile_photo'] ?>" alt="Pp" data-chat="<?= $otherUser['user_id'] ?>" />
+                                    <span class="name" data-chat="<?= $otherUser['user_id'] ?>"><?= $otherUser['full_name'] ?></span>
                                     <!-- <span class="time">2:09 PM</span> -->
                                 </li>
+
                             <?php } ?>
                         </ul>
-
                     </div>
-                    <div class="right" id="right">
+                    <div class="right" id="right" style="display: block; <?php if ($username != "mal") ?>">
+                        <button onclick="window.location.href = 'message/'" style="z-index:100; position: absolute; top: 54px; left:0; border: 0; outline: 0; background: 0;" class="sen-gg"><i class="fa fa-angle-left fa-2x text-white my-2 ms-3"></i></button>
                         <div class="top"><span>To: <span class="name"></span></span></div>
+
                         <div id="chat" class="chat">
 
                         </div>
 
                         <div class="write d-flex align-items-center">
-                            <input class="w-100" type="text" id="send_box" name="send_box" />
+                            <input class="w-75" type="text" id="send_box" name="send_box" />
                             <button id="m_send" type="button" class="write-link send me-2 d-flex align-items-center" style="color: var(--blue);"><i class="fa fa-paper-plane my-auto mx-2"></i></button>
                         </div>
                         <!-- <h1 class="text-center text-white fs-2 fw-bolder" id="sil" style="position: absolute; top: 50%; left: 20%;">Arkadaşlar Burada</h1> -->
@@ -638,25 +616,17 @@ if (isset($_SESSION['user_id'])) {
                     const day = hour * 24;
                     const year = day * 365;
                     const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+                    var readymy = "<?= $username ?>";
 
-                    $('#people').click(function(event) {
-                        if ((event).target.classList.contains('active')) {
-                            return;
-                        }
 
-                        if($("#sil").length){
-                            $("#sil").remove();
-                            $("#right").remove();
-                        }
+                    if (readymy != "mal") {
                         if (window.innerWidth <= 575.98) {
                             $('#right').css('display', 'block');
                             $('#left').css('display', 'none');
                         }
-                        event.target.classList.add('active');
-                        //remove active class from all other people
-                        $('#people li').not(event.target).removeClass('active');
-                        //get chat messages from ajax
-                        activeUserId = event.target.dataset.chat;
+                        activeUserId = parseInt(readymy);
+
+
                         $.post("app/ajax/get_message.php", {
                                 u: activeUserId
                             },
@@ -674,7 +644,7 @@ if (isset($_SESSION['user_id'])) {
                                         lastDate = msgDate;
                                     } else if (msgDate.getDate() != lastDate.getDate() || msgDate.getMonth() != lastDate.getMonth() || msgDate.getFullYear() != lastDate.getFullYear()) {
                                         lastDate = msgDate;
-                                        $("#chat").append('<div class="conversation-start"><span>' + monthNames[msgDate.getMonth()] + msgDate.getDate() + '</span></div>');
+                                        $("#chat").append('<div class="conversation-start"><span>' + msgDate.getDate() + " " + monthNames[msgDate.getMonth()] + '</span></div>');
                                     }
 
                                     if (dateControl(message.message_date) != "") {
@@ -707,13 +677,98 @@ if (isset($_SESSION['user_id'])) {
                                     DMsg.innerHTML = h + ":" + m;
                                     $('#chat').append(bubble);
                                     if (message.message_product_quatation_id != 0) {
-                                        prodcutQueue(message.message_id, message.message_product_quatation_id);
+                                        prodcutQueue(bubble, message.message_product_quatation_id, message.message_product_quat_id);
                                     }
 
-                                    $('#chat').scrollTop(0);
+                                    $('#chat').scrollTop($('#chat').prop('scrollHeight'));
                                     // $('#chat').animate({
                                     //     scrollTop: $('#chat').prop('scrollHeight')
                                     // }, 1000, 'swing');
+                                }
+                            });
+                    }
+
+
+
+                    $('#people').click(function(event) {
+                        if ((event).target.classList.contains('active')) {
+                            return;
+                        }
+
+                        if ($("#sil").length) {
+                            $("#sil").remove();
+                            $("#right").remove();
+                        }
+                        if (window.innerWidth <= 575.98) {
+                            $('#right').css('display', 'block');
+                            $('#left').css('display', 'none');
+                        }
+                        event.target.classList.add('active');
+                        //remove active class from all other people
+                        $('#people li').not(event.target).removeClass('active');
+                        //get chat messages from ajax
+                        activeUserId = event.target.dataset.chat;
+                        $.post("app/ajax/get_message.php", {
+                                u: activeUserId
+                            },
+                            function(results) {
+                                if (results == []) {
+
+                                } else {
+                                    var data = JSON.parse(results);
+
+
+                                    $('#chat').empty();
+                                    for (var i = 0; i < data.length; i++) {
+                                        var message = data[i];
+
+                                        var msgDate = new Date(message.message_date);
+                                        if (i == 0) {
+                                            $("#chat").append('<div class="conversation-start"><span>' + msgDate.getDate() + " " + monthNames[msgDate.getMonth()] + '</span></div>');
+                                            lastDate = msgDate;
+                                        } else if (msgDate.getDate() != lastDate.getDate() || msgDate.getMonth() != lastDate.getMonth() || msgDate.getFullYear() != lastDate.getFullYear()) {
+                                            lastDate = msgDate;
+                                            $("#chat").append('<div class="conversation-start"><span>' + msgDate.getDate() + " " + monthNames[msgDate.getMonth()] + '</span></div>');
+                                        }
+
+                                        if (dateControl(message.message_date) != "") {
+                                            $('#chat').append(dateControl(message.message_date));
+                                        }
+
+                                        var bubble = document.createElement('div');
+                                        var bMsg = document.createElement('p');
+                                        var DMsg = document.createElement('span');
+                                        //add data attributes to bubble
+                                        bubble.classList.add('bubble');
+                                        bubble.append(bMsg);
+                                        bubble.append(DMsg);
+                                        // bubble.attr('data-message', message.message_id);
+                                        if (message.from_user_id == <?= $_SESSION['user_id']; ?>) {
+                                            bubble.classList.add('me');
+                                        } else {
+                                            bubble.classList.add('you');
+                                        }
+                                        bMsg.innerHTML = message.message_content;
+                                        var h = msgDate.getHours();
+                                        var m = msgDate.getMinutes();
+                                        //add 0 if less than 10
+                                        if (h < 10) {
+                                            h = '0' + h;
+                                        }
+                                        if (m < 10) {
+                                            m = '0' + m;
+                                        }
+                                        DMsg.innerHTML = h + ":" + m;
+                                        $('#chat').append(bubble);
+                                        if (message.message_product_quatation_id != 0) {
+                                            prodcutQueue(bubble, message.message_product_quatation_id, message.message_product_quat_id);
+                                        }
+
+                                        $('#chat').scrollTop($('#chat').prop('scrollHeight'));
+                                        // $('#chat').animate({
+                                        //     scrollTop: $('#chat').prop('scrollHeight')
+                                        // }, 1000, 'swing');
+                                    }
                                 }
                             });
                     });
@@ -724,9 +779,6 @@ if (isset($_SESSION['user_id'])) {
                         const chat = $('#chat');
                         // chat.scrollTop(chat.prop('scrollHeight'));
                         //scroll to bottom of chat animate
-                        chat.animate({
-                            scrollTop: chat.prop('scrollHeight')
-                        }, 1000, 'swing');
                         if (message != '') {
                             $.post("app/ajax/send_message.php", {
                                     v: message,
@@ -747,7 +799,6 @@ if (isset($_SESSION['user_id'])) {
                                         if (m < 10) {
                                             m = '0' + m;
                                         }
-                                        console.log(h + ":" + m);
 
                                         // var today = new Date();
                                         // var hh = today.getHours();
@@ -763,25 +814,37 @@ if (isset($_SESSION['user_id'])) {
                                     // $('#send_box').val('');
                                 });
                         }
-
+                        $('#chat').scrollTop($('#chat').prop('scrollHeight'));
                     });
 
-
-                    function prodcutQueue(message_id, product_id) {
+                    function prodcutQueue(message, requesterProduct, requestedProduct) {
                         $.post("app/ajax/get_product.php", {
-                                u: product_id
+                                u: requestedProduct,
+                                v: requesterProduct
                             },
                             function(results) {
                                 var data = JSON.parse(results);
-                                var queue = document.createElement('a');
-                                queue.setAttribute('data-product', data.product_id);
-                                queue.setAttribute('href', "product.php?u=" + data.product_name);
-                                queue.classList.add('prodcutQueue');
+                                var queue = document.createElement('div');
+                                // queue.setAttribute('href', "product/" + data.requested_product);
 
-                                queue.innerHTML = data.product_name;
+                                ogret = data.requested_product_id;
+                                ogren = data.requester_product_id;
+                                ogrenName = data.requested_product;
+                                ogretName = data.requester_product;
+                                if (data.requested_product_type == "teach") {
+                                    ogren = data.requested_product_id;
+                                    ogret = data.requester_product_id;
+                                    ogretName = data.requested_product;
+                                    ogrenName = data.requester_product;
+                                }
+                                if (data.requester_username == '<?= $_SESSION['user_name']; ?>') {
+                                    template = '<div class="content row mb-3" style="width: 350px;"><div class="col-5 pe-0"><p class="text-end">' + ogrenName + '</p></div><div class="col-2 text-center"><i class="fa fa-arrows-turn-to-dots"></i></div><div class="col-5 ps-0 text-start "><p>' + ogretName + '</p></div><div class="profile-card d-flex justify-content-between align-items-center mt-3"><img class="border-0" src="' + data.requested_user_profile + '" alt="logo" style="width: 3rem; height: 3rem; border-radius: 50%;"><div class="handle ms-2 w-100 text-left"><div class="handle2 align"><p class="text-name fw-bold" style="text-align-last: unset;">' + data.requested_username + '</p></div><h6 class="fw-light text-name text-white">2 ortak Ark.</h6></div></div></div>';
+                                } else {
+                                    template = '<div class="content row mb-3" style="width: 350px;"><div class="col-5 pe-0"><p class="text-end">' + ogrenName + '</p></div><div class="col-2 text-center"><i class="fa fa-arrows-turn-to-dots"></i></div><div class="col-5 ps-0 text-start "><p>' + ogretName + '</p></div><div class="profile-card d-flex justify-content-between align-items-center mt-3"><img class="border-0" src="' + data.requested_user_profile + '" alt="logo" style="width: 3rem; height: 3rem; border-radius: 50%;"><div class="handle ms-2 w-100 text-left"><div class="handle2 align"><p class="text-name fw-bold" style="text-align-last: unset;">' + data.requested_username + '</p></div><h6 class="fw-light text-name text-white">2 ortak Ark.</h6></div><div class="confirmation d-flex" id="heyoo" data-product-request-id=' + data.product_request_id + '" data-product-id="' + data.requester_product_id + '" data-requested-id="' + data.requested_product_id + '"><button class="border-0 requestbtn-mini box me-1" value="s" onclick="olyadaolma(this)" style="background-color: #04cf98; color: black;"><i class="fa fa-check"> </i></button><button onclick="olyadaolma(this)" class="border-0 requestbtn-mini box ms-1" value="d" style="background-color: #fa0175; color: aliceblue;"><i class="fa fa-x"> </i></button></div></div></div>';
+                                }
+                                queue.innerHTML = template;
                                 //get element with message_id attribute
-                                var message = document.querySelector('[data-message="' + message_id + '"]');
-                                message.append(queue);
+                                message.prepend(queue);
                             });
                     }
 
@@ -791,36 +854,38 @@ if (isset($_SESSION['user_id'])) {
                                 u: activeUserId
                             },
                             function(results) {
-                                var data = JSON.parse(results);
+                                if (results == []) {
 
-                                if (data.length != $('.bubble').length) {
+                                } else {
+                                    var data = JSON.parse(results);
 
-                                    for (var i = ($('.bubble').length); i < data.length; i++) {
-                                        var message = data[i];
-                                        var MsgDate = new Date(message.message_date);
+                                    if (data.length != $('.bubble').length) {
 
-                                        var bubble = document.createElement('div');
-                                        var bMsg = document.createElement('p');
-                                        var DMsg = document.createElement('span');
-                                        //add data attributes to bubble
-                                        bubble.classList.add('bubble');
-                                        bubble.append(bMsg);
-                                        bubble.append(DMsg);
-                                        // bubble.attr('data-message', message.message_id);
-                                        if (message.from_user_id == <?= $_SESSION['user_id']; ?>) {
-                                            bubble.classList.add('me');
-                                        } else {
-                                            bubble.classList.add('you');
+                                        for (var i = ($('.bubble').length); i < data.length; i++) {
+                                            var message = data[i];
+                                            var MsgDate = new Date(message.message_date);
+
+                                            var bubble = document.createElement('div');
+                                            var bMsg = document.createElement('p');
+                                            var DMsg = document.createElement('span');
+                                            //add data attributes to bubble
+                                            bubble.classList.add('bubble');
+                                            bubble.append(bMsg);
+                                            bubble.append(DMsg);
+                                            // bubble.attr('data-message', message.message_id);
+                                            if (message.from_user_id == <?= $_SESSION['user_id']; ?>) {
+                                                bubble.classList.add('me');
+                                            } else {
+                                                bubble.classList.add('you');
+                                            }
+                                            bMsg.innerHTML = message.message_content;
+                                            DMsg.innerHTML = MsgDate.getHours() + ":" + MsgDate.getMinutes();
+                                            $('#chat').append(bubble);
+                                            if (message.message_product_quatation_id != 0) {
+                                                prodcutQueue(bubble, message.message_product_quatation_id, message.message_product_quat_id);
+                                            }
+                                            $('#chat').scrollTop($('#chat').prop('scrollHeight'));
                                         }
-                                        bMsg.innerHTML = message.message_content;
-                                        DMsg.innerHTML = MsgDate.getHours() + ":" + MsgDate.getMinutes();
-                                        $('#chat').append(bubble);
-                                        if (message.message_product_quatation_id != 0) {
-                                            prodcutQueue(message.message_id, message.message_product_quatation_id);
-                                        }
-                                        $('#chat').animate({
-                                            scrollTop: $('#chat').prop('scrollHeight')
-                                        }, 100, 'swing');
                                     }
                                 }
                             });
@@ -837,6 +902,8 @@ if (isset($_SESSION['user_id'])) {
                             $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
                         });
                     });
+
+
                 });
             </script>
         </div>

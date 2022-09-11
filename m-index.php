@@ -104,7 +104,7 @@ $products = $products->fetchAll(PDO::FETCH_ASSOC);
       </div>
       <div class="d-flex justify-content-between">
         <p class="m-0"><?= $product['product_content']; ?></p>
-        <a href="" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
+        <a href="product/<?= $product['product_name']; ?>" class="ms-auto align-self-end"><i class="fa fa-chevron-right fa-xl"></i></a>
       </div>
     </div>
       <?php }}else{ echo '<p class="text-center my-5 fs-3">Neden burada takas yok ki?? <br> Sen Oluştursana! </p>'; } ?>

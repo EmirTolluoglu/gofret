@@ -32,14 +32,20 @@ echo $productscount;
             <?php include_once "left-sidebar.php" ?>
             <div id="middle" class="col-xxl-6 col-xl-6 col-lg-5 col-md-8">
                 <div class="card mt-0">
-                    <h6 class="text-name ms-2"><?php if($_SESSION['user_name'] == $user['user_name']) {echo "Senin takasların";}else{echo $user['user_name'] . "'nin takasları";} ?> </h6>
+                    <h6 class="text-name ms-2"><?php if ($_SESSION['user_name'] == $user['user_name']) {
+                                                    echo "Senin takasların";
+                                                } else {
+                                                    echo $user['user_name'] . "'nin takasları";
+                                                } ?> </h6>
                     <div class="row">
-                        <?php for ($i=0; $i < $productscount; $i++) { 
+                        <?php for ($i = 0; $i < $productscount; $i++) {
                         ?>
-                        <div class="col-4 text-center fw-bold">
-                            <a href="<?php echo "product/" . $products[$i]['product_name']; ?>"><?php echo $products[$i]['product_name']; ?></a>
-                            <p><?php echo $products[$i]['product_content']; ?></p>
-                        </div>
+                            <div style="width: 100px;">
+                                <div class="col-4 text-center fw-bold">
+                                    <a href="<?php echo "product/" . $products[$i]['product_name']; ?>"><?php echo $products[$i]['product_name']; ?></a>
+                                    <p><?php echo $products[$i]['product_content']; ?></p>
+                                </div>
+                            </div>
                         <?php } ?>
                     </div>
                 </div>

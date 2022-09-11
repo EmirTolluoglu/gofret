@@ -35,13 +35,15 @@ if (isset($_SESSION['user_id'])) {
     $stmt->execute();
     $requestler = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmt5 = $conn->prepare("SELECT COUNT(notification_id) AS not_count FROM notification WHERE user_id =" . $_SESSION['user_id'] . " AND is_readed = 0");
-    $stmt5->execute();
-    $onlyNot = $stmt5->fetch(PDO::FETCH_ASSOC);
+    // $stmt5 = $conn->prepare("SELECT COUNT(notification_id) AS not_count FROM notification WHERE user_id =" . $_SESSION['user_id'] . " AND is_readed = 0");
+    // $stmt5->execute();
+    // $onlyNot = $stmt5->fetch(PDO::FETCH_ASSOC);
 
-    $stmt6 = $conn->prepare("SELECT COUNT(message_id) AS mes_count FROM message WHERE to_user_id =" . $_SESSION['user_id'] . " AND is_readed = 0");
-    $stmt6->execute();
-    $onlyMes = $stmt6->fetch(PDO::FETCH_ASSOC);
+    // $stmt6 = $conn->prepare("SELECT COUNT(message_id) AS mes_count FROM message WHERE to_user_id =" . $_SESSION['user_id'] . " AND is_readed = 0");
+    // $stmt6->execute();
+    // $onlyMes = $stmt6->fetch(PDO::FETCH_ASSOC);
+    $onlyNot = 0;
+    $onlyMes = 0;
 }
 ?>
 
@@ -68,7 +70,7 @@ if (isset($_SESSION['user_id'])) {
                         } ?>"><a href="./"><i class="fa fa-home"></i><span>Ana Sayfa</span></a></li>
             <li class="<?php if (strpos($_SERVER['REQUEST_URI'], 'profile')) {
                             echo "active";
-                        } ?>"><a href="profile"><i class="fa fa-heart"></i><span>Profile</span></a></li>
+                        } ?>"><a href="<?= $user_id ? "profile/" . $_SESSION['user_name'] : "pre-register" ?>"><i class="fa fa-heart"></i><span>Profile</span></a></li>
             <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "trades") {
                             echo "active";
                         } ?>"><a href="trades"><i class="fa fa-user"></i><span>Takaslarım</span></a></li>
@@ -77,20 +79,20 @@ if (isset($_SESSION['user_id'])) {
                         } ?>"><a href="notifications"><i class="fa fa-bell"></i><span>Bildirimler</span>
                     <?php if (isset($_SESSION['user_id'])) { ?>
                         <div class="mx-auto">
-                            <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?= $onlyNot['not_count'] ?></span></div>
+                            <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?php //echo $onlyNot['not_count']; ?></span></div>
                         </div>
                     <?php } ?>
                 </a></li>
             <li class="<?php if (basename($_SERVER['REQUEST_URI'], ".php") == "message") {
                             echo "active";
-                        } ?>"><a href="message"><i class="fa fa-comment-dots"></i><span>Mesajlar</span>
+                        } ?>"><a href="message/"><i class="fa fa-comment-dots"></i><span>Mesajlar</span>
                     <?php if (isset($_SESSION['user_id'])) { ?>
                         <div class="mx-auto">
-                            <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?php if ($onlyMes['mes_count'] > 9) {
-                                                                                                                                                                                                                echo "9+";
-                                                                                                                                                                                                            } else {
-                                                                                                                                                                                                                echo $onlyMes['mes_count'];
-                                                                                                                                                                                                            } ?></span></div>
+                            <div class="text-primary bg-white rounded-circle" style="width: 25px; height: 25px; position: relative;"><span class="mb-0" style="position: absolute; top: -11px; left: 7px;"><?php //if ($onlyMes['mes_count'] > 9) {
+                                                                                                                                                                                                                //echo "9+";
+                                                                                                                                                                                                            //} else {
+                                                                                                                                                                                                              //  echo $onlyMes['mes_count'];
+                                                                                                                                                                                                            //} ?></span></div>
                         </div>
                     <?php } ?>
                 </a></li>
@@ -147,7 +149,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
             <?php }
             } ?>
-        </div>
+            </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
@@ -177,7 +179,7 @@ if (isset($_SESSION['user_id'])) {
                             t: $(this).val()
                         },
                         success: function(data) {
-                            console.log(data);
+                            
                         }
                     });
                 });

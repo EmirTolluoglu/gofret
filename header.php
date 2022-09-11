@@ -53,6 +53,7 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <title>Gofret | Keşfet</title>
 </head>
 
@@ -60,7 +61,7 @@ if (isset($_SESSION['user_id'])) {
     <header>
         <div class="container" >
             <a href=""><img id="head-logo" src="img/gofret.png" alt="Gofret" width="96" height="36"></a>
-            <a href="message" class="text-decoration-none msgi me-2"><i class="fa-solid fa-comment-dots text-muted "></i></a>
+            <a href="message/" class="text-decoration-none msgi me-2"><i class="fa-solid fa-comment-dots text-muted "></i></a>
             <div id="search-bar" class="search-bar">
                 <i  class="fa fa-magnifying-glass"></i>
                 <input onfocusout="focusgg()" id="search_input" type="search" placeholder="Search for creators, inspirations, and projects">

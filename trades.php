@@ -296,9 +296,6 @@ if (isset($_SESSION['user_id'])) {
                 }
             });
             var yardimci = $(this).parent().parent().children().children().children('.content');
-            alert(yardimci.children('.teach').attr('data-product-id'));
-            alert(yardimci.children('.learn').attr('data-product-id'));
-            alert($(this).parent().parent().attr('data-request-id'));
             $.ajax({
                 type: "POST",
                 url: "app/ajax/send_request_result.php",
@@ -309,7 +306,7 @@ if (isset($_SESSION['user_id'])) {
                     t: $(this).val()
                 },
                 success: function(data) {
-                    console.log(data);
+                   
                 }
             });
         });

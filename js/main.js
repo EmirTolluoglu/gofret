@@ -4,7 +4,7 @@ window.onresize = function () {
     document.getElementsByTagName("NAV")[0] == null
   ) {
     const template =
-      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index" ><i class="fa fa-home text-secondary fa-lg"></i></a><a href="m-index"><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img src="img/trade.png" alt=""></a><a href="profile"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+    '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index" ><i class="fa fa-home text-secondary fa-lg"></i></a><a href="productlist/Bt%20ve%20Yazılım"><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img src="img/trade.png" alt=""></a><a href="profile/"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
     const node = document.createElement("nav");
     node.setAttribute("id", "mobile-nav");
     node.innerHTML = template;
@@ -17,14 +17,16 @@ window.onresize = function () {
     node.parentNode.removeChild(node);
   }
 };
-
+function olyadaolma(kendisi) {
+  window.location.href = 'm-trades';
+}
 window.onload = function () {
   if (
     window.innerWidth <= 575.98 &&
     document.getElementsByTagName("NAV")[0] == null
   ) {
     const template =
-      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index" ><i class="fa fa-home text-secondary fa-lg"></i></a><a href="m-index"><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img src="img/trade.png" alt=""></a><a href="profile"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
+      '<div class="container"><div class="d-flex justify-content-around py-3 w-100"><a href="index" ><i class="fa fa-home text-secondary fa-lg"></i></a><a href="productlist/Bt%20ve%20Yazılım"><i class="fa fa-heart text-secondary fa-lg"></i></a><a href="m-trades"><img src="img/trade.png" alt=""></a><a href="profile/"><i class="fa fa-user text-secondary fa-lg"></i></a><a href="notifications"><i class="fa fa-bell text-secondary fa-lg"></i></a></div></div>';
     const node = document.createElement("nav");
     node.setAttribute("id", "mobile-nav");
     node.innerHTML = template;

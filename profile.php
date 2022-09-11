@@ -3,7 +3,7 @@ include "header.php";
 
 
 if (empty($_SESSION['user_id']) or $_SESSION['user_id'] == "1") {
-    header("Location:pre-register");
+    header("Location: ../pre-register");
     exit;
 }
 if ($_GET['u'] == ".php") {
@@ -281,13 +281,13 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                                 <?php
                                 }
                                 ?>
-                                <input type="text" name="user_interests" class="interest" onkeyup="showHint(this.value)" placeholder="Yaz Bişiler" id="user_interest_input">
+                                <input type="text" name="user_interests" class="interest" onkeyup="showHint(this.value)" placeholder="Yaz Bişiler" id="user_interest_input" required>
                                 <div id="hint"></div>
 
 
                                 <div class="d-flex justify-content-between bg-white mt-5 w-100">
 
-                                    <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
+                                    <!-- <input type="button" id="edit_interest" name="edit_interest" value="düzenle" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;"> -->
 
                                     <input type="submit" id="save_interest" name="user_interests_value" value="kaydet" style="height:2rem; background-color: #04cf98; width:5rem; border-radius: 0.8rem; margin-bottom:2em; border:0px;">
 
