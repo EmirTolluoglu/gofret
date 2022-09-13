@@ -275,7 +275,7 @@ $products = $productsor->fetchAll();
 
 
       </div>
-      <div class="bg-black text-white px-2 fs-1" style="transform: rotate(330deg) translate(120px, -75px); display: inline-block;">Burası Hala Yapılıyo..🛠️</div>
+      <div class="bg-black text-white px-2 fs-1" style="transform: rotate(330deg) translate(120px, -75px); display: inline-block;">Burası Hala Yapılmakta..🛠️</div>
     </div>
 </div>
 
@@ -305,7 +305,7 @@ $products = $productsor->fetchAll();
             </div>
             <h2 class="m-0 " style="font-size: 10px;  width: max-content; height: fit-content;"><?= $product['user_class']; ?>. sınıf</h2>
           </div>
-          <div class="d-flex">
+          <div class="d-flex" style="height:55%">
             <p class="mb-3" style="font-size: 12px; ">
               <?= $product['product_content']; ?>
             </p>

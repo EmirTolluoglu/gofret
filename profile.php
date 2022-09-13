@@ -181,7 +181,7 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                     <div class="badge-handle">
                         <div class="side-card rounded-4 bg-white">
                             <div class="banner" style="background-image: url(<?php echo $user['user_profile_banner']; ?>)">
-                                <div class="profile-card">
+                                <div class="profile-card m-0">
                                     <img src="<?php echo $user['user_profile_photo']; ?>" alt="Profile Photo">
                                     <div class="card-section">
                                         <h4 class="text-name font-monospace"><?php echo $user['user_name']; ?></h4>
@@ -205,13 +205,17 @@ $gecmisTakas = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                             <div class="level d-flex justify-content-end pt-2 me-3">
+                              <div class="d-flex justify-content-around alighn-items-center" style="width:40% ">
                                 <?php if ($ownProfile) {
-                                    echo '<a href="src/logout.php"><i class="fa fa-sign-out"></i></a>';
+                                    echo '<a href="src/logout.php"><i class="fa fa-sign-out me-2"></i></a>';
                                 } ?>
-                                <p class="fs-5 mb-0 fw-bold text-name">lvl.<?php echo $user['user_level']; ?></p>
-                                <div class="progress rounded-5 ms-3" style="height: auto; width: 8vw;">
+                                <p class="fs-5 mb-0 me-2 fw-bold text-name">lvl.<?php echo $user['user_level']; ?></p>
+                                <div class="progress rounded-5 " style="height: auto; width: 30vw !important;">
                                     <div class="progress-bar" role="progressbar" style="width: <?php echo $user['user_level_xp']; ?>%; background-color: rgb(233, 205, 84);" aria-valuenow="<?php echo $user['user_level_xp']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
+
+                              </div>
+                                
                             </div>
                             <div class="d-flex flex-row justify-content-around mt-4">
                                 <div class="p-2 text-name"><a href="profile/<?php echo $user['user_name']; ?>/friends/"><?php echo $friendlercount; ?> arkadaş</a>

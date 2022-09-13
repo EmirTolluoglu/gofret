@@ -69,9 +69,7 @@
                     <p>
                         <a href="#!" class="text-reset text-decoration-none">Ayarlar</a>
                     </p>
-                    <p>
-                        <a href="#!" class="text-reset text-decoration-none">Sepet</a>
-                    </p>
+                    
                     <p>
                         <a href="#!" class="text-reset text-decoration-none">Yardın</a>
                     </p>
